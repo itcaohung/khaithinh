@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm tra ảnh trích xuất từ PDF</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", sans-serif; background: #f5f5f5; margin: 0; padding: 24px; }
+  h1 { font-size: 22px; }
+  h2 { margin: 40px 0 12px; font-size: 18px; border-bottom: 2px solid #ddd; padding-bottom: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .item { background: #fff; border-radius: 10px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .item img { width: 100%; height: auto; display: block; border-radius: 6px; }
+  .item .fn { font-size: 12px; color: #555; margin-top: 8px; font-family: monospace; }
+  .item .tag { display: inline-block; font-size: 11px; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 99px; margin-top: 6px; }
+  .item.bad { outline: 3px solid #e53935; }
+</style>
+</head>
+<body>
+<h1>Kiểm tra ảnh trích xuất từ PROFILE.pdf</h1>
+<p>Nếu ảnh nào bị cắt sai (đứt chữ, lệch, thiếu logo...), ghi lại tên file và tôi sẽ cắt lại.</p>
+
+<h2>Logo công ty</h2>
+<div class="grid">
+  <div class="item"><img src="assets/logo.png" alt="logo"><div class="fn">assets/logo.png</div><span class="tag">Logo chính (header)</span></div>
+  <div class="item"><img src="assets/logo-hero.png" alt="logo-hero"><div class="fn">assets/logo-hero.png</div><span class="tag">Logo lớn (hero)</span></div>
+  <div class="item"><img src="docs/logo-khaithinh.png" alt="logo-goc"><div class="fn">docs/logo-khaithinh.png</div><span class="tag">File logo gốc bạn gửi (nền trắng)</span></div>
+</div>
+
+<h2>Logo thương hiệu</h2>
+<div class="grid">
+  <div class="item"><img src="assets/brand-taylor.png" alt=""><div class="fn">assets/brand-taylor.png</div></div>
+  <div class="item"><img src="assets/justorganik/logo-2x.png" alt=""><div class="fn">assets/justorganik/logo-2x.png</div></div>
+  <div class="item"><img src="assets/royalty/logo.png" alt=""><div class="fn">assets/royalty/logo.png</div></div>
+  <div class="item"><img src="assets/snowfarms/logo.png" alt=""><div class="fn">assets/snowfarms/logo.png</div><span class="tag">Logo Snow Farms chính thức (brand card)</span></div>
+  <div class="item"><img src="assets/coolberg/logo.png" alt=""><div class="fn">assets/coolberg/logo.png</div></div>
+  <div class="item"><img src="assets/brand-breeze.png" alt=""><div class="fn">assets/brand-breeze.png</div></div>
+  <div class="item"><img src="assets/brand-pik.png" alt=""><div class="fn">assets/brand-pik.png</div></div>
+  <div class="item"><img src="assets/clearys/syrup-bottle.jpg" alt=""><div class="fn">assets/clearys/syrup-bottle.jpg</div><span class="tag">Cleary's brand card</span></div>
+  <div class="item"><img src="assets/brand-nison.png" alt=""><div class="fn">assets/brand-nison.png</div></div>
+</div>
+
+<h2>Ảnh mới từ website Taylor (taylorprune.pl)</h2>
+<div class="grid">
+  <div class="item"><img src="assets/taylor/Ashlock-sliwki.jpg" alt=""><div class="fn">assets/taylor/Ashlock-sliwki.jpg</div><span class="tag">Mận khô Ashlock (hero fc-2)</span></div>
+  <div class="item"><img src="assets/taylor/sok-z-suszonych-sliwek-750ml.jpg" alt=""><div class="fn">assets/taylor/sok-z-suszonych-sliwek-750ml.jpg</div><span class="tag">Nước ép mận 750ml (hero fc-1)</span></div>
+  <div class="item"><img src="assets/taylor/Zaprojektowana_w_Kalifornii.jpg" alt=""><div class="fn">assets/taylor/Zaprojektowana_w_Kalifornii.jpg</div><span class="tag">Mận khô món ăn (card sản phẩm)</span></div>
+  <div class="item"><img src="assets/taylor/Taylor-Brothers-Farms-logo.jpg" alt=""><div class="fn">assets/taylor/Taylor-Brothers-Farms-logo.jpg</div><span class="tag">Logo Taylor chính thức</span></div>
+  <div class="item"><img src="assets/taylor/ellliott-suszone-sliwki.jpg" alt=""><div class="fn">assets/taylor/ellliott-suszone-sliwki.jpg</div><span class="tag">Mận khô Elliott (dự phòng)</span></div>
+  <div class="item"><img src="assets/taylor/sok-z-suszonych-sliwek-330ml.jpg" alt=""><div class="fn">assets/taylor/sok-z-suszonych-sliwek-330ml.jpg</div><span class="tag">Nước ép mận 330ml (dự phòng)</span></div>
+  <div class="item"><img src="assets/taylor/sok-z-granatow-750ml.jpg" alt=""><div class="fn">assets/taylor/sok-z-granatow-750ml.jpg</div><span class="tag">Nước ép lựu (dự phòng)</span></div>
+  <div class="item"><img src="assets/taylor/owoc-sliwki.jpg" alt=""><div class="fn">assets/taylor/owoc-sliwki.jpg</div><span class="tag">Quả mận tươi (dự phòng)</span></div>
+</div>
+
+<h2>Hình sản phẩm</h2>
+<div class="grid">
+  <div class="item"><img src="assets/prod-prunes.png" alt=""><div class="fn">assets/prod-prunes.png</div><span class="tag">Mận khô Taylor</span></div>
+  <div class="item"><img src="assets/prod-blueberries.png" alt=""><div class="fn">assets/prod-blueberries.png</div><span class="tag">Việt quất khô</span></div>
+  <div class="item"><img src="assets/prod-digestives.png" alt=""><div class="fn">assets/prod-digestives.png</div><span class="tag">Bánh quy Royalty</span></div>
+  <div class="item"><img src="assets/prod-canned.jpg" alt=""><div class="fn">assets/prod-canned.jpg</div><span class="tag">Đồ hộp &amp; nguyên liệu làm bánh (từ FB)</span></div>
+  <div class="item"><img src="assets/prod-driedfruits.png" alt=""><div class="fn">assets/prod-driedfruits.png</div><span class="tag">Nhóm trái cây khô &amp; nước ép</span></div>
+  <div class="item"><img src="assets/justorganik/Arhar-Dal.jpg" alt=""><div class="fn">assets/justorganik/Arhar-Dal.jpg</div><span class="tag">Nhóm đậu hạt hữu cơ</span>
+  <span class="tag">Hero fc-4: assets/justorganik/Moong-dal-mogar.jpg</span></div>
+  <div class="item"><img src="assets/coolberg/assorted.jpg" alt=""><div class="fn">assets/coolberg/assorted.jpg</div><span class="tag">Bia không cồn Coolberg</span></div>
+  <div class="item"><img src="assets/royalty/digestive-biscuits.jpg" alt=""><div class="fn">assets/royalty/digestive-biscuits.jpg</div><span class="tag">Bánh quy &amp; nước gừng Royalty</span></div>
+  <div class="item"><img src="assets/clearys/syrup-jar.jpg" alt=""><div class="fn">assets/clearys/syrup-jar.jpg</div><span class="tag">Sản phẩm lá phong Cleary's</span></div>
+</div>
+
+<h2>Ảnh Snow Farms (tropicallinkcanada.ca)</h2>
+<div class="grid">
+  <div class="item"><img src="assets/snowfarms/blueberries.jpg" alt=""><div class="fn">assets/snowfarms/blueberries.jpg</div><span class="tag">Việt quất khô (card sản phẩm)</span></div>
+  <div class="item"><img src="assets/snowfarms/cranberries.jpg" alt=""><div class="fn">assets/snowfarms/cranberries.jpg</div><span class="tag">Nam việt quất khô (dự phòng)</span></div>
+  <div class="item"><img src="assets/snowfarms/cherries.jpg" alt=""><div class="fn">assets/snowfarms/cherries.jpg</div><span class="tag">Cherry khô (dự phòng)</span></div>
+</div>
+
+<h2>Ảnh chụp (merchandising)</h2>
+<div class="grid">
+  <div class="item"><img src="assets/photo-shelf.png" alt=""><div class="fn">assets/photo-shelf.png</div><span class="tag">Kệ trưng bày sản phẩm</span></div>
+</div>
+</body>
+</html>

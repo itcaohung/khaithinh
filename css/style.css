@@ -273,6 +273,18 @@ button { font-family: inherit; cursor: pointer; }
   filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.35));
 }
 
+.hero-title {
+  margin-bottom: 14px;
+}
+.hero-title small {
+  display: block;
+  font-size: clamp(13px, 1.8vw, 17px);
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 12px rgba(20, 33, 61, 0.35);
+}
+
 .hero-slogan {
   font-size: clamp(15px, 2vw, 19px);
   color: rgba(255, 255, 255, 0.78);
@@ -1159,6 +1171,7 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
 
 @media (max-width: 480px) {
   .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
+  .hero-title small { letter-spacing: 2px; }
 }
 
 /* ============ REVEAL ANIMATION ============ */

@@ -29,8 +29,8 @@
       }
     });
     document.documentElement.lang = current;
-    langLabel.textContent = current === "vi" ? "VI" : "EN";
-    langFlag.textContent = current === "vi" ? "🇻🇳" : "🇬🇧";
+    langLabel.textContent = current === "vi" ? "EN" : "VI";
+    langFlag.textContent = current === "vi" ? "🇬🇧" : "🇻🇳";
     langToggle.setAttribute("aria-label", current === "vi" ? "Switch to English" : "Chuyển sang tiếng Việt");
     langToggle.title = current === "vi" ? "English" : "Tiếng Việt";
   }

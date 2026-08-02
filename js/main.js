@@ -54,9 +54,19 @@
   });
 
   mainNav.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
+    link.addEventListener("click", function (e) {
       navToggle.classList.remove("open");
       mainNav.classList.remove("open");
+
+      var href = link.getAttribute("href");
+      if (href && href.charAt(0) === "#" && href.length > 1) {
+        e.preventDefault();
+        var target = document.getElementById(href.slice(1));
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+      }
     });
   });
 

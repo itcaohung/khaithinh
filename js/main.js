@@ -77,6 +77,22 @@
     header.classList.toggle("scrolled", window.scrollY > 10);
   }, { passive: true });
 
+  /* ---------- Banner product cards scroll to product ---------- */
+
+  function scrollToElement(el) {
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    el.classList.remove("flash");
+    void el.offsetWidth;
+    el.classList.add("flash");
+  }
+
+  document.querySelectorAll(".float-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      scrollToElement(document.getElementById(card.getAttribute("data-target")));
+    });
+  });
+
   /* ---------- Scroll spy (active nav link) ---------- */
 
   var sectionIds = ["home", "about", "brands", "products", "channels", "contact"];

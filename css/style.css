@@ -275,7 +275,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .hero-title {
   font-size: clamp(30px, 4.6vw, 52px);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 4px;
   line-height: 1.1;
   background: linear-gradient(90deg, #27406e 0%, #4060a0 18%, #80b050 36%, #e09030 52%, #80b050 68%, #4060a0 84%, #27406e 100%);

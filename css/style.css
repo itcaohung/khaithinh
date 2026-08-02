@@ -1001,6 +1001,38 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
 .shop-links a:hover { background: var(--green-700); color: #fff; }
 
 /* ============ FOOTER ============ */
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: linear-gradient(160deg, var(--green-800), var(--green-900));
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(20, 33, 61, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  z-index: 999;
+}
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: linear-gradient(160deg, var(--green-700), var(--green-800));
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(20, 33, 61, 0.42);
+}
+
 .site-footer {
   background: var(--green-900);
   color: rgba(255, 255, 255, 0.85);

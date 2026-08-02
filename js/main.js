@@ -79,6 +79,19 @@
     header.classList.toggle("scrolled", window.scrollY > 10);
   }, { passive: true });
 
+  /* ---------- Back to top ---------- */
+  var backToTop = document.getElementById("backToTop");
+  window.addEventListener(
+    "scroll",
+    function () {
+      backToTop.classList.toggle("show", window.scrollY > 400);
+    },
+    { passive: true }
+  );
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   /* ---------- Banner product cards scroll to product ---------- */
 
   var headerEl = document.getElementById("header");

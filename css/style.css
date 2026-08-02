@@ -278,7 +278,7 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 800;
   letter-spacing: 4px;
   line-height: 1.1;
-  background: linear-gradient(90deg, #b8862f 0%, #d9a94e 14%, #f6e6b8 30%, #fdf8e4 44%, #eecf8a 56%, #d9a94e 70%, #c4923a 85%, #b8862f 100%);
+  background: linear-gradient(90deg, #27406e 0%, #4060a0 18%, #80b050 36%, #e09030 52%, #80b050 68%, #4060a0 84%, #27406e 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -287,15 +287,12 @@ button { font-family: inherit; cursor: pointer; }
   margin-bottom: 14px;
   position: relative;
   padding-bottom: 18px;
-  animation: titleShine 9s ease-in-out infinite alternate, titleTone 12s ease-in-out infinite alternate;
+  filter: drop-shadow(0 4px 10px rgba(20, 33, 61, 0.5)) drop-shadow(0 0 22px rgba(224, 144, 48, 0.3));
+  animation: titleShine 7s ease-in-out infinite alternate;
 }
 @keyframes titleShine {
   0%   { background-position: 0% 50%; }
-  100% { background-position: 130% 50%; }
-}
-@keyframes titleTone {
-  0%   { filter: drop-shadow(0 4px 10px rgba(20, 33, 61, 0.5)) drop-shadow(0 0 26px rgba(231, 189, 99, 0.3)) hue-rotate(0deg); }
-  100% { filter: drop-shadow(0 4px 10px rgba(20, 33, 61, 0.5)) drop-shadow(0 0 26px rgba(231, 189, 99, 0.3)) hue-rotate(14deg); }
+  100% { background-position: 200% 50%; }
 }
 .hero-title::after {
   content: "";
@@ -305,7 +302,7 @@ button { font-family: inherit; cursor: pointer; }
   width: 64px;
   height: 3px;
   border-radius: 3px;
-  background: linear-gradient(90deg, #e7bd63, rgba(231, 189, 99, 0));
+  background: linear-gradient(90deg, #e09030, rgba(224, 144, 48, 0));
 }
 .hero-title small {
   display: block;

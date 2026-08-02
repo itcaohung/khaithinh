@@ -1059,7 +1059,12 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
   .contact-layout { grid-template-columns: 1fr; }
   .hero-content { grid-template-columns: 1fr; padding: 130px 0 60px; }
   .hero-right { display: none; }
-  .hero-stats { grid-column: 1; margin-top: 28px; }
+  .hero-left { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .hero-slogan { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-title::after { left: 50%; transform: translateX(-50%); }
+  .hero-stats { grid-column: 1; margin-top: 28px; justify-content: center; }
+  .stat { align-items: center; }
   .main-nav {
     position: fixed;
     inset: 72px 0 auto 0;
@@ -1085,6 +1090,8 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
   .channel-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .hero-stats { padding: 20px 24px; gap: 18px; justify-content: space-around; }
+  .blob-orange { width: 260px; height: 260px; right: -70px; top: -40px; }
+  .blob-green  { width: 240px; height: 240px; left: -80px; bottom: 8%; }
 }
 
 @media (max-width: 600px) {
@@ -1094,6 +1101,12 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
   .stat strong { font-size: 24px; }
   .hero-content { padding-top: 120px; }
   .hero-wave { height: 60px; }
+}
+
+@media (max-width: 480px) {
+  .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
+  .hero-title { letter-spacing: 2px; }
+  .hero-title small { letter-spacing: 2px; }
 }
 
 /* ============ REVEAL ANIMATION ============ */

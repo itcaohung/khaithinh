@@ -273,48 +273,6 @@ button { font-family: inherit; cursor: pointer; }
   filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.35));
 }
 
-.hero-title {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(32px, 4.8vw, 56px);
-  font-weight: 700;
-  letter-spacing: 3px;
-  line-height: 1.12;
-  background: linear-gradient(90deg, #5473b3 0%, #7d97c9 15%, #80b050 36%, #e09030 52%, #80b050 68%, #7d97c9 84%, #5473b3 100%);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  margin-bottom: 14px;
-  position: relative;
-  padding-bottom: 18px;
-  filter: drop-shadow(0 4px 10px rgba(20, 33, 61, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.22));
-  animation: titleShine 7s ease-in-out infinite alternate;
-}
-@keyframes titleShine {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-.hero-title::after {
-  content: "";
-  position: absolute;
-  left: 2px;
-  bottom: 0;
-  width: 64px;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, #e09030, rgba(224, 144, 48, 0));
-}
-.hero-title small {
-  display: block;
-  font-size: clamp(13px, 1.8vw, 17px);
-  font-weight: 400;
-  letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 14px;
-  -webkit-text-fill-color: rgba(255, 255, 255, 0.85);
-}
-
 .hero-slogan {
   font-size: clamp(15px, 2vw, 19px);
   color: rgba(255, 255, 255, 0.78);

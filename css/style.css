@@ -279,7 +279,7 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 700;
   letter-spacing: 3px;
   line-height: 1.12;
-  background: linear-gradient(90deg, #27406e 0%, #4060a0 18%, #80b050 36%, #e09030 52%, #80b050 68%, #4060a0 84%, #27406e 100%);
+  background: linear-gradient(90deg, #5473b3 0%, #7d97c9 15%, #80b050 36%, #e09030 52%, #80b050 68%, #7d97c9 84%, #5473b3 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -288,7 +288,7 @@ button { font-family: inherit; cursor: pointer; }
   margin-bottom: 14px;
   position: relative;
   padding-bottom: 18px;
-  filter: drop-shadow(0 4px 10px rgba(20, 33, 61, 0.5)) drop-shadow(0 0 22px rgba(224, 144, 48, 0.3));
+  filter: drop-shadow(0 4px 10px rgba(20, 33, 61, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.22));
   animation: titleShine 7s ease-in-out infinite alternate;
 }
 @keyframes titleShine {

@@ -63,7 +63,8 @@
         e.preventDefault();
         var target = document.getElementById(href.slice(1));
         if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          var top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+          window.scrollTo({ top: top, behavior: "smooth" });
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
       }
@@ -81,7 +82,8 @@
 
   function scrollToElement(el) {
     if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    var top = el.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: top, behavior: "smooth" });
     el.classList.remove("flash");
     void el.offsetWidth;
     el.classList.add("flash");

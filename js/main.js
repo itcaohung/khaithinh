@@ -93,7 +93,7 @@
     el.classList.add("flash");
   }
 
-  document.querySelectorAll(".float-card").forEach(function (card) {
+  document.querySelectorAll(".p-chip").forEach(function (card) {
     card.addEventListener("click", function () {
       scrollToElement(document.getElementById(card.getAttribute("data-target")));
     });

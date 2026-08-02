@@ -64,7 +64,7 @@
         var target = document.getElementById(href.slice(1));
         if (target) {
           var headerHeight = headerEl ? headerEl.offsetHeight : 72;
-          var top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 24;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 34;
           window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
@@ -86,7 +86,7 @@
   function scrollToElement(el) {
     if (!el) return;
     var headerHeight = headerEl ? headerEl.offsetHeight : 72;
-    var top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 24;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 34;
     window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
     el.classList.remove("flash");
     void el.offsetWidth;

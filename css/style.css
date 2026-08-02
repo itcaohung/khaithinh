@@ -986,6 +986,7 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
   height: 60px;
   width: auto;
   margin-bottom: 16px;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.22));
 }
 .footer-company {
   font-size: 15px;

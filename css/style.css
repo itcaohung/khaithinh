@@ -274,10 +274,11 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .hero-title {
-  font-size: clamp(30px, 4.6vw, 52px);
-  font-weight: 600;
-  letter-spacing: 4px;
-  line-height: 1.1;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(32px, 4.8vw, 56px);
+  font-weight: 700;
+  letter-spacing: 3px;
+  line-height: 1.12;
   background: linear-gradient(90deg, #27406e 0%, #4060a0 18%, #80b050 36%, #e09030 52%, #80b050 68%, #4060a0 84%, #27406e 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;

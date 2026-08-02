@@ -341,18 +341,22 @@ button { font-family: inherit; cursor: pointer; }
   padding: 9px 12px 9px 9px;
   box-shadow: 0 14px 34px rgba(20, 33, 61, 0.28);
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: box-shadow 0.25s ease;
   opacity: 0;
-  animation: chipIn 0.6s ease forwards;
+  animation: chipIn 0.6s ease forwards, chipFloat 6s ease-in-out infinite;
 }
-.p-chip:nth-child(2) { animation-delay: 0.08s; }
-.p-chip:nth-child(3) { animation-delay: 0.16s; }
-.p-chip:nth-child(4) { animation-delay: 0.24s; }
-.p-chip:nth-child(5) { animation-delay: 0.32s; }
-.p-chip:nth-child(6) { animation-delay: 0.4s; }
+.p-chip:nth-child(2) { animation-delay: 0.08s, 0.9s; }
+.p-chip:nth-child(3) { animation-delay: 0.16s, 1.8s; }
+.p-chip:nth-child(4) { animation-delay: 0.24s, 2.7s; }
+.p-chip:nth-child(5) { animation-delay: 0.32s, 3.6s; }
+.p-chip:nth-child(6) { animation-delay: 0.4s, 4.5s; }
 @keyframes chipIn {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes chipFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
 }
 .p-chip::before {
   content: "";
@@ -375,7 +379,7 @@ button { font-family: inherit; cursor: pointer; }
   transition: transform 0.35s ease;
   flex-shrink: 0;
 }
-.p-chip:hover { transform: translateY(-4px); box-shadow: 0 22px 44px rgba(20, 33, 61, 0.4); }
+.p-chip:hover { box-shadow: 0 22px 44px rgba(20, 33, 61, 0.4); }
 .p-chip:hover img { transform: scale(1.12) rotate(-4deg); }
 .pc-text { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
 .pc-text strong { font-size: 13px; color: var(--green-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

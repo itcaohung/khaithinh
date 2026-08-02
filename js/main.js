@@ -53,6 +53,16 @@
     mainNav.classList.toggle("open");
   });
 
+  var headerEl = document.querySelector(".site-header");
+
+  document.querySelectorAll(".brand").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    });
+  });
+
   mainNav.querySelectorAll("a").forEach(function (link) {
     link.addEventListener("click", function (e) {
       navToggle.classList.remove("open");
@@ -93,8 +103,6 @@
   });
 
   /* ---------- Banner product cards scroll to product ---------- */
-
-  var headerEl = document.getElementById("header");
 
   function scrollToElement(el) {
     if (!el) return;

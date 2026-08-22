@@ -102,7 +102,7 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  /* ---------- Banner product cards scroll to product ---------- */
+  /* ---------- Banner product slider ---------- */
 
   function scrollToElement(el) {
     if (!el) return;
@@ -114,11 +114,96 @@
     el.classList.add("flash");
   }
 
-  document.querySelectorAll(".p-chip").forEach(function (card) {
-    card.addEventListener("click", function () {
-      scrollToElement(document.getElementById(card.getAttribute("data-target")));
+  var slider = document.getElementById("pSlider");
+  var track = document.getElementById("pTrack");
+  var dotsWrap = document.getElementById("pDots");
+  var slides = track ? track.querySelectorAll(".p-slide") : [];
+  var pageIndex = 0;
+  var slideTimer = null;
+
+  function perView() {
+    return window.matchMedia("(max-width: 700px)").matches ? 1 : 2;
+  }
+  function pageCount() {
+    return Math.max(1, Math.ceil(slides.length / perView()));
+  }
+
+  function goToPage(p) {
+    var pages = pageCount();
+    pageIndex = ((p % pages) + pages) % pages;
+    track.style.transform = "translateX(-" + pageIndex * 100 + "%)";
+    dotsWrap.querySelectorAll("button").forEach(function (d, di) {
+      d.classList.toggle("active", di === pageIndex);
     });
-  });
+  }
+
+  function buildDots() {
+    dotsWrap.innerHTML = "";
+    for (var i = 0; i < pageCount(); i++) {
+      (function (i) {
+        var dot = document.createElement("button");
+        dot.setAttribute("aria-label", "Trang " + (i + 1));
+        if (i === pageIndex) dot.classList.add("active");
+        dot.addEventListener("click", function () {
+          goToPage(i);
+          startAuto();
+        });
+        dotsWrap.appendChild(dot);
+      })(i);
+    }
+  }
+
+  function startAuto() {
+    stopAuto();
+    slideTimer = setInterval(function () {
+      goToPage(pageIndex + 1);
+    }, 3500);
+  }
+  function stopAuto() {
+    if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
+  }
+
+  if (slider && slides.length) {
+    buildDots();
+
+    document.getElementById("pNext").addEventListener("click", function () {
+      goToPage(pageIndex + 1);
+      startAuto();
+    });
+    document.getElementById("pPrev").addEventListener("click", function () {
+      goToPage(pageIndex - 1);
+      startAuto();
+    });
+
+    slides.forEach(function (slide) {
+      slide.addEventListener("click", function () {
+        scrollToElement(document.getElementById(slide.getAttribute("data-target")));
+      });
+    });
+
+    slider.addEventListener("mouseenter", stopAuto);
+    slider.addEventListener("mouseleave", startAuto);
+
+    var touchX = null;
+    slider.addEventListener("touchstart", function (e) {
+      touchX = e.touches[0].clientX;
+      stopAuto();
+    }, { passive: true });
+    slider.addEventListener("touchend", function (e) {
+      if (touchX === null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) goToPage(pageIndex + (dx < 0 ? 1 : -1));
+      touchX = null;
+      startAuto();
+    }, { passive: true });
+
+    window.addEventListener("resize", function () {
+      buildDots();
+      goToPage(pageIndex);
+    });
+
+    startAuto();
+  }
 
   /* ---------- Scroll spy (active nav link) ---------- */
 

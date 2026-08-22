@@ -418,11 +418,11 @@ button { font-family: inherit; cursor: pointer; }
   cursor: pointer;
 }
 .p-slide img {
-  width: 128px; height: 128px;
+  width: 180px; height: 180px;
   object-fit: contain;
-  border-radius: 18px;
+  border-radius: 22px;
   background: var(--green-50);
-  padding: 9px;
+  padding: 12px;
   box-shadow: inset 0 0 0 1.5px rgba(5, 150, 105, 0.12);
   flex-shrink: 0;
   transition: transform 0.4s ease;
@@ -1217,7 +1217,7 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
 @media (max-width: 1024px) {
   .brand-grid { grid-template-columns: repeat(3, 1fr); }
   .p-slide { gap: 12px; padding: 22px 16px 30px; }
-  .p-slide img { width: 110px; height: 110px; }
+  .p-slide img { width: 140px; height: 140px; }
   .ps-text strong { font-size: 15px; }
   .ps-text small { font-size: 12px; }
 }
@@ -1228,7 +1228,7 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
   .contact-layout { grid-template-columns: 1fr; }
   .hero-content { grid-template-columns: 1fr; padding: 130px 0 60px; }
   .p-slide { padding: 18px 46px 24px 16px; gap: 12px; }
-  .p-slide img { width: 96px; height: 96px; }
+  .p-slide img { width: 120px; height: 120px; }
   .ps-text strong { font-size: 14.5px; }
   .ps-text small { font-size: 11.5px; }
   .hero-left { text-align: center; display: flex; flex-direction: column; align-items: center; margin-top: 22px; }

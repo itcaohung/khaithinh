@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue sản phẩm | Công ty TNHH TM DV Khải Thịnh</title>
+  <meta name="description" content="Danh mục sản phẩm nhập khẩu: trái cây khô, nước ép, thực phẩm hữu cơ, bia không cồn, bánh quy, sản phẩm lá phong, đồ hộp từ Mỹ, Anh, Canada, Ấn Độ, Indonesia.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --emerald: #059669;
+      --emerald-deep: #064e3b;
+      --amber: #d97706;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: #eef1f5;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ===== PAPER ===== */
+    .paper {
+      max-width: 1180px;
+      margin: 36px auto 48px;
+      background: #fff;
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.16);
+      padding: 52px clamp(20px, 5vw, 60px) 60px;
+      position: relative;
+    }
+
+    /* group sections */
+    .cat-group { margin-bottom: 54px; }
+    .cat-group:last-child { margin-bottom: 0; }
+    .group-head {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+    .group-num {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--amber);
+      letter-spacing: 1px;
+    }
+    .group-title {
+      font-size: clamp(20px, 2.4vw, 26px);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+    .group-rule {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--line) 70%, transparent);
+      align-self: center;
+    }
+    .group-count {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--emerald);
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 3px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 28px;
+    }
+    .cat-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .cat-card:hover {
+      box-shadow: 0 16px 36px rgba(6, 78, 59, 0.12);
+      transform: translateY(-3px);
+    }
+    .cat-thumb {
+      aspect-ratio: 1 / 1;
+      background:
+        radial-gradient(circle at 50% 45%, #fafcfa 0%, #f4f7f4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid #f1f5f9;
+      padding: 18px;
+    }
+    .cat-thumb img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .cat-body { padding: 15px 17px 17px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .cat-brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .cat-brand-name {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+    .cat-origin { font-size: 12px; color: #94a3b8; white-space: nowrap; }
+    .cat-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .paper {
+        max-width: none;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 8mm 10mm;
+      }
+      .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 6mm; }
+      .cat-card, .cat-card:hover { box-shadow: none; transform: none; break-inside: avoid; }
+      .cat-group { break-inside: avoid-page; }
+    }
+    @media (max-width: 480px) {
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .cat-body { padding: 10px 11px 12px; }
+      .cat-name { font-size: 13px; }
+      .group-head { flex-wrap: wrap; row-gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PAPER ===== -->
+  <main class="paper">
+
+    <!-- 01 FRUITS -->
+    <section class="cat-group" id="g-fruits">
+      <div class="group-head">
+        <span class="group-num">01</span>
+        <h2 class="group-title" data-vi="Trái cây khô & nước ép" data-en="Dried Fruits & Juices">Trái cây khô & nước ép</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">7 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/taylor/ellliott-suszone-sliwki.jpg" alt="Mận khô California Elliott" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Mận khô California Elliott" data-en="California Elliott Dried Prunes">Mận khô California Elliott</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/taylor/Ashlock-sliwki.jpg" alt="Mận khô Ashlock" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Mận khô Ashlock loại lớn" data-en="Ashlock Dried Prunes — Large">Mận khô Ashlock loại lớn</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/taylor/sok-z-suszonych-sliwek-750ml.jpg" alt="Nước ép mận 750ml" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Nước ép mận nguyên chất 750ml" data-en="Pure Prune Juice 750ml">Nước ép mận nguyên chất 750ml</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/taylor/sok-z-granatow-750ml.jpg" alt="Nước ép lựu 750ml" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Nước ép lựu nguyên chất 750ml" data-en="Pure Pomegranate Juice 750ml">Nước ép lựu nguyên chất 750ml</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/snowfarms/blueberries.jpg" alt="Việt quất khô" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Việt quất khô" data-en="Dried Blueberries">Việt quất khô</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/snowfarms/cranberries.jpg" alt="Nam việt quất khô" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Nam việt quất khô" data-en="Dried Cranberries">Nam việt quất khô</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/snowfarms/cherries.jpg" alt="Cherry sấy giòn" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Cherry sấy giòn" data-en="Crispy Dried Cherries">Cherry sấy giòn</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 02 ORGANIC -->
+    <section class="cat-group" id="g-organic">
+      <div class="group-head">
+        <span class="group-num">02</span>
+        <h2 class="group-title" data-vi="Đậu, hạt & gia vị hữu cơ" data-en="Organic Pulses & Spices">Đậu, hạt & gia vị hữu cơ</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">4 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/justorganik/Moong-dal-mogar.jpg" alt="Đậu moong hữu cơ" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu moong tách vỏ hữu cơ" data-en="Organic Moong Dal Mogar">Đậu moong tách vỏ hữu cơ</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/justorganik/Arhar-Dal.jpg" alt="Đậu arhar hữu cơ" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu arhar hữu cơ" data-en="Organic Arhar Dal">Đậu arhar hữu cơ</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/justorganik/suji-front.jpg" alt="Bột suji hữu cơ" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột suji hữu cơ" data-en="Organic Suji Flour">Bột suji hữu cơ</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/justorganik/SW203_1.png" alt="Ngũ cốc & gia vị hữu cơ" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Ngũ cốc & gia vị hữu cơ" data-en="Organic Grains & Spices">Ngũ cốc & gia vị hữu cơ</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 03 BEER -->
+    <section class="cat-group" id="g-beer">
+      <div class="group-head">
+        <span class="group-num">03</span>
+        <h2 class="group-title" data-vi="Bia không cồn" data-en="Non-Alcoholic Beer">Bia không cồn</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">2 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/coolberg/strawberry.png" alt="Bia không cồn vị dâu" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bia không cồn vị dâu" data-en="Non-Alcoholic Beer — Strawberry">Bia không cồn vị dâu</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/coolberg/assorted.jpg" alt="Bia không cồn các vị" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bia không cồn — bộ sưu tập các vị" data-en="Non-Alcoholic Beer — Assorted Flavors">Bia không cồn — bộ sưu tập các vị</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 04 BISCUITS & DRINKS -->
+    <section class="cat-group" id="g-biscuits">
+      <div class="group-head">
+        <span class="group-num">04</span>
+        <h2 class="group-title" data-vi="Bánh quy & đồ uống" data-en="Biscuits & Drinks">Bánh quy & đồ uống</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">3 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/royalty/digestive-biscuits.jpg" alt="Bánh quy Digestive" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Bánh quy Digestive" data-en="Digestive Biscuits">Bánh quy Digestive</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/prod-royalty.png" alt="Nước gừng Anh Quốc" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Nước gừng đậm chất Anh Quốc" data-en="Traditional English Ginger Drink">Nước gừng đậm chất Anh Quốc</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/brand-breeze.png" alt="English Breeze" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">English Breeze</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Đồ uống tươi mát đậm chất Anh" data-en="Refreshing British-style Drinks">Đồ uống tươi mát đậm chất Anh</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 05 MAPLE -->
+    <section class="cat-group" id="g-maple">
+      <div class="group-head">
+        <span class="group-num">05</span>
+        <h2 class="group-title" data-vi="Sản phẩm lá phong" data-en="Maple Products">Sản phẩm lá phong</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">3 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/clearys/syrup-bottle.jpg" alt="Siro lá phong" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Cleary's</span><span class="cat-origin">🇨🇦 Canada</span></div>
+            <h3 class="cat-name" data-vi="Siro lá phong nguyên chất" data-en="Pure Maple Syrup">Siro lá phong nguyên chất</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/clearys/syrup-jar.jpg" alt="Bơ lá phong" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Cleary's</span><span class="cat-origin">🇨🇦 Canada</span></div>
+            <h3 class="cat-name" data-vi="Bơ lá phong" data-en="Maple Butter">Bơ lá phong</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/clearys/maple-cookies.jpg" alt="Bánh quy lá phong" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Cleary's</span><span class="cat-origin">🇨🇦 Canada</span></div>
+            <h3 class="cat-name" data-vi="Bánh quy lá phong" data-en="Maple Cookies">Bánh quy lá phong</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 06 CANNED -->
+    <section class="cat-group" id="g-canned">
+      <div class="group-head">
+        <span class="group-num">06</span>
+        <h2 class="group-title" data-vi="Đồ hộp & nguyên liệu làm bánh" data-en="Canned Food & Baking">Đồ hộp & nguyên liệu làm bánh</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">2 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/nison/sardines-tomato-sauce.jpg" alt="Cá mòi sốt cà chua" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Nison</span><span class="cat-origin">🇮🇩 Indonesia</span></div>
+            <h3 class="cat-name" data-vi="Cá mòi đóng hộp sốt cà chua" data-en="Canned Sardines in Tomato Sauce">Cá mòi đóng hộp sốt cà chua</h3>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/prod-masoor.png" alt="Men khô và bột làm bánh" loading="lazy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik · Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Men khô hoạt tính & bột làm bánh" data-en="Active Dry Yeast & Baking Flour">Men khô hoạt tính & bột làm bánh</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

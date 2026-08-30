@@ -760,17 +760,19 @@ button { font-family: inherit; cursor: pointer; }
 .brands { background: var(--green-50); }
 
 .brand-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 24px;
 }
 
 .brand-card {
+  width: calc(25% - 18px);
   text-align: center;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 26px 20px 22px;
+  padding: 20px 20px 22px;
   position: relative;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
@@ -794,12 +796,13 @@ button { font-family: inherit; cursor: pointer; }
 .brand-card p { font-size: 13.5px; color: var(--muted); margin-top: 14px; line-height: 1.55; }
 
 .brand-logo-img {
-  height: 96px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 10px;
-  background: var(--cream);
+  padding: 8%;
+  background: var(--white);
   border: 1px solid var(--line);
   border-radius: 12px;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -1280,7 +1283,7 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1024px) {
-  .brand-grid { grid-template-columns: repeat(3, 1fr); }
+  .brand-card { width: calc(33.333% - 16px); }
   .p-slide { gap: 12px; padding: 22px 16px 30px; }
   .p-slide img { width: 140px; height: 140px; }
   .ps-text strong { font-size: 15px; }
@@ -1331,7 +1334,8 @@ a.channel-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg)
 }
 
 @media (max-width: 600px) {
-  .brand-grid { grid-template-columns: repeat(2, 1fr); }
+  .brand-card { width: calc(50% - 12px); }
+  .brand-logo-img { aspect-ratio: 16 / 12; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .hero-stats { gap: 14px; }
   .stat strong { font-size: 24px; }

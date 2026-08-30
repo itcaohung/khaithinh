@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catalogue sản phẩm | Công ty TNHH TM DV Khải Thịnh</title>
-  <meta name="description" content="Danh mục sản phẩm nhập khẩu: trái cây khô, nước ép, thực phẩm hữu cơ, bia không cồn, bánh quy, sản phẩm lá phong, đồ hộp từ Mỹ, Anh, Canada, Ấn Độ, Indonesia.">
+  <meta name="description" content="Danh mục sản phẩm nhập khẩu 2026: trái cây khô, thức uống không cồn, thực phẩm hữu cơ, bột làm bánh, siro lá phong, đồ hộp, nước rửa tay từ Mỹ, Anh, Canada, Ấn Độ, Indonesia.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,13 +26,36 @@
     }
 
     /* ===== BRANDING ===== */
-    .sheet-logo {
+    .cat-header {
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin-bottom: 26px;
+      gap: 28px;
+      padding-bottom: 22px;
+      border-bottom: 1.5px solid var(--line);
+      margin-bottom: 18px;
     }
-    .sheet-logo img { height: 46px; width: auto; opacity: 0.95; }
+    .cat-header img {
+      height: 68px;
+      width: auto;
+      opacity: 0.95;
+    }
+    .cat-header-title {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--emerald-deep), var(--emerald), var(--amber));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--emerald-deep);
+      line-height: 1.1;
+    }
+    .cat-header-sub {
+      font-size: 12.5px;
+      color: var(--muted);
+      letter-spacing: 0.4px;
+      margin-top: 3px;
+    }
     .pc-logo { display: block; margin: 0 auto 4mm; height: 15mm; width: auto; }
     .pf-logo { height: 4.2mm; width: auto; vertical-align: -1.4mm; margin-right: 1.5mm; }
 
@@ -125,7 +148,7 @@
       height: auto;
       object-fit: contain;
     }
-    .cat-body { padding: 15px 17px 17px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .cat-body { padding: 15px 17px 17px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
     .cat-brand-row {
       display: flex;
       align-items: center;
@@ -145,6 +168,47 @@
       font-weight: 700;
       color: var(--ink);
       line-height: 1.45;
+    }
+    .cat-en {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .cat-foot {
+      margin-top: auto;
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .cat-price {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--emerald-deep);
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+    .cat-wt {
+      align-self: flex-end;
+      margin-top: 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--emerald-deep);
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+    .price-note {
+      text-align: right;
+      font-size: 11px;
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+    @media print {
+      .price-note { display: none; }
     }
 
     .pdf-fab {
@@ -172,7 +236,7 @@
     @page { size: A4; margin: 0; }
     @media print {
       body { background: #fff; }
-      .pdf-fab, .sheet-logo { display: none !important; }
+      .pdf-fab, .cat-header, .sheet-logo { display: none !important; }
 
       /* repeating page frame + footer */
       .print-frame {
@@ -258,7 +322,7 @@
         margin-bottom: 0;
       }
       .print-cover::after {
-        content: "21 sản phẩm · 9 thương hiệu · 5 quốc gia";
+        content: "73 sản phẩm · 10 thương hiệu · 5 quốc gia";
         display: block;
         margin-top: 8mm;
         font-size: 9pt;
@@ -287,7 +351,9 @@
         padding: 0.5mm 2.5mm;
       }
 
-      .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+      .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+      .cat-group.wide .cat-grid { grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+      .cat-group.wide .cat-thumb { height: 32mm; }
       .cat-card {
         box-shadow: none;
         transform: none;
@@ -295,11 +361,15 @@
         border-radius: 2.5mm;
         break-inside: avoid;
       }
-      .cat-thumb { aspect-ratio: auto; height: 42mm; padding: 3mm; border-bottom-color: #e5eaef; }
-      .cat-body { padding: 3mm 3.5mm 3.5mm; }
-      .cat-name { font-size: 10pt; }
-      .cat-brand-name { font-size: 7.5pt; }
-      .cat-origin { font-size: 8pt; }
+      .cat-thumb { aspect-ratio: auto; height: 40mm; padding: 3mm; border-bottom-color: #e5eaef; }
+      .cat-body { padding: 2.5mm 3mm 3mm; }
+      .cat-name { font-size: 9pt; }
+      .cat-en { font-size: 7pt; }
+      .cat-wt { font-size: 6.5pt; padding: 0.4mm 2mm; margin-top: 0; }
+      .cat-price { font-size: 8.5pt; }
+      .cat-foot { padding-top: 1.5mm; }
+      .cat-brand-name { font-size: 7pt; }
+      .cat-origin { font-size: 7.5pt; }
       .cat-group, .group-head { break-inside: auto; }
       .group-head { break-after: avoid; }
     }
@@ -320,7 +390,14 @@
 
   <!-- ===== PAPER ===== -->
   <main class="paper">
-    <div class="sheet-logo"><img src="assets/logo.png" alt="Khải Thịnh"></div>
+    <header class="cat-header">
+      <img src="assets/logo.png" alt="Khải Thịnh">
+      <div>
+        <h1 class="cat-header-title">Catalogue</h1>
+        <p class="cat-header-sub">Công ty TNHH TM DV Khải Thịnh</p>
+      </div>
+    </header>
+    <p class="price-note">* Đơn giá chưa bao gồm VAT</p>
     <header class="print-cover">
       <img src="assets/logo.png" alt="Khải Thịnh" class="pc-logo">
       <h1><span>Product</span> Catalogue 2026</h1>
@@ -328,220 +405,1043 @@
       <div class="pc-rule"></div>
     </header>
 
-    <!-- 01 FRUITS -->
-    <section class="cat-group" id="g-fruits">
+    <!-- 01 TAYLOR - TRÁI CÂY KHÔ HỮU CƠ CAO CẤP -->
+    <section class="cat-group" id="taylor-trai-cay-kho-huu-co-cao-cap-usa-0">
       <div class="group-head">
         <span class="group-num">01</span>
-        <h2 class="group-title" data-vi="Trái cây khô & nước ép" data-en="Dried Fruits & Juices">Trái cây khô & nước ép</h2>
+        <h2 class="group-title" data-vi="TAYLOR - TRÁI CÂY KHÔ HỮU CƠ CAO CẤP" data-en="Organic Dried Fruits">TAYLOR - TRÁI CÂY KHÔ HỮU CƠ CAO CẤP</h2>
         <span class="group-rule"></span>
-        <span class="group-count">7 SP</span>
+        <span class="group-count">3 SP</span>
       </div>
       <div class="cat-grid">
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/taylor/ellliott-suszone-sliwki.jpg" alt="Mận khô California Elliott"></div>
+          <div class="cat-thumb"><img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-huu-co-hieu-taylor-100-organic-prunes-250g.webp" alt="Mận Khô Hữu Cơ"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
-            <h3 class="cat-name" data-vi="Mận khô California Elliott" data-en="California Elliott Dried Prunes">Mận khô California Elliott</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Mận Khô Hữu Cơ" data-en="100% Organic Prunes">Mận Khô Hữu Cơ</h3>
+            <span class="cat-en">100% Organic Prunes</span>
+            <div class="cat-foot">
+              <span class="cat-price">186.577 đ</span>
+              <span class="cat-wt">250g</span>
+            </div>
           </div>
         </article>
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/taylor/Ashlock-sliwki.jpg" alt="Mận khô Ashlock"></div>
+          <div class="cat-thumb"><img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-taylor-prunes-naturally-sweet-250g.webp" alt="Mận Khô"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
-            <h3 class="cat-name" data-vi="Mận khô Ashlock loại lớn" data-en="Ashlock Dried Prunes — Large">Mận khô Ashlock loại lớn</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Mận Khô" data-en="Prunes Naturally Sweet">Mận Khô</h3>
+            <span class="cat-en">Prunes Naturally Sweet</span>
+            <div class="cat-foot">
+              <span class="cat-price">126.577 đ</span>
+              <span class="cat-wt">250g</span>
+            </div>
           </div>
         </article>
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/taylor/sok-z-suszonych-sliwek-750ml.jpg" alt="Nước ép mận 750ml"></div>
+          <div class="cat-thumb"><img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/trai-va-kho-tu-nhien-hieu-taylor-taylor-dried-figs-190g.webp" alt="Trái Vả Khô Tự Nhiên"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
-            <h3 class="cat-name" data-vi="Nước ép mận nguyên chất 750ml" data-en="Pure Prune Juice 750ml">Nước ép mận nguyên chất 750ml</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/taylor/sok-z-granatow-750ml.jpg" alt="Nước ép lựu 750ml"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Taylor Brothers Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
-            <h3 class="cat-name" data-vi="Nước ép lựu nguyên chất 750ml" data-en="Pure Pomegranate Juice 750ml">Nước ép lựu nguyên chất 750ml</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/snowfarms/blueberries.jpg" alt="Việt quất khô"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
-            <h3 class="cat-name" data-vi="Việt quất khô" data-en="Dried Blueberries">Việt quất khô</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/snowfarms/cranberries.jpg" alt="Nam việt quất khô"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
-            <h3 class="cat-name" data-vi="Nam việt quất khô" data-en="Dried Cranberries">Nam việt quất khô</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/snowfarms/cherries.jpg" alt="Cherry sấy giòn"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
-            <h3 class="cat-name" data-vi="Cherry sấy giòn" data-en="Crispy Dried Cherries">Cherry sấy giòn</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Trái Vả Khô Tự Nhiên" data-en="Dried Figs">Trái Vả Khô Tự Nhiên</h3>
+            <span class="cat-en">Dried Figs</span>
+            <div class="cat-foot">
+              <span class="cat-price">131.577 đ</span>
+              <span class="cat-wt">190g</span>
+            </div>
           </div>
         </article>
       </div>
     </section>
-
-    <!-- 02 ORGANIC -->
-    <section class="cat-group" id="g-organic">
+    <!-- 02 TAYLOR - TRÁI CÂY KHÔ CAO CẤP (GÓI NHỎ - SMART PACKS) -->
+    <section class="cat-group" id="taylor-trai-cay-kho-cao-cap-goi-nho-smart-packs-1">
       <div class="group-head">
         <span class="group-num">02</span>
-        <h2 class="group-title" data-vi="Đậu, hạt & gia vị hữu cơ" data-en="Organic Pulses & Spices">Đậu, hạt & gia vị hữu cơ</h2>
+        <h2 class="group-title" data-vi="TAYLOR - TRÁI CÂY KHÔ CAO CẤP (GÓI NHỎ - SMART PACKS)" data-en="Premium Dried Fruits (Smart Packs)">TAYLOR - TRÁI CÂY KHÔ CAO CẤP (GÓI NHỎ - SMART PACKS)</h2>
         <span class="group-rule"></span>
-        <span class="group-count">4 SP</span>
+        <span class="group-count">2 SP</span>
       </div>
       <div class="cat-grid">
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/justorganik/Moong-dal-mogar.jpg" alt="Đậu moong hữu cơ"></div>
+          <div class="cat-thumb"><img src="assets/catalog/taylor-trai-cay-kho-cao-cap-goi-nho-smart-packs-1/man-kho-taylor-prunes-naturally-sweet-50g.webp" alt="Mận Khô"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
-            <h3 class="cat-name" data-vi="Đậu moong tách vỏ hữu cơ" data-en="Organic Moong Dal Mogar">Đậu moong tách vỏ hữu cơ</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Mận Khô" data-en="Prunes Naturally Sweet">Mận Khô</h3>
+            <span class="cat-en">Prunes Naturally Sweet</span>
+            <div class="cat-foot">
+              <span class="cat-price">31.577 đ</span>
+              <span class="cat-wt">50g</span>
+            </div>
           </div>
         </article>
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/justorganik/Arhar-Dal.jpg" alt="Đậu arhar hữu cơ"></div>
+          <div class="cat-thumb"><img src="assets/catalog/taylor-trai-cay-kho-cao-cap-goi-nho-smart-packs-1/trai-anh-ao-kho-tu-nhien-hieu-taylor-taylor-dried-bing-cherries-45g.webp" alt="Trái Anh Đào Khô Tự Nhiên"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
-            <h3 class="cat-name" data-vi="Đậu arhar hữu cơ" data-en="Organic Arhar Dal">Đậu arhar hữu cơ</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/justorganik/suji-front.jpg" alt="Bột suji hữu cơ"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
-            <h3 class="cat-name" data-vi="Bột suji hữu cơ" data-en="Organic Suji Flour">Bột suji hữu cơ</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/justorganik/SW203_1.png" alt="Ngũ cốc & gia vị hữu cơ"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
-            <h3 class="cat-name" data-vi="Ngũ cốc & gia vị hữu cơ" data-en="Organic Grains & Spices">Ngũ cốc & gia vị hữu cơ</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Trái Anh Đào Khô Tự Nhiên" data-en="Dried Bing Cherries">Trái Anh Đào Khô Tự Nhiên</h3>
+            <span class="cat-en">Dried Bing Cherries</span>
+            <div class="cat-foot">
+              <span class="cat-price">50.577 đ</span>
+              <span class="cat-wt">45g</span>
+            </div>
           </div>
         </article>
       </div>
     </section>
-
-    <!-- 03 BEER -->
-    <section class="cat-group" id="g-beer">
+    <!-- 03 SNOW FARMS TRÁI CÂY KHÔ CAO CẤP -->
+    <section class="cat-group" id="snow-farms-trai-cay-kho-cao-cap-2">
       <div class="group-head">
         <span class="group-num">03</span>
-        <h2 class="group-title" data-vi="Bia không cồn" data-en="Non-Alcoholic Beer">Bia không cồn</h2>
+        <h2 class="group-title" data-vi="SNOW FARMS TRÁI CÂY KHÔ CAO CẤP" data-en="Premium Dried Fruits">SNOW FARMS TRÁI CÂY KHÔ CAO CẤP</h2>
         <span class="group-rule"></span>
         <span class="group-count">2 SP</span>
       </div>
       <div class="cat-grid">
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/coolberg/strawberry.png" alt="Bia không cồn vị dâu"></div>
+          <div class="cat-thumb"><img src="assets/catalog/snow-farms-trai-cay-kho-cao-cap-2/trai-nam-viet-quat-kho-tu-nhien-hieu-snow-farms-120g.webp" alt="Trái Nam Việt Quất khô tự nhiên"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
-            <h3 class="cat-name" data-vi="Bia không cồn vị dâu" data-en="Non-Alcoholic Beer — Strawberry">Bia không cồn vị dâu</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇨🇦 Canada</span></div>
+            <h3 class="cat-name" data-vi="Trái Nam Việt Quất khô tự nhiên" data-en="Dried Cranberries">Trái Nam Việt Quất khô tự nhiên</h3>
+            <span class="cat-en">Dried Cranberries</span>
+            <div class="cat-foot">
+              <span class="cat-price">61.577 đ</span>
+              <span class="cat-wt">120g</span>
+            </div>
           </div>
         </article>
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/coolberg/assorted.jpg" alt="Bia không cồn các vị"></div>
+          <div class="cat-thumb"><img src="assets/catalog/snow-farms-trai-cay-kho-cao-cap-2/trai-viet-quat-kho-tu-nhien-hieu-snow-farms-120g.webp" alt="Trái Việt Quất khô tự nhiên"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
-            <h3 class="cat-name" data-vi="Bia không cồn — bộ sưu tập các vị" data-en="Non-Alcoholic Beer — Assorted Flavors">Bia không cồn — bộ sưu tập các vị</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Snow Farms</span><span class="cat-origin">🇨🇦 Canada</span></div>
+            <h3 class="cat-name" data-vi="Trái Việt Quất khô tự nhiên" data-en="Dried Blueberries">Trái Việt Quất khô tự nhiên</h3>
+            <span class="cat-en">Dried Blueberries</span>
+            <div class="cat-foot">
+              <span class="cat-price">104.577 đ</span>
+              <span class="cat-wt">120g</span>
+            </div>
           </div>
         </article>
       </div>
     </section>
-
-    <!-- 04 BISCUITS & DRINKS -->
-    <section class="cat-group" id="g-biscuits">
+    <!-- 04 TAYLOR - NƯỚC ÉP TRÁI CÂY CAO CẤP -->
+    <section class="cat-group" id="taylor-nuoc-ep-trai-cay-cao-cap-3">
       <div class="group-head">
         <span class="group-num">04</span>
-        <h2 class="group-title" data-vi="Bánh quy & đồ uống" data-en="Biscuits & Drinks">Bánh quy & đồ uống</h2>
-        <span class="group-rule"></span>
-        <span class="group-count">3 SP</span>
-      </div>
-      <div class="cat-grid">
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/royalty/digestive-biscuits.jpg" alt="Bánh quy Digestive"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇬🇧 Anh</span></div>
-            <h3 class="cat-name" data-vi="Bánh quy Digestive" data-en="Digestive Biscuits">Bánh quy Digestive</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/prod-royalty.png" alt="Nước gừng Anh Quốc"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇬🇧 Anh</span></div>
-            <h3 class="cat-name" data-vi="Nước gừng đậm chất Anh Quốc" data-en="Traditional English Ginger Drink">Nước gừng đậm chất Anh Quốc</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/brand-breeze.png" alt="English Breeze"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">English Breeze</span><span class="cat-origin">🇬🇧 Anh</span></div>
-            <h3 class="cat-name" data-vi="Đồ uống tươi mát đậm chất Anh" data-en="Refreshing British-style Drinks">Đồ uống tươi mát đậm chất Anh</h3>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- 05 MAPLE -->
-    <section class="cat-group" id="g-maple">
-      <div class="group-head">
-        <span class="group-num">05</span>
-        <h2 class="group-title" data-vi="Sản phẩm lá phong" data-en="Maple Products">Sản phẩm lá phong</h2>
-        <span class="group-rule"></span>
-        <span class="group-count">3 SP</span>
-      </div>
-      <div class="cat-grid">
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/clearys/syrup-bottle.jpg" alt="Siro lá phong"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Cleary's</span><span class="cat-origin">🇨🇦 Canada</span></div>
-            <h3 class="cat-name" data-vi="Siro lá phong nguyên chất" data-en="Pure Maple Syrup">Siro lá phong nguyên chất</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/clearys/syrup-jar.jpg" alt="Bơ lá phong"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Cleary's</span><span class="cat-origin">🇨🇦 Canada</span></div>
-            <h3 class="cat-name" data-vi="Bơ lá phong" data-en="Maple Butter">Bơ lá phong</h3>
-          </div>
-        </article>
-        <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/clearys/maple-cookies.jpg" alt="Bánh quy lá phong"></div>
-          <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Cleary's</span><span class="cat-origin">🇨🇦 Canada</span></div>
-            <h3 class="cat-name" data-vi="Bánh quy lá phong" data-en="Maple Cookies">Bánh quy lá phong</h3>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- 06 CANNED -->
-    <section class="cat-group" id="g-canned">
-      <div class="group-head">
-        <span class="group-num">06</span>
-        <h2 class="group-title" data-vi="Đồ hộp & nguyên liệu làm bánh" data-en="Canned Food & Baking">Đồ hộp & nguyên liệu làm bánh</h2>
+        <h2 class="group-title" data-vi="TAYLOR - NƯỚC ÉP TRÁI CÂY CAO CẤP" data-en="Premium Fruit Juices">TAYLOR - NƯỚC ÉP TRÁI CÂY CAO CẤP</h2>
         <span class="group-rule"></span>
         <span class="group-count">2 SP</span>
       </div>
       <div class="cat-grid">
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/nison/sardines-tomato-sauce.jpg" alt="Cá mòi sốt cà chua"></div>
+          <div class="cat-thumb"><img src="assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-hieu-taylor-taylor-prune-juice-946ml.webp" alt="Nước Ép Mận"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Nison</span><span class="cat-origin">🇮🇩 Indonesia</span></div>
-            <h3 class="cat-name" data-vi="Cá mòi đóng hộp sốt cà chua" data-en="Canned Sardines in Tomato Sauce">Cá mòi đóng hộp sốt cà chua</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Nước Ép Mận" data-en="Prune Juice">Nước Ép Mận</h3>
+            <span class="cat-en">Prune Juice</span>
+            <div class="cat-foot">
+              <span class="cat-price">169.577 đ</span>
+              <span class="cat-wt">946ml</span>
+            </div>
           </div>
         </article>
         <article class="cat-card">
-          <div class="cat-thumb"><img src="assets/prod-masoor.png" alt="Men khô và bột làm bánh"></div>
+          <div class="cat-thumb"><img src="assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-huu-co-hieu-taylor-100-organic-prune-juice-946ml.webp" alt="Nước Ép Mận Hữu Cơ"></div>
           <div class="cat-body">
-            <div class="cat-brand-row"><span class="cat-brand-name">Pik · Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
-            <h3 class="cat-name" data-vi="Men khô hoạt tính & bột làm bánh" data-en="Active Dry Yeast & Baking Flour">Men khô hoạt tính & bột làm bánh</h3>
+            <div class="cat-brand-row"><span class="cat-brand-name">Taylor</span><span class="cat-origin">🇺🇸 Mỹ</span></div>
+            <h3 class="cat-name" data-vi="Nước Ép Mận Hữu Cơ" data-en="100% Organic Prune Juice">Nước Ép Mận Hữu Cơ</h3>
+            <span class="cat-en">100% Organic Prune Juice</span>
+            <div class="cat-foot">
+              <span class="cat-price">225.577 đ</span>
+              <span class="cat-wt">946ml</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 05 ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG -->
+    <section class="cat-group" id="royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4">
+      <div class="group-head">
+        <span class="group-num">05</span>
+        <h2 class="group-title" data-vi="ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG" data-en="Dietary &amp; Oat Biscuits">ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">3 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-digestives-400g.webp" alt="Bánh Quy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Bánh Quy" data-en="Digestives">Bánh Quy</h3>
+            <span class="cat-en">Digestives</span>
+            <div class="cat-foot">
+              <span class="cat-price">63.577 đ</span>
+              <span class="cat-wt">400g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-ginger-nuts-300g.webp" alt="Bánh Quy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Bánh Quy" data-en="Ginger Nuts">Bánh Quy</h3>
+            <span class="cat-en">Ginger Nuts</span>
+            <div class="cat-foot">
+              <span class="cat-price">63.577 đ</span>
+              <span class="cat-wt">300g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-oaties-300g.webp" alt="Bánh Quy"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Bánh Quy" data-en="Oaties">Bánh Quy</h3>
+            <span class="cat-en">Oaties</span>
+            <div class="cat-foot">
+              <span class="cat-price">63.577 đ</span>
+              <span class="cat-wt">300g</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 06 COOLBERG - THỨC UỐNG KHÔNG CỒN -->
+    <section class="cat-group wide" id="coolberg-thuc-uong-khong-con-5">
+      <div class="group-head">
+        <span class="group-num">06</span>
+        <h2 class="group-title" data-vi="COOLBERG - THỨC UỐNG KHÔNG CỒN" data-en="Non-Alcoholic Drinks">COOLBERG - THỨC UỐNG KHÔNG CỒN</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">12 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-gung-khong-uong-hieu-royalty-ginger-330ml.webp" alt="Nước Gừng Không Đường"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Gừng Không Đường" data-en="Ginger">Nước Gừng Không Đường</h3>
+            <span class="cat-en">Ginger</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-gung-hieu-royalty-ginger-330ml.webp" alt="Nước Gừng"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Royalty</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Gừng" data-en="Ginger">Nước Gừng</h3>
+            <span class="cat-en">Ginger</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-hon-hop-vi-vai-va-dua-haiwai-hieu-coolberg-hawai-330ml.webp" alt="Nước Hỗn Hợp Vị Vải và Dừa( Haiwai)"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Hỗn Hợp Vị Vải và Dừa( Haiwai)" data-en="Hawai">Nước Hỗn Hợp Vị Vải và Dừa( Haiwai)</h3>
+            <span class="cat-en">Hawai</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-bac-ha-hieu-coolberg-mint-330ml.webp" alt="Nước Vị Bạc Hà"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Bạc Hà" data-en="Mint">Nước Vị Bạc Hà</h3>
+            <span class="cat-en">Mint</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-chanh-va-gung-hieu-coolberg-lemon-ginger-330ml.webp" alt="Nước Vị Chanh và Gừng"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Chanh và Gừng" data-en="Lemon Ginger">Nước Vị Chanh và Gừng</h3>
+            <span class="cat-en">Lemon Ginger</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-dau-khong-uong-hieu-coolberg-diet-strawberry-330ml.webp" alt="Nước Vị Dâu Không Đường"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Dâu Không Đường" data-en="Diet Strawberry">Nước Vị Dâu Không Đường</h3>
+            <span class="cat-en">Diet Strawberry</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-dau-hieu-coolberg-strawberry-330ml.webp" alt="Nước Vị Dâu"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Dâu" data-en="Strawberry">Nước Vị Dâu</h3>
+            <span class="cat-en">Strawberry</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-gung-hieu-coolberg-ginger-330ml.webp" alt="Nước Vị Gừng"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Gừng" data-en="Ginger">Nước Vị Gừng</h3>
+            <span class="cat-en">Ginger</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-nam-viet-quat-hieu-coolberg-cranberry-330ml.webp" alt="Nước Vị Nam Việt Quất"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Nam Việt Quất" data-en="Dried Cranberries">Nước Vị Nam Việt Quất</h3>
+            <span class="cat-en">Dried Cranberries</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-tao-hieu-coolberg-apple-330ml.webp" alt="Nước Vị Táo"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Táo" data-en="Apple">Nước Vị Táo</h3>
+            <span class="cat-en">Apple</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-ao-khong-uong-hieu-coolberg-diet-peach-330ml.webp" alt="Nước Vị Đào Không Đường"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Đào Không Đường" data-en="Diet Peach">Nước Vị Đào Không Đường</h3>
+            <span class="cat-en">Diet Peach</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-ao-hieu-coolberg-peach-330ml.webp" alt="Nước Vị Đào"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Coolberg</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Nước Vị Đào" data-en="Peach">Nước Vị Đào</h3>
+            <span class="cat-en">Peach</span>
+            <div class="cat-foot">
+              <span class="cat-price">25.577 đ</span>
+              <span class="cat-wt">330ml</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 07 CLEARY'S - SIRO LÁ PHONG -->
+    <section class="cat-group" id="cleary-s-siro-la-phong-6">
+      <div class="group-head">
+        <span class="group-num">07</span>
+        <h2 class="group-title" data-vi="CLEARY'S - SIRO LÁ PHONG" data-en="Maple Syrup">CLEARY'S - SIRO LÁ PHONG</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">1 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/cleary-s-siro-la-phong-6/siro-la-phong-nguyen-chat-hieu-cleary-s-pure-maple-syrup-236ml.webp" alt="SIRO Lá Phong Nguyên Chất"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Cleary'S</span><span class="cat-origin">🇨🇦 Canada</span></div>
+            <h3 class="cat-name" data-vi="SIRO Lá Phong Nguyên Chất" data-en="Pure Maple Syrup">SIRO Lá Phong Nguyên Chất</h3>
+            <span class="cat-en">Pure Maple Syrup</span>
+            <div class="cat-foot">
+              <span class="cat-price">160.577 đ</span>
+              <span class="cat-wt">236ml</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 08 PIK - BỘT LÀM BÁNH -->
+    <section class="cat-group wide" id="pik-bot-lam-banh-7">
+      <div class="group-head">
+        <span class="group-num">08</span>
+        <h2 class="group-title" data-vi="PIK - BỘT LÀM BÁNH" data-en="Baking Mixes">PIK - BỘT LÀM BÁNH</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">11 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-baking-soda-hieu-pik-baking-soda-500g.webp" alt="Bột Baking Soda"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Baking Soda" data-en="Baking Soda">Bột Baking Soda</h3>
+            <span class="cat-en">Baking Soda</span>
+            <div class="cat-foot">
+              <span class="cat-price">42.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-ca-cao-hieu-pik-cocoa-powder-50g.webp" alt="Bột Ca Cao"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Ca Cao" data-en="CoCoa Powder">Bột Ca Cao</h3>
+            <span class="cat-en">CoCoa Powder</span>
+            <div class="cat-foot">
+              <span class="cat-price">16.577 đ</span>
+              <span class="cat-wt">50g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-bo-sua-hieu-pik-pancake-mix-buttermilk-350g.webp" alt="Bột Làm Bánh Bơ Sữa"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Làm Bánh Bơ Sữa" data-en="Pancake Mix Buttermilk">Bột Làm Bánh Bơ Sữa</h3>
+            <span class="cat-en">Pancake Mix Buttermilk</span>
+            <div class="cat-foot">
+              <span class="cat-price">44.577 đ</span>
+              <span class="cat-wt">350g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-bo-sua-hieu-pik-pancake-mix-buttermilk-500g.webp" alt="Bột Làm Bánh Bơ Sữa"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Làm Bánh Bơ Sữa" data-en="Pancake Mix Buttermilk">Bột Làm Bánh Bơ Sữa</h3>
+            <span class="cat-en">Pancake Mix Buttermilk</span>
+            <div class="cat-foot">
+              <span class="cat-price">52.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-cake-mix-red-velvet-250g.webp" alt="Bột Làm Bánh"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Làm Bánh" data-en="Cake Mix Red Velvet">Bột Làm Bánh</h3>
+            <span class="cat-en">Cake Mix Red Velvet</span>
+            <div class="cat-foot">
+              <span class="cat-price">56.577 đ</span>
+              <span class="cat-wt">250g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-cake-mix-rich-chocolate-350g.webp" alt="Bột Làm Bánh"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Làm Bánh" data-en="Cake Mix Rich Chocolate">Bột Làm Bánh</h3>
+            <span class="cat-en">Cake Mix Rich Chocolate</span>
+            <div class="cat-foot">
+              <span class="cat-price">55.577 đ</span>
+              <span class="cat-wt">350g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-pancake-mix-350g.webp" alt="Bột Làm Bánh"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Làm Bánh" data-en="Pancake Mix">Bột Làm Bánh</h3>
+            <span class="cat-en">Pancake Mix</span>
+            <div class="cat-foot">
+              <span class="cat-price">44.577 đ</span>
+              <span class="cat-wt">350g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-pancake-mix-500g.webp" alt="Bột Làm Bánh"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Làm Bánh" data-en="Pancake Mix">Bột Làm Bánh</h3>
+            <span class="cat-en">Pancake Mix</span>
+            <div class="cat-foot">
+              <span class="cat-price">52.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-vani-hieu-pik-cake-mix-velvet-vanilla-250g.webp" alt="Bột Làm Bánh Vani"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Làm Bánh Vani" data-en="Cake Mix Velvet Vanilla">Bột Làm Bánh Vani</h3>
+            <span class="cat-en">Cake Mix Velvet Vanilla</span>
+            <div class="cat-foot">
+              <span class="cat-price">51.577 đ</span>
+              <span class="cat-wt">250g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-no-hieu-pik-baking-powder-100g.webp" alt="Bột Nở"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Nở" data-en="Baking Powder">Bột Nở</h3>
+            <span class="cat-en">Baking Powder</span>
+            <div class="cat-foot">
+              <span class="cat-price">19.577 đ</span>
+              <span class="cat-wt">100g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/men-kho-hieu-pik-active-dry-yeast-25g.webp" alt="Men Khô"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Pik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Men Khô" data-en="Active Dry Yeast">Men Khô</h3>
+            <span class="cat-en">Active Dry Yeast</span>
+            <div class="cat-foot">
+              <span class="cat-price">11.577 đ</span>
+              <span class="cat-wt">25g</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 09 BRIOVINEGARS - GIẤM TÁO HỮU CƠ -->
+    <section class="cat-group" id="briovinegars-dam-tao-huu-co-8">
+      <div class="group-head">
+        <span class="group-num">09</span>
+        <h2 class="group-title" data-vi="BRIOVINEGARS - GIẤM TÁO HỮU CƠ" data-en="Organic Apple Cider Vinegar">BRIOVINEGARS - GIẤM TÁO HỮU CƠ</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">1 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/briovinegars-dam-tao-huu-co-8/giam-tao-huu-co-hieu-briovinegars-organic-apple-cider-vinegar-473ml.webp" alt="Giấm Táo Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Briovinegars</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Giấm Táo Hữu Cơ" data-en="Organic Apple Cider Vinegar">Giấm Táo Hữu Cơ</h3>
+            <span class="cat-en">Organic Apple Cider Vinegar</span>
+            <div class="cat-foot">
+              <span class="cat-price">72.577 đ</span>
+              <span class="cat-wt">473ml</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 10 NISON - CÁ ĐÓNG HỘP -->
+    <section class="cat-group" id="nison-ca-ong-hop-9">
+      <div class="group-head">
+        <span class="group-num">10</span>
+        <h2 class="group-title" data-vi="NISON - CÁ ĐÓNG HỘP" data-en="Canned Sardines">NISON - CÁ ĐÓNG HỘP</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">5 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-chien-sot-tuong-cay-hieu-nison-nison-fried-sardines-in-spicy-soy-sauce-125g.webp" alt="Cá Trích Chiên Sốt Tương Cay"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Nison</span><span class="cat-origin">🇮🇩 Indonesia</span></div>
+            <h3 class="cat-name" data-vi="Cá Trích Chiên Sốt Tương Cay" data-en="Fried Sardines in Spicy Soy Sauce">Cá Trích Chiên Sốt Tương Cay</h3>
+            <span class="cat-en">Fried Sardines in Spicy Soy Sauce</span>
+            <div class="cat-foot">
+              <span class="cat-price">24.577 đ</span>
+              <span class="cat-wt">125g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-ngam-dau-thuc-vat-hieu-nison-nison-sardines-in-vegetable-oil-125g.webp" alt="Cá Trích Ngâm Dầu Thực Vật"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Nison</span><span class="cat-origin">🇮🇩 Indonesia</span></div>
+            <h3 class="cat-name" data-vi="Cá Trích Ngâm Dầu Thực Vật" data-en="Sardines in Vegetable oil">Cá Trích Ngâm Dầu Thực Vật</h3>
+            <span class="cat-en">Sardines in Vegetable oil</span>
+            <div class="cat-foot">
+              <span class="cat-price">23.577 đ</span>
+              <span class="cat-wt">125g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-ngam-dau-thuc-vat-voi-ot-hieu-nison-nison-sardines-in-vegetable-oil-with-chili-125g.webp" alt="Cá Trích Ngâm Dầu Thực Vật Với Ớt"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Nison</span><span class="cat-origin">🇮🇩 Indonesia</span></div>
+            <h3 class="cat-name" data-vi="Cá Trích Ngâm Dầu Thực Vật Với Ớt" data-en="Sardines in Vegetable oil with chili">Cá Trích Ngâm Dầu Thực Vật Với Ớt</h3>
+            <span class="cat-en">Sardines in Vegetable oil with chili</span>
+            <div class="cat-foot">
+              <span class="cat-price">24.577 đ</span>
+              <span class="cat-wt">125g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-sot-cay-hieu-nison-nison-sardines-in-extra-hot-sauce-155g.webp" alt="Cá Trích Sốt Cay"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Nison</span><span class="cat-origin">🇮🇩 Indonesia</span></div>
+            <h3 class="cat-name" data-vi="Cá Trích Sốt Cay" data-en="Sardines in Extra hot Sauce">Cá Trích Sốt Cay</h3>
+            <span class="cat-en">Sardines in Extra hot Sauce</span>
+            <div class="cat-foot">
+              <span class="cat-price">22.577 đ</span>
+              <span class="cat-wt">155g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-sot-ca-chua-hieu-nison-nison-sardines-in-tomato-sauce-155g.webp" alt="Cá Trích Sốt Cà Chua"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Nison</span><span class="cat-origin">🇮🇩 Indonesia</span></div>
+            <h3 class="cat-name" data-vi="Cá Trích Sốt Cà Chua" data-en="Sardines in Tomato Sauce">Cá Trích Sốt Cà Chua</h3>
+            <span class="cat-en">Sardines in Tomato Sauce</span>
+            <div class="cat-foot">
+              <span class="cat-price">21.577 đ</span>
+              <span class="cat-wt">155g</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 11 JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC -->
+    <section class="cat-group wide" id="just-organik-ca-loai-au-hat-bot-organic-10">
+      <div class="group-head">
+        <span class="group-num">11</span>
+        <h2 class="group-title" data-vi="JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC" data-en="Organic Pulses, Seeds &amp; Grains">JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">9 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-den-huu-co-hieu-just-organik-organic-amaranth-500g.webp" alt="Hạt Dền Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Dền Hữu Cơ" data-en="Organic Amaranth">Hạt Dền Hữu Cơ</h3>
+            <span class="cat-en">Organic Amaranth</span>
+            <div class="cat-foot">
+              <span class="cat-price">58.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-diem-mach-trang-huu-co-hieu-just-organik-organic-quinoa-white-500g.webp" alt="Hạt Diêm Mạch Trắng Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Diêm Mạch Trắng Hữu Cơ" data-en="Organic Quinoa White">Hạt Diêm Mạch Trắng Hữu Cơ</h3>
+            <span class="cat-en">Organic Quinoa White</span>
+            <div class="cat-foot">
+              <span class="cat-price">119.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-diem-mach-o-huu-co-hieu-just-organik-organic-quinoa-red-500g.webp" alt="Hạt Diêm Mạch Đỏ Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Diêm Mạch Đỏ Hữu Cơ" data-en="Organic Quinoa Red">Hạt Diêm Mạch Đỏ Hữu Cơ</h3>
+            <span class="cat-en">Organic Quinoa Red</span>
+            <div class="cat-foot">
+              <span class="cat-price">208.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-ke-huu-co-hieu-just-organik-hat-ke-vang-organic-foxtail-millet-500g.webp" alt="Hạt Kê Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Kê Hữu Cơ" data-en="Organic Foxtail Millet">Hạt Kê Hữu Cơ</h3>
+            <span class="cat-en">Organic Foxtail Millet</span>
+            <div class="cat-foot">
+              <span class="cat-price">67.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-ke-huu-co-hieu-just-organik-organic-barnyard-millet-500g.webp" alt="Hạt Kê Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Kê Hữu Cơ" data-en="Organic Barnyard Millet">Hạt Kê Hữu Cơ</h3>
+            <span class="cat-en">Organic Barnyard Millet</span>
+            <div class="cat-foot">
+              <span class="cat-price">67.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-kieu-mach-huu-co-hieu-just-organik-organic-buckwheat-hulled-500g.webp" alt="Hạt Kiều Mạch Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Kiều Mạch Hữu Cơ" data-en="Organic Buckwheat Hulled">Hạt Kiều Mạch Hữu Cơ</h3>
+            <span class="cat-en">Organic Buckwheat Hulled</span>
+            <div class="cat-foot">
+              <span class="cat-price">119.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-lanh-huu-co-hieu-just-organik-organic-flax-seeds-200g.webp" alt="Hạt Lanh Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Lanh Hữu Cơ" data-en="Organic Flax Seeds">Hạt Lanh Hữu Cơ</h3>
+            <span class="cat-en">Organic Flax Seeds</span>
+            <div class="cat-foot">
+              <span class="cat-price">74.577 đ</span>
+              <span class="cat-wt">200g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-lua-mach-huu-co-hieu-just-organik-organic-barley-pearled-500g.webp" alt="Hạt Lúa Mạch Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Lúa Mạch Hữu Cơ" data-en="Organic Barley (Pearled)">Hạt Lúa Mạch Hữu Cơ</h3>
+            <span class="cat-en">Organic Barley (Pearled)</span>
+            <div class="cat-foot">
+              <span class="cat-price">58.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/yen-mach-huu-co-cat-hieu-just-organik-organic-steel-cut-oat-500g.webp" alt="Yến Mạch Hữu Cơ Cắt"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Yến Mạch Hữu Cơ Cắt" data-en="Organic Steel Cut Oat">Yến Mạch Hữu Cơ Cắt</h3>
+            <span class="cat-en">Organic Steel Cut Oat</span>
+            <div class="cat-foot">
+              <span class="cat-price">114.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 12 PULSES & LENTILS _ ĐẬU HỮU CƠ -->
+    <section class="cat-group wide" id="pulses-lentils-au-huu-co-11">
+      <div class="group-head">
+        <span class="group-num">12</span>
+        <h2 class="group-title" data-vi="PULSES &amp; LENTILS _ ĐẬU HỮU CƠ" data-en="Organic Pulses &amp; Lentils">PULSES &amp; LENTILS _ ĐẬU HỮU CƠ</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">10 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-ga-huu-co-hieu-just-organik-organic-chickpea-500g.webp" alt="Đậu Gà Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Gà Hữu Cơ" data-en="Organic Chickpea">Đậu Gà Hữu Cơ</h3>
+            <span class="cat-en">Organic Chickpea</span>
+            <div class="cat-foot">
+              <span class="cat-price">75.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-hon-hop-huu-co-hieu-just-organik-organic-mix-lentils-500g.webp" alt="Đậu Hỗn Hợp Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Hỗn Hợp Hữu Cơ" data-en="Organic Mix Lentils">Đậu Hỗn Hợp Hữu Cơ</h3>
+            <span class="cat-en">Organic Mix Lentils</span>
+            <div class="cat-foot">
+              <span class="cat-price">67.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-lang-nau-huu-co-hieu-just-organik-organic-brown-lentils-500g.webp" alt="Đậu Lăng Nâu Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Lăng Nâu Hữu Cơ" data-en="Organic Brown Lentils">Đậu Lăng Nâu Hữu Cơ</h3>
+            <span class="cat-en">Organic Brown Lentils</span>
+            <div class="cat-foot">
+              <span class="cat-price">62.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-lang-o-huu-co-hieu-just-organik-organic-red-lentils-500g.webp" alt="Đậu Lăng Đỏ Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Lăng Đỏ Hữu Cơ" data-en="Organic Red Lentils">Đậu Lăng Đỏ Hữu Cơ</h3>
+            <span class="cat-en">Organic Red Lentils</span>
+            <div class="cat-foot">
+              <span class="cat-price">67.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-nanh-huu-co-hieu-just-organik-organic-soyabean-white-500g.webp" alt="Đậu Nành Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Nành Hữu Cơ" data-en="Organic Soyabean White">Đậu Nành Hữu Cơ</h3>
+            <span class="cat-en">Organic Soyabean White</span>
+            <div class="cat-foot">
+              <span class="cat-price">52.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-nanh-en-huu-co-hieu-just-organik-organic-soyabean-black-500g.webp" alt="Đậu Nành Đen Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Nành Đen Hữu Cơ" data-en="Organic Soyabean Black">Đậu Nành Đen Hữu Cơ</h3>
+            <span class="cat-en">Organic Soyabean Black</span>
+            <div class="cat-foot">
+              <span class="cat-price">87.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-trang-huu-co-hieu-just-organik-organic-cowpea-500g.webp" alt="Đậu Trắng Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Trắng Hữu Cơ" data-en="Organic Cowpea">Đậu Trắng Hữu Cơ</h3>
+            <span class="cat-en">Organic Cowpea</span>
+            <div class="cat-foot">
+              <span class="cat-price">64.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-xanh-huu-co-hieu-just-organik-organic-moong-split-dehusked-500g.webp" alt="Đậu Xanh Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Xanh Hữu Cơ" data-en="Organic Moong Split &amp; Dehusked">Đậu Xanh Hữu Cơ</h3>
+            <span class="cat-en">Organic Moong Split &amp; Dehusked</span>
+            <div class="cat-foot">
+              <span class="cat-price">79.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-en-huu-co-hieu-just-organik-organic-black-gram-500g.webp" alt="Đậu Đen Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Đen Hữu Cơ" data-en="Organic Black Gram">Đậu Đen Hữu Cơ</h3>
+            <span class="cat-en">Organic Black Gram</span>
+            <div class="cat-foot">
+              <span class="cat-price">64.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-o-tay-huu-co-hieu-just-organik-organic-red-kindey-beans-500g.webp" alt="Đậu Đỏ Tây Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Đậu Đỏ Tây Hữu Cơ" data-en="Organic Red Kindey Beans">Đậu Đỏ Tây Hữu Cơ</h3>
+            <span class="cat-en">Organic Red Kindey Beans</span>
+            <div class="cat-foot">
+              <span class="cat-price">81.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 13 FLOURS _ BỘT LÀM BÁNH HỮU CƠ -->
+    <section class="cat-group" id="flours-bot-lam-banh-huu-co-12">
+      <div class="group-head">
+        <span class="group-num">13</span>
+        <h2 class="group-title" data-vi="FLOURS _ BỘT LÀM BÁNH HỮU CƠ" data-en="Organic Flours">FLOURS _ BỘT LÀM BÁNH HỮU CƠ</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">5 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/flours-bot-lam-banh-huu-co-12/bot-bap-huu-co-hieu-just-organik-organic-corn-flour-500g.webp" alt="Bột Bắp Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Bắp Hữu Cơ" data-en="Organic Corn Flour">Bột Bắp Hữu Cơ</h3>
+            <span class="cat-en">Organic Corn Flour</span>
+            <div class="cat-foot">
+              <span class="cat-price">51.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/flours-bot-lam-banh-huu-co-12/bot-gao-huu-co-hieu-just-organik-organic-white-rice-flour-500g.webp" alt="Bột Gạo Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Gạo Hữu Cơ" data-en="Organic White Rice Flour">Bột Gạo Hữu Cơ</h3>
+            <span class="cat-en">Organic White Rice Flour</span>
+            <div class="cat-foot">
+              <span class="cat-price">48.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/flours-bot-lam-banh-huu-co-12/bot-huu-co-hieu-just-organik-organic-9-grains-flour-1kg.webp" alt="Bột Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Hữu Cơ" data-en="Organic 9 Grains Flour">Bột Hữu Cơ</h3>
+            <span class="cat-en">Organic 9 Grains Flour</span>
+            <div class="cat-foot">
+              <span class="cat-price">93.577 đ</span>
+              <span class="cat-wt">1kg</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/flours-bot-lam-banh-huu-co-12/bot-kieu-mach-huu-co-hieu-just-organik-organic-buckwheat-flour-500g.webp" alt="Bột Kiều Mạch Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Kiều Mạch Hữu Cơ" data-en="Organic Buckwheat Flour">Bột Kiều Mạch Hữu Cơ</h3>
+            <span class="cat-en">Organic Buckwheat Flour</span>
+            <div class="cat-foot">
+              <span class="cat-price">127.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/flours-bot-lam-banh-huu-co-12/bot-yen-mach-huu-co-hieu-just-organik-organic-oat-flour-500g.webp" alt="Bột Yến Mạch Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Yến Mạch Hữu Cơ" data-en="Organic Oat Flour">Bột Yến Mạch Hữu Cơ</h3>
+            <span class="cat-en">Organic Oat Flour</span>
+            <div class="cat-foot">
+              <span class="cat-price">121.577 đ</span>
+              <span class="cat-wt">500g</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 14 SPICES _ GIA VỊ NẤU ĂN HỮU CƠ -->
+    <section class="cat-group" id="spices-gia-vi-nau-an-huu-co-13">
+      <div class="group-head">
+        <span class="group-num">14</span>
+        <h2 class="group-title" data-vi="SPICES _ GIA VỊ NẤU ĂN HỮU CƠ" data-en="Organic Cooking Spices">SPICES _ GIA VỊ NẤU ĂN HỮU CƠ</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">2 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/spices-gia-vi-nau-an-huu-co-13/bot-nghe-huu-co-hieu-just-organik-organic-turmeric-powder-100g.webp" alt="Bột Nghệ Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Bột Nghệ Hữu Cơ" data-en="Organic Turmeric Powder">Bột Nghệ Hữu Cơ</h3>
+            <span class="cat-en">Organic Turmeric Powder</span>
+            <div class="cat-foot">
+              <span class="cat-price">35.577 đ</span>
+              <span class="cat-wt">100g</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/spices-gia-vi-nau-an-huu-co-13/hat-methi-huu-co-hieu-just-organik-organic-fenugreek-methi-100g.webp" alt="Hạt Methi Hữu Cơ"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">Just Organik</span><span class="cat-origin">🇮🇳 Ấn Độ</span></div>
+            <h3 class="cat-name" data-vi="Hạt Methi Hữu Cơ" data-en="Organic Fenugreek (Methi)">Hạt Methi Hữu Cơ</h3>
+            <span class="cat-en">Organic Fenugreek (Methi)</span>
+            <div class="cat-foot">
+              <span class="cat-price">31.577 đ</span>
+              <span class="cat-wt">100g</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 15 ENGLISH BREEZE - NƯỚC RỬA TAY -->
+    <section class="cat-group" id="english-breeze-nuoc-rua-tay-14">
+      <div class="group-head">
+        <span class="group-num">15</span>
+        <h2 class="group-title" data-vi="ENGLISH BREEZE - NƯỚC RỬA TAY" data-en="Scented Hand Wash">ENGLISH BREEZE - NƯỚC RỬA TAY</h2>
+        <span class="group-rule"></span>
+        <span class="group-count">5 SP</span>
+      </div>
+      <div class="cat-grid">
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-cool-coconut-500ml.webp" alt="Handwash Cool Coconut"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">English Breeze</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Handwash Cool Coconut" data-en="Handwash Cool Coconut">Handwash Cool Coconut</h3>
+            <span class="cat-en">Handwash Cool Coconut</span>
+            <div class="cat-foot">
+              <span class="cat-price">66.577 đ</span>
+              <span class="cat-wt">500ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-lily-pond-500ml.webp" alt="Handwash Lily Pond"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">English Breeze</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Handwash Lily Pond" data-en="Handwash Lily Pond">Handwash Lily Pond</h3>
+            <span class="cat-en">Handwash Lily Pond</span>
+            <div class="cat-foot">
+              <span class="cat-price">66.577 đ</span>
+              <span class="cat-wt">500ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp" alt="Handwash Mountain Herbs"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">English Breeze</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Handwash Mountain Herbs" data-en="Handwash Mountain Herbs">Handwash Mountain Herbs</h3>
+            <span class="cat-en">Handwash Mountain Herbs</span>
+            <div class="cat-foot">
+              <span class="cat-price">66.577 đ</span>
+              <span class="cat-wt">500ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-relaxing-violet-500ml.webp" alt="Handwash Relaxing Violet"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">English Breeze</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Handwash Relaxing Violet" data-en="Handwash Relaxing Violet">Handwash Relaxing Violet</h3>
+            <span class="cat-en">Handwash Relaxing Violet</span>
+            <div class="cat-foot">
+              <span class="cat-price">66.577 đ</span>
+              <span class="cat-wt">500ml</span>
+            </div>
+          </div>
+        </article>
+        <article class="cat-card">
+          <div class="cat-thumb"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-summer-honey-500ml.webp" alt="Handwash Summer Honey"></div>
+          <div class="cat-body">
+            <div class="cat-brand-row"><span class="cat-brand-name">English Breeze</span><span class="cat-origin">🇬🇧 Anh</span></div>
+            <h3 class="cat-name" data-vi="Handwash Summer Honey" data-en="Handwash Summer Honey">Handwash Summer Honey</h3>
+            <span class="cat-en">Handwash Summer Honey</span>
+            <div class="cat-foot">
+              <span class="cat-price">66.577 đ</span>
+              <span class="cat-wt">500ml</span>
+            </div>
           </div>
         </article>
       </div>

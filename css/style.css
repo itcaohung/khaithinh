@@ -850,6 +850,24 @@ button { font-family: inherit; cursor: pointer; }
 .product-card p { padding: 0 28px 30px; }
 .product-card h3 { font-size: 19px; font-weight: 700; color: var(--green-900); margin-bottom: 10px; }
 .product-card p { font-size: 15px; color: var(--ink); }
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+.product-card .product-img { flex-shrink: 0; }
+.product-card h3 { flex-shrink: 0; }
+.product-card p { flex: 1; }
+.product-link {
+  display: block;
+  margin: 0 28px 26px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--green-700);
+  text-decoration: none;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+.product-link:hover { color: var(--orange); }
 
 /* ============ CHANNELS ============ */
 .channels { background: var(--green-50); }

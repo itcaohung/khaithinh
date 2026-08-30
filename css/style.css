@@ -762,21 +762,65 @@ button { font-family: inherit; cursor: pointer; }
 .brand-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
+  gap: 24px;
 }
 
-.brand-card { text-align: center; }
-.brand-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-.brand-card p { font-size: 13.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+.brand-card {
+  text-align: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 20px 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.brand-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--green-600), var(--green-500));
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.brand-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.brand-card:hover::before { transform: scaleX(1); }
+.brand-card p { font-size: 13.5px; color: var(--muted); margin-top: 14px; line-height: 1.55; }
 
 .brand-logo-img {
-  height: 92px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 14px 10px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.brand-card:hover .brand-logo-img {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(38, 48, 62, 0.1);
 }
 .brand-logo-img img { max-width: 100%; max-height: 100%; width: auto; object-fit: contain; }
+
+/* per-brand accent color on hover */
+.brand-card.taylor::before      { background: linear-gradient(90deg, #b23a48, #7a1f2b); }
+.brand-card.justorganik::before { background: linear-gradient(90deg, #2e7d32, #66bb6a); }
+.brand-card.royalty::before     { background: linear-gradient(90deg, #f57f17, #f9a825); }
+.brand-card.coolberg::before    { background: linear-gradient(90deg, #1565c0, #64b5f6); }
+.brand-card.snow::before        { background: linear-gradient(90deg, #37474f, #78909c); }
+.brand-card.pik::before         { background: linear-gradient(90deg, #5d4037, #a1887f); }
+.brand-card.nison::before       { background: linear-gradient(90deg, #00695c, #4db6ac); }
+.brand-card.breeze::before      { background: linear-gradient(90deg, #111827, #facc15); }
+.brand-card.briovinegars::before{ background: linear-gradient(90deg, #7c2d12, #b45309); }
+.brand-card.clearys::before     { background: linear-gradient(90deg, #dc2626, #f87171); }
 
 .brand-logo {
   height: 64px;
@@ -790,14 +834,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 .brand-logo small { font-size: 10px; letter-spacing: 2px; font-weight: 600; opacity: 0.85; }
 
-.taylor     { background: linear-gradient(135deg, #7a1f2b, #b23a48); color: #fff; }
-.justorganik{ background: linear-gradient(135deg, #2e7d32, #66bb6a); color: #fff; }
-.royalty    { background: linear-gradient(135deg, #f9a825, #f57f17); color: #3e2500; }
-.coolberg   { background: linear-gradient(135deg, #1565c0, #64b5f6); color: #fff; }
-.turkeyhill { background: linear-gradient(135deg, #8d4e2e, #c68a5e); color: #fff; }
-.snow       { background: linear-gradient(135deg, #37474f, #78909c); color: #fff; }
-.pik        { background: linear-gradient(135deg, #5d4037, #a1887f); color: #fff; }
-.nison      { background: linear-gradient(135deg, #00695c, #4db6ac); color: #fff; }
+.brand-logo.taylor     { background: linear-gradient(135deg, #7a1f2b, #b23a48); color: #fff; }
+.brand-logo.justorganik{ background: linear-gradient(135deg, #2e7d32, #66bb6a); color: #fff; }
+.brand-logo.royalty    { background: linear-gradient(135deg, #f9a825, #f57f17); color: #3e2500; }
+.brand-logo.coolberg   { background: linear-gradient(135deg, #1565c0, #64b5f6); color: #fff; }
+.brand-logo.turkeyhill { background: linear-gradient(135deg, #8d4e2e, #c68a5e); color: #fff; }
+.brand-logo.snow       { background: linear-gradient(135deg, #37474f, #78909c); color: #fff; }
+.brand-logo.pik        { background: linear-gradient(135deg, #5d4037, #a1887f); color: #fff; }
+.brand-logo.nison      { background: linear-gradient(135deg, #00695c, #4db6ac); color: #fff; }
 
 /* ============ PRODUCTS ============ */
 .products { background: var(--white); }

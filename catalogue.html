@@ -330,6 +330,8 @@
         color: #94a3b8;
         margin-bottom: 4mm;
       }
+      /* pages packing several groups show the brand line only once */
+      .cat-group:not(:first-of-type)::before { display: none; }
       .print-cover {
         break-after: page;
         border-bottom: none;

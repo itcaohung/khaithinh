@@ -43,12 +43,14 @@
       display: flex;
       flex-direction: column;
       align-self: flex-end;
+      padding-bottom: 2.4px;
     }
     .cat-header-title {
       font-size: clamp(24px, 3vw, 34px);
       font-weight: 800;
       letter-spacing: -0.5px;
-      color: #4060a0;
+      color: #0f172a;
+      text-transform: uppercase;
       line-height: 1.1;
     }
     .cat-header-sub {
@@ -62,7 +64,7 @@
     .pf-logo { height: 4.2mm; width: auto; vertical-align: -1.4mm; margin-right: 1.5mm; }
 
     /* ===== PRINT-ONLY DECOR ===== */
-    .print-frame, .print-foot, .print-cover { display: none; }
+    .print-frame, .print-foot, .print-cover, .pt-foot { display: none; }
 
     /* ===== PAPER ===== */
     .paper {
@@ -242,31 +244,7 @@
       body { background: #fff; }
       .pdf-fab, .cat-header, .sheet-logo { display: none !important; }
 
-      /* repeating page frame + footer */
-      .print-frame {
-        display: block;
-        position: fixed;
-        inset: 5mm;
-        border: 1px solid #b6c2cf;
-        pointer-events: none;
-      }
-      .print-frame::before {
-        content: "";
-        position: absolute;
-        inset: 1.2mm;
-        border: 0.5px solid #dbe3ea;
-      }
-      .print-foot {
-        display: block;
-        position: fixed;
-        left: 11mm; right: 11mm; bottom: 10mm;
-        display: flex;
-        justify-content: space-between;
-        font-size: 7.5pt;
-        color: #64748b;
-        letter-spacing: 0.4px;
-      }
-      .print-foot b { color: #047857; letter-spacing: 1px; }
+      .print-frame, .print-foot { display: none !important; }
 
       /* cover heading (first page) */
       .print-cover {
@@ -305,10 +283,43 @@
         padding: 20mm 15mm 12mm;
       }
 
-      .pt-page { display: block; break-before: page; break-inside: avoid; padding-top: 12mm; }
+      /* each .pt-page is exactly one printed sheet: frame + footer live inside it */
+      .pt-page {
+        display: block;
+        break-before: page;
+        break-inside: avoid;
+        padding-top: 12mm;
+        min-height: 265mm;
+        position: relative;
+        border: 1px solid #b6c2cf;
+      }
+      .pt-page::before {
+        content: "";
+        position: absolute;
+        inset: 1.2mm;
+        border: 0.5px solid #dbe3ea;
+        pointer-events: none;
+      }
       .pt-page.screen-full { display: none; }
       .pt-page.print-split { display: block; }
+      /* bottom padding so the footer never overlaps content */
       .cat-group { position: relative; margin-bottom: 0; padding-bottom: 12mm; }
+.pt-foot {
+        display: flex;
+        position: absolute;
+        left: 10mm; right: 10mm; bottom: 0;
+        align-items: center;
+        font-size: 7.5pt;
+        color: #64748b;
+        letter-spacing: 0.4px;
+      }
+      .pt-foot b { color: #047857; letter-spacing: 1px; }
+      .pt-foot .pf-logo {
+        height: 3.4mm;
+        width: auto;
+        vertical-align: -0.7mm;
+        margin-right: 1.5mm;
+      }
       /* repeated mini brand line on every product page */
       .cat-group::before {
         content: "Khải Thịnh — Product Catalogue 2026";
@@ -569,12 +580,6 @@
   </style>
 </head>
 <body>
-  <div class="print-frame" aria-hidden="true"></div>
-  <div class="print-foot" aria-hidden="true">
-    <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
-    <span>© 2008–2026 Khải Thịnh · 090 367 49 59</span>
-  </div>
-
   <!-- ===== PAPER ===== -->
   <main class="paper">
     <header class="cat-header">
@@ -707,6 +712,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- packed page: [3, 4] -->
     <div class="pt-page">
@@ -780,6 +789,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- packed page: [5] -->
     <div class="pt-page">
@@ -830,6 +843,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page 6 (screen full) -->
     <div class="pt-page screen-full">
@@ -990,7 +1007,7 @@
     </section>
     </div>
     <!-- group page 6 part 1 -->
-    <div class="pt-page print-split">
+    <div class="pt-page">
     <!-- 06 COOLBERG - THỨC UỐNG KHÔNG CỒN -->
     <section class="cat-group wide print-split" id="coolberg-thuc-uong-khong-con-5-part1">
       <div class="group-head">
@@ -1110,9 +1127,13 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page 6 part 2 -->
-    <div class="pt-page print-split">
+    <div class="pt-page">
     <!-- 06 COOLBERG - THỨC UỐNG KHÔNG CỒN -->
     <section class="cat-group wide print-split" id="coolberg-thuc-uong-khong-con-5-part2">
       <div class="group-head">
@@ -1160,6 +1181,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- packed page: [7] -->
     <div class="pt-page">
@@ -1186,6 +1211,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page 8 (screen full) -->
     <div class="pt-page screen-full">
@@ -1334,7 +1363,7 @@
     </section>
     </div>
     <!-- group page 8 part 1 -->
-    <div class="pt-page print-split">
+    <div class="pt-page">
     <!-- 08 PIK - BỘT LÀM BÁNH -->
     <section class="cat-group wide print-split" id="pik-bot-lam-banh-7-part1">
       <div class="group-head">
@@ -1454,9 +1483,13 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page 8 part 2 -->
-    <div class="pt-page print-split">
+    <div class="pt-page">
     <!-- 08 PIK - BỘT LÀM BÁNH -->
     <section class="cat-group wide print-split" id="pik-bot-lam-banh-7-part2">
       <div class="group-head">
@@ -1492,6 +1525,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- packed page: [9] -->
     <div class="pt-page">
@@ -1518,6 +1555,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page: 10 -->
     <div class="pt-page">
@@ -1592,6 +1633,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page: 11 -->
     <div class="pt-page">
@@ -1714,6 +1759,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page 12 (screen full) -->
     <div class="pt-page screen-full">
@@ -1850,7 +1899,7 @@
     </section>
     </div>
     <!-- group page 12 part 1 -->
-    <div class="pt-page print-split">
+    <div class="pt-page">
     <!-- 12 PULSES & LENTILS _ ĐẬU HỮU CƠ -->
     <section class="cat-group wide print-split" id="pulses-lentils-au-huu-co-11-part1">
       <div class="group-head">
@@ -1970,9 +2019,13 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page 12 part 2 -->
-    <div class="pt-page print-split">
+    <div class="pt-page">
     <!-- 12 PULSES & LENTILS _ ĐẬU HỮU CƠ -->
     <section class="cat-group wide print-split" id="pulses-lentils-au-huu-co-11-part2">
       <div class="group-head">
@@ -1996,6 +2049,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page: 13 -->
     <div class="pt-page">
@@ -2070,6 +2127,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- packed page: [14] -->
     <div class="pt-page">
@@ -2108,6 +2169,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
     <!-- group page: 15 -->
     <div class="pt-page">
@@ -2182,6 +2247,10 @@
         </article>
       </div>
     </section>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
+        <span>© 2008–2026 · 090 367 49 59</span>
+      </div>
     </div>
 
   </main>

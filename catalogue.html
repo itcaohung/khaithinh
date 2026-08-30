@@ -280,38 +280,31 @@
         margin: 0;
         border-radius: 0;
         box-shadow: none;
-        padding: 20mm 15mm 12mm;
+        padding: 0;
       }
 
-      /* each .pt-page is exactly one printed sheet: frame + footer live inside it */
+      /* each .pt-page is exactly one printed sheet; its own padding forms the page margin */
       .pt-page {
         display: block;
         break-before: page;
         break-inside: avoid;
-        padding-top: 12mm;
-        min-height: 265mm;
+        padding: 18mm 15mm 6mm;
+        min-height: 297mm;
         position: relative;
-        border: 1px solid #b6c2cf;
-      }
-      .pt-page::before {
-        content: "";
-        position: absolute;
-        inset: 1.2mm;
-        border: 0.5px solid #dbe3ea;
-        pointer-events: none;
       }
       .pt-page.screen-full { display: none; }
       .pt-page.print-split { display: block; }
       /* bottom padding so the footer never overlaps content */
-      .cat-group { position: relative; margin-bottom: 0; padding-bottom: 12mm; }
-.pt-foot {
+      .cat-group { position: relative; margin-bottom: 0; padding-bottom: 10mm; }
+      .pt-foot {
         display: flex;
+        justify-content: center;
         position: absolute;
-        left: 10mm; right: 10mm; bottom: 0;
+        left: 15mm; right: 15mm; bottom: 6mm;
         align-items: center;
         font-size: 7.5pt;
         color: #64748b;
-        letter-spacing: 0.4px;
+        letter-spacing: 0.6px;
       }
       .pt-foot b { color: #047857; letter-spacing: 1px; }
       .pt-foot .pf-logo {
@@ -342,7 +335,7 @@
         align-items: center;
         text-align: center;
         justify-content: space-between;
-        min-height: 265mm;
+        min-height: 297mm;
         background:
           radial-gradient(circle at 20% 15%, rgba(255,255,255,0.10), transparent 42%),
           radial-gradient(circle at 85% 85%, rgba(251,191,36,0.09), transparent 45%),
@@ -713,7 +706,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -790,7 +782,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -844,7 +835,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1128,7 +1118,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1182,7 +1171,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1212,7 +1200,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1484,7 +1471,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1526,7 +1512,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1556,7 +1541,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1634,7 +1618,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -1760,7 +1743,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -2020,7 +2002,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -2050,7 +2031,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -2128,7 +2108,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -2170,7 +2149,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>
@@ -2248,7 +2226,6 @@
       </div>
     </section>
       <div class="pt-foot" aria-hidden="true">
-        <span><img src="assets/logo.png" alt="" class="pf-logo"><b>KHAI THINH</b> · Product Catalogue 2026</span>
         <span>© 2008–2026 · 090 367 49 59</span>
       </div>
     </div>

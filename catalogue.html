@@ -383,7 +383,7 @@
         letter-spacing: 3px;
         text-transform: uppercase;
         color: #4060a0;
-        font-weight: 700;
+        font-weight: 900;
         margin-bottom: 8mm;
         background: #fff;
         padding: 3.5mm 9mm;
@@ -437,19 +437,20 @@
       }
       .pc-products {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        align-content: center;
         gap: 4mm;
         margin: 6mm 0 4mm;
         width: 100%;
-        padding: 0 12mm;
+        padding: 0 8mm;
       }
       .pc-prod {
-        flex: 1 1 0;
-        max-width: 20mm;
-        height: 20mm;
+        flex: 0 0 calc((100% - 24mm) / 7);
+        height: 28mm;
         background: #fff;
         border-radius: 2.5mm;
-        padding: 1.6mm;
+        padding: 2mm;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -584,7 +585,7 @@
       <div class="pc-hero">
         <div class="pc-hero-box">
           <h1>CATALOGUE<br><span>2026</span></h1>
-          <p class="pc-tagline">Danh mục SP nhập khẩu - PP chính hãng</p>
+          <p class="pc-tagline">DANH MỤC SẢN PHẨM NHẬP KHẨU - PHÂN PHỐI CHÍNH HÃNG</p>
           <div class="pc-rule"></div>
         </div>
       </div>

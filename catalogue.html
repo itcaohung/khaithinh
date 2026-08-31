@@ -359,51 +359,48 @@
       .print-cover::after {
         content: none;
       }
-      /* decorative geometric shapes */
+      /* decorative background: layered diagonal waves */
       .print-cover .pc-deco {
         position: absolute;
         inset: 0;
         pointer-events: none;
         z-index: 0;
+        overflow: hidden;
       }
-      .print-cover .pc-deco::before,
+      .print-cover .pc-deco::before {
+        content: "";
+        position: absolute;
+        left: -10%; top: -15%;
+        width: 45%; height: 150%;
+        background: linear-gradient(200deg, rgba(16,185,129,0.22), rgba(16,185,129,0.02));
+        transform: rotate(18deg);
+      }
       .print-cover .pc-deco::after {
         content: "";
         position: absolute;
-        border: 1.2mm solid rgba(6, 78, 59, 0.12);
+        right: -8%; top: -20%;
+        width: 42%; height: 150%;
+        background: linear-gradient(160deg, rgba(251,191,36,0.22), rgba(251,191,36,0.02));
+        transform: rotate(-14deg);
+      }
+      .print-cover .pc-deco i { position: absolute; display: block; }
+      .print-cover .pc-deco .wave {
+        left: -5%; bottom: 0;
+        width: 60%; height: 22%;
+        border-radius: 50% 50% 0 0;
+        background: rgba(6,78,59,0.06);
+      }
+      .print-cover .pc-deco .arc {
+        right: 0; bottom: -6%;
+        width: 42%; height: 30%;
+        border-radius: 50% 50% 0 0;
+        background: rgba(251,191,36,0.10);
+      }
+      .print-cover .pc-deco .ring {
+        width: 90mm; height: 90mm;
+        border: 1mm solid rgba(6,78,59,0.14);
         border-radius: 50%;
-        background: rgba(16, 185, 129, 0.05);
-      }
-      .print-cover .pc-deco::before {
-        width: 130mm; height: 130mm;
-        top: -40mm; right: -45mm;
-      }
-      .print-cover .pc-deco::after {
-        width: 95mm; height: 95mm;
-        bottom: -32mm; left: -35mm;
-      }
-      .print-cover .pc-deco i {
-        position: absolute;
-        display: block;
-      }
-      .print-cover .pc-deco .cir {
-        width: 55mm; height: 55mm;
-        border: 1mm solid rgba(16,185,129,0.30);
-        border-radius: 50%;
-        left: 12%; bottom: 20%;
-      }
-      .print-cover .pc-deco .sq {
-        width: 40mm; height: 40mm;
-        border: 1.2mm solid rgba(217,119,6,0.30);
-        border-radius: 6mm;
-        right: 10%; top: 30%;
-        transform: rotate(14deg);
-      }
-      .print-cover .pc-deco .dot {
-        width: 7mm; height: 7mm;
-        background: rgba(16,185,129,0.30);
-        border-radius: 50%;
-        left: 26%; top: 20%;
+        right: 16%; bottom: 12%;
       }
 
       .pc-top, .pc-hero, .pc-products, .pc-stats, .pc-foot {
@@ -622,7 +619,7 @@
     </header>
     <p class="price-note">* Đơn giá chưa bao gồm VAT</p>
     <header class="print-cover">
-      <div class="pc-deco"><i class="cir"></i><i class="sq"></i><i class="dot"></i></div>
+      <div class="pc-deco"><i class="wave"></i><i class="arc"></i><i class="ring"></i></div>
       <div class="pc-top">
         <div class="pc-eyebrow">Công ty TNHH TM DV Khải Thịnh</div>
         <div class="pc-logo-wrap"><img src="assets/logo.png" alt="Khải Thịnh" class="pc-logo"></div>

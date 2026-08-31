@@ -339,10 +339,11 @@
         justify-content: space-between;
         min-height: 297mm;
         background:
-          radial-gradient(circle at 20% 15%, rgba(255,255,255,0.10), transparent 42%),
-          radial-gradient(circle at 85% 85%, rgba(251,191,36,0.09), transparent 45%),
-          linear-gradient(160deg, #053f31 0%, #064e3b 52%, #03291f 100%);
-        color: #fff;
+          radial-gradient(ellipse at 15% 12%, rgba(16, 185, 129, 0.28), transparent 42%),
+          radial-gradient(ellipse at 88% 8%, rgba(251, 191, 36, 0.30), transparent 40%),
+          radial-gradient(ellipse at 75% 88%, rgba(16, 185, 129, 0.32), transparent 46%),
+          linear-gradient(164deg, #c2e6d7 0%, #abd8c4 45%, #8fc3ac 100%);
+        color: #0b3b2e;
         border-radius: 0;
         overflow: hidden;
         position: relative;
@@ -351,21 +352,59 @@
         content: "";
         position: absolute;
         inset: 8mm;
-        border: 0.6mm solid rgba(255,255,255,0.35);
-        border-radius: 2mm;
+        border: 0.6mm solid rgba(6, 78, 59, 0.22);
+        border-radius: 3mm;
         pointer-events: none;
       }
       .print-cover::after {
+        content: none;
+      }
+      /* decorative geometric shapes */
+      .print-cover .pc-deco {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .print-cover .pc-deco::before,
+      .print-cover .pc-deco::after {
         content: "";
         position: absolute;
-        inset: auto 0 0 0;
-        height: 6mm;
-        background: linear-gradient(90deg, #059669, #f59e0b);
-        pointer-events: none;
+        border: 1.2mm solid rgba(6, 78, 59, 0.12);
+        border-radius: 50%;
+        background: rgba(16, 185, 129, 0.05);
       }
-      
-
-      
+      .print-cover .pc-deco::before {
+        width: 130mm; height: 130mm;
+        top: -40mm; right: -45mm;
+      }
+      .print-cover .pc-deco::after {
+        width: 95mm; height: 95mm;
+        bottom: -32mm; left: -35mm;
+      }
+      .print-cover .pc-deco i {
+        position: absolute;
+        display: block;
+      }
+      .print-cover .pc-deco .cir {
+        width: 55mm; height: 55mm;
+        border: 1mm solid rgba(16,185,129,0.30);
+        border-radius: 50%;
+        left: 12%; bottom: 20%;
+      }
+      .print-cover .pc-deco .sq {
+        width: 40mm; height: 40mm;
+        border: 1.2mm solid rgba(217,119,6,0.30);
+        border-radius: 6mm;
+        right: 10%; top: 30%;
+        transform: rotate(14deg);
+      }
+      .print-cover .pc-deco .dot {
+        width: 7mm; height: 7mm;
+        background: rgba(16,185,129,0.30);
+        border-radius: 50%;
+        left: 26%; top: 20%;
+      }
 
       .pc-top, .pc-hero, .pc-products, .pc-stats, .pc-foot {
         position: relative;
@@ -375,18 +414,19 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 18mm 0 0;
+        padding: 16mm 0 0;
       }
       .pc-eyebrow {
-        font-size: 16pt;
-        letter-spacing: 3px;
+        font-size: 13pt;
+        letter-spacing: 4px;
         text-transform: uppercase;
         color: #4060a0;
-        font-weight: 900;
-        margin-bottom: 8mm;
-        background: #fff;
-        padding: 3.5mm 9mm;
-        border-radius: 4mm;
+        font-weight: 700;
+        margin-bottom: 6mm;
+        background: rgba(255,255,255,0.6);
+        border: 0.4mm solid rgba(6, 78, 59, 0.15);
+        padding: 2.5mm 8mm;
+        border-radius: 5mm;
         display: inline-block;
       }
       .pc-logo-wrap {
@@ -394,116 +434,123 @@
         align-items: center;
         justify-content: center;
         background: #fff;
-        border-radius: 4mm;
-        padding: 6mm 9mm;
+        border-radius: 5mm;
+        padding: 5mm 8mm;
+        box-shadow: 0 1.5mm 5mm rgba(0,0,0,0.10);
       }
-      .pc-logo { display: block; height: 24mm; width: auto; }
+      .pc-logo { display: block; height: 22mm; width: auto; }
       .pc-hero {
         margin: 4mm 0 2mm;
       }
       .pc-hero-box {
         display: inline-block;
-        background: #fff;
-        padding: 7mm 16mm 6mm;
+        background: rgba(255,255,255,0.55);
+        border: 0.4mm solid rgba(6, 78, 59, 0.12);
+        padding: 6mm 15mm 5mm;
         border-radius: 4mm;
       }
       .pc-hero h1 {
-        font-size: 40pt;
+        font-size: 38pt;
         font-weight: 800;
-        line-height: 1.08;
+        line-height: 1.06;
         letter-spacing: -1px;
         color: #4060a0;
       }
       .pc-hero h1 span {
-        background: linear-gradient(90deg, #34d399, #fbbf24);
+        background: linear-gradient(90deg, #40c040, #e08020);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
       }
       .print-cover .pc-tagline {
         margin-top: 4mm;
-        font-size: 13pt;
-        color: #4060a0;
-        letter-spacing: 0.5px;
+        font-size: 10.5pt;
+        color: #047857;
+        letter-spacing: 0.8px;
         text-transform: none;
-        font-weight: 800;
+        font-weight: 700;
       }
       .pc-rule {
         width: 34mm; height: 1.4mm;
-        background: linear-gradient(90deg, #34d399, #fbbf24);
-        margin: 7mm auto 0;
+        background: linear-gradient(90deg, #10b981, #f59e0b);
+        margin: 6mm auto 0;
         border-radius: 1mm;
       }
       .pc-products {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
-        align-content: center;
-        gap: 4mm;
-        margin: 6mm 0 4mm;
+        align-items: center;
+        margin: 4mm 0 4mm;
         width: 100%;
-        padding: 0 8mm;
+        padding: 0 14mm;
       }
       .pc-prod {
-        flex: 0 0 calc((100% - 24mm) / 7);
-        height: 28mm;
+        flex: 1 1 auto;
+        max-width: 100%;
         background: #fff;
-        border-radius: 2.5mm;
-        padding: 2mm;
+        border-radius: 3mm;
+        padding: 3mm;
         display: flex;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 1.5mm 4mm rgba(0,0,0,0.10);
       }
       .pc-prod img {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
+        width: 100%;
         height: auto;
         object-fit: contain;
       }
       .pc-stats {
         display: flex;
         gap: 4mm;
-        margin: 2mm 0 6mm;
+        margin: 2mm 0 4mm;
       }
       .pc-stat {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1.2mm;
+        gap: 1.1mm;
         min-width: 34mm;
-        padding: 4.5mm 3mm;
-        border: 0.4mm solid rgba(255,255,255,0.28);
+        padding: 4mm 3mm;
+        border: 0.4mm solid rgba(6, 78, 59, 0.18);
         border-radius: 3mm;
-        background: rgba(255,255,255,0.07);
+        background: rgba(255,255,255,0.55);
       }
       .pc-stat strong {
-        font-size: 24pt;
+        font-size: 23pt;
         font-weight: 800;
-        color: #fbbf24;
+        color: #d97706;
         line-height: 1;
       }
       .pc-stat span {
-        font-size: 8.5pt;
+        font-size: 8pt;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        color: #c8e6d8;
+        color: #065f46;
       }
       .pc-foot {
         display: flex;
         justify-content: center;
         gap: 10mm;
-        padding: 10mm 0 14mm;
-        font-size: 9.5pt;
+        padding: 4mm 0 12mm;
+        font-size: 9pt;
       }
       .pc-f-item {
         display: flex;
         align-items: center;
         gap: 2.2mm;
-        color: #d1fae5;
+        color: #065f46;
         letter-spacing: 0.3px;
       }
       .pc-f-item span { font-size: 11pt; }
+      .pc-vat {
+        position: relative;
+        z-index: 1;
+        font-size: 8pt;
+        color: #065f46;
+        letter-spacing: 0.4px;
+        padding-bottom: 2mm;
+      }
       .group-head {
         margin-bottom: 3mm;
         padding-bottom: 1.5mm;
@@ -577,6 +624,7 @@
     </header>
     <p class="price-note">* Đơn giá chưa bao gồm VAT</p>
     <header class="print-cover">
+      <div class="pc-deco"><i class="cir"></i><i class="sq"></i><i class="dot"></i></div>
       <div class="pc-top">
         <div class="pc-eyebrow">Công ty TNHH TM DV Khải Thịnh</div>
         <div class="pc-logo-wrap"><img src="assets/logo.png" alt="Khải Thịnh" class="pc-logo"></div>
@@ -589,19 +637,7 @@
         </div>
       </div>
       <div class="pc-products">
-<div class="pc-prod"><img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-taylor-prunes-naturally-sweet-250g.webp" alt="Mận Khô"></div>
-<div class="pc-prod"><img src="assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-hieu-taylor-taylor-prune-juice-946ml.webp" alt="Nước Ép Mận"></div>
-<div class="pc-prod"><img src="assets/catalog/snow-farms-trai-cay-kho-cao-cap-2/trai-viet-quat-kho-tu-nhien-hieu-snow-farms-120g.webp" alt="Trái Việt Quất khô tự nhiên"></div>
-<div class="pc-prod"><img src="assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-digestives-400g.webp" alt="Bánh Quy"></div>
-<div class="pc-prod"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-nam-viet-quat-hieu-coolberg-cranberry-330ml.webp" alt="Nước Vị Nam Việt Quất"></div>
-<div class="pc-prod"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-gung-hieu-royalty-ginger-330ml.webp" alt="Nước Gừng"></div>
-<div class="pc-prod"><img src="assets/catalog/cleary-s-siro-la-phong-6/siro-la-phong-nguyen-chat-hieu-cleary-s-pure-maple-syrup-236ml.webp" alt="SIRO Lá Phong Nguyên Chất"></div>
-<div class="pc-prod"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-vani-hieu-pik-cake-mix-velvet-vanilla-250g.webp" alt="Bột Làm Bánh Vani"></div>
-<div class="pc-prod"><img src="assets/catalog/pik-bot-lam-banh-7/bot-no-hieu-pik-baking-powder-100g.webp" alt="Bột Nở"></div>
-<div class="pc-prod"><img src="assets/catalog/briovinegars-dam-tao-huu-co-8/giam-tao-huu-co-hieu-briovinegars-organic-apple-cider-vinegar-473ml.webp" alt="Giấm Táo Hữu Cơ"></div>
-<div class="pc-prod"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-chien-sot-tuong-cay-hieu-nison-nison-fried-sardines-in-spicy-soy-sauce-125g.webp" alt="Cá Trích Chiên Sốt Tương Cay"></div>
-<div class="pc-prod"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-ga-huu-co-hieu-just-organik-organic-chickpea-500g.webp" alt="Đậu Gà Hữu Cơ"></div>
-<div class="pc-prod"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp" alt="Handwash Mountain Herbs"></div>
+<div class="pc-prod"><img src="assets/kenh-phan-phoi.png" alt="Kênh phân phối"></div>
       </div>
       <div class="pc-stats">
         <div class="pc-stat"><strong>73</strong><span>Sản phẩm</span></div>
@@ -613,6 +649,7 @@
         <div class="pc-f-item"><span>📞</span><b>0903 674 959</b></div>
         <div class="pc-f-item"><span>✉️</span><b>khoi.nlb@khaithinh.com.vn</b></div>
       </div>
+      <div class="pc-vat">* Đơn giá chưa bao gồm VAT</div>
     </header>
 
     <!-- group page: 1 -->
@@ -690,7 +727,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- packed page: [2, 3] -->
@@ -767,7 +804,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- packed page: [4] -->
@@ -821,7 +858,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- group page: 5 -->
@@ -983,7 +1020,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- packed page: [6, 7] -->
@@ -1036,7 +1073,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- group page: 8 -->
@@ -1186,7 +1223,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- group page: 9 -->
@@ -1264,7 +1301,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- group page: 10 -->
@@ -1390,7 +1427,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- group page: 11 -->
@@ -1528,7 +1565,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- group page: 12 -->
@@ -1606,7 +1643,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- packed page: [13] -->
@@ -1648,7 +1685,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
     <!-- group page: 14 -->
@@ -1726,7 +1763,7 @@
     </section>
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
-        <span>© 2008–2026 · 0903 674 959</span>
+        <span>© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; * Đơn giá chưa bao gồm VAT</span>
       </div>
     </div>
 

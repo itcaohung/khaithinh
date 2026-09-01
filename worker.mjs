@@ -20,6 +20,41 @@ function unauthorized(origin) {
   return json({ ok: false, error: "Sai mật khẩu quản trị" }, 401, origin);
 }
 
+const MAX_VERSIONS = 40;
+
+async function readState(env) {
+  return {
+    overrides: (await env.PRICES.get("overrides", "json")) || {},
+    hidden: (await env.PRICES.get("hidden", "json")) || [],
+    names: (await env.PRICES.get("names", "json")) || {},
+  };
+}
+
+async function writeState(env, state) {
+  await Promise.all([
+    env.PRICES.put("overrides", JSON.stringify(state.overrides || {})),
+    env.PRICES.put("hidden", JSON.stringify(state.hidden || [])),
+    env.PRICES.put("names", JSON.stringify(state.names || {})),
+  ]);
+}
+
+async function readVersions(env) {
+  return (await env.PRICES.get("versions", "json")) || [];
+}
+
+async function pushVersion(env, snapshot, desc) {
+  const versions = await readVersions(env);
+  versions.unshift({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    at: new Date().toISOString(),
+    desc: desc || "",
+    snapshot,
+  });
+  const trimmed = versions.slice(0, MAX_VERSIONS);
+  await env.PRICES.put("versions", JSON.stringify(trimmed));
+  return trimmed;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -41,96 +76,67 @@ export default {
 
     if (path === "/api/prices" && request.method === "GET") {
       try {
-        const raw = await env.PRICES.get("overrides", "json");
-        const hidden = await env.PRICES.get("hidden", "json");
-        const names = await env.PRICES.get("names", "json");
-        return json({ ok: true, overrides: raw || {}, hidden: hidden || [], names: names || {} }, 200, origin);
+        const state = await readState(env);
+        const versions = await readVersions(env);
+        return json({ ok: true, ...state, versions }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }
     }
 
-    if (path === "/api/prices" && request.method === "PUT") {
+    // ---------- Publish full staged state (with changelog snapshot) ----------
+    if (path === "/api/publish" && request.method === "PUT") {
       if (request.headers.get("x-admin-password") !== env.ADMIN_PASSWORD) {
         return unauthorized(origin);
       }
       try {
         const body = await request.json();
-        const src = body.src;
-        const price = body.price;
-
-        if (!src || price == null || isNaN(price) || Number(price) < 0) {
-          return json({ ok: false, error: "Dữ liệu không hợp lệ" }, 400, origin);
-        }
-
-        const overrides = (await env.PRICES.get("overrides", "json")) || {};
-        if (Number(price) === 0) {
-          delete overrides[src];
-        } else {
-          overrides[src] = Number(price);
-        }
-        await env.PRICES.put("overrides", JSON.stringify(overrides));
-        return json({ ok: true, overrides });
+        const next = {
+          overrides: body.overrides || {},
+          hidden: body.hidden || [],
+          names: body.names || {},
+        };
+        const prev = await readState(env);
+        await pushVersion(env, prev, body.desc);
+        await writeState(env, next);
+        const versions = await readVersions(env);
+        return json({ ok: true, overrides: next.overrides, hidden: next.hidden, names: next.names, versions }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }
     }
 
-    // ---------- Hide/show products (KV-backed) ----------
-    if (path === "/api/hidden" && request.method === "GET") {
+    // ---------- History ----------
+    if (path === "/api/history" && request.method === "GET") {
+      if (request.headers.get("x-admin-password") !== env.ADMIN_PASSWORD) {
+        return unauthorized(origin);
+      }
       try {
-        const hidden = await env.PRICES.get("hidden", "json");
-        return json({ ok: true, hidden: hidden || [] }, 200, origin);
+        const versions = await readVersions(env);
+        return json({ ok: true, versions }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }
     }
 
-    if (path === "/api/hidden" && request.method === "PUT") {
+    // ---------- Restore a version ----------
+    if (path === "/api/restore" && request.method === "POST") {
       if (request.headers.get("x-admin-password") !== env.ADMIN_PASSWORD) {
         return unauthorized(origin);
       }
       try {
         const body = await request.json();
-        const src = body.src;
-        const hideOp = !!body.hidden;
-        if (!src) {
-          return json({ ok: false, error: "Dữ liệu không hợp lệ" }, 400, origin);
+        const versions = await readVersions(env);
+        const ver = versions.find((v) => v.id === body.id);
+        if (!ver) {
+          return json({ ok: false, error: "Không tìm thấy phiên bản" }, 404, origin);
         }
-        let hidden = (await env.PRICES.get("hidden", "json")) || [];
-        if (hideOp) {
-          if (!hidden.includes(src)) hidden.push(src);
-        } else {
-          hidden = hidden.filter((s) => s !== src);
-        }
-        await env.PRICES.put("hidden", JSON.stringify(hidden));
-        return json({ ok: true, hidden });
-      } catch (e) {
-        return json({ ok: false, error: String(e) }, 500, origin);
-      }
-    }
-
-    // ---------- Product name overrides (KV-backed) ----------
-    if (path === "/api/names" && request.method === "PUT") {
-      if (request.headers.get("x-admin-password") !== env.ADMIN_PASSWORD) {
-        return unauthorized(origin);
-      }
-      try {
-        const body = await request.json();
-        const src = body.src;
-        const vi = body.vi ? String(body.vi).trim() : "";
-        const en = body.en ? String(body.en).trim() : "";
-        if (!src) {
-          return json({ ok: false, error: "Dữ liệu không hợp lệ" }, 400, origin);
-        }
-        const names = (await env.PRICES.get("names", "json")) || {};
-        if (!vi && !en) {
-          delete names[src]; // reset name back to baked-in default
-        } else {
-          names[src] = { vi, en };
-        }
-        await env.PRICES.put("names", JSON.stringify(names));
-        return json({ ok: true, names });
+        const prev = await readState(env);
+        await pushVersion(env, prev, "Khôi phục: " + (ver.desc || "bản " + ver.id));
+        await writeState(env, ver.snapshot);
+        const nextVersions = await readVersions(env);
+        const state = await readState(env);
+        return json({ ok: true, ...state, versions: nextVersions }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }

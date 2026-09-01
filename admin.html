@@ -49,6 +49,12 @@
   .save-btn { background: #10b981; color: #fff; border: none; padding: 9px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; font-size: 13px; }
   .save-btn:hover { background: #0da06f; }
   .save-btn:disabled { background: #b8c4bd; cursor: not-allowed; }
+  .save-btn.staged { box-shadow: inset 0 0 0 2px #e08020; background: #10b981; }
+  .save-btn.pending { box-shadow: inset 0 0 0 2px #e08020; background: #10b981; }
+  .save-btn.pending:hover { background: #0da06f; }
+  .hide-btn.staged { box-shadow: inset 0 0 0 2px #e08020; }
+  .topbar .save-all.has-pending { animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(224,128,32,.5); } 50% { box-shadow: 0 0 0 8px rgba(224,128,32,0); } }
   .save-all { background: #0b3327; }
   .hide-btn { background: #e74c3c; color: #fff; border: none; padding: 9px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; font-size: 13px; }
   .hide-btn:hover { background: #c0392b; }
@@ -66,6 +72,33 @@
   .login-box button { width: 100%; padding: 11px; background: #0b3327; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 15px; }
   .login-box .err { color: #c0392b; font-size: 13px; margin-top: 8px; min-height: 18px; }
   .count { font-size: 12px; color: #7a8a82; }
+  .topbar-actions { display: flex; align-items: center; gap: 10px; }
+  .topbar .save-all { background: #e08020; color: #fff; border: none; padding: 9px 18px; border-radius: 7px; font-weight: 800; cursor: pointer; font-size: 13px; white-space: nowrap; }
+  .topbar .save-all:hover { background: #c96f17; }
+  .topbar .save-all:disabled { background: #5a6a62; cursor: not-allowed; }
+  .topbar .hist-btn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); padding: 9px 14px; border-radius: 7px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+  .topbar .hist-btn:hover { background: rgba(255,255,255,.12); }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(11,26,21,.55); display: none; align-items: center; justify-content: center; z-index: 30; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; border-radius: 14px; width: 520px; max-width: 94vw; max-height: 84vh; overflow: auto; padding: 24px; box-shadow: 0 14px 40px rgba(0,0,0,.25); }
+  .modal h3 { font-size: 16px; color: #0b3327; margin-bottom: 12px; }
+  .modal textarea { width: 100%; padding: 11px 14px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; min-height: 74px; resize: vertical; box-sizing: border-box; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+  .modal-actions button { padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 13.5px; cursor: pointer; border: none; }
+  .modal-actions .ok { background: #e08020; color: #fff; }
+  .modal-actions .ok:hover { background: #c96f17; }
+  .modal-actions .cancel { background: #eef1ef; color: #33443c; }
+  .modal-actions .cancel:hover { background: #dfe6e2; }
+  .hist-item { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid #eef2ef; }
+  .hist-item .h-time { font-size: 12px; color: #7a8a82; min-width: 148px; }
+  .hist-item .h-desc { flex: 1; font-size: 13.5px; color: #13251e; }
+  .hist-item .h-chips { white-space: nowrap; }
+  .chip { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 700; color: #7a8a82; }
+  .hist-restore { background: #10b981; color: #fff; border: none; padding: 7px 12px; border-radius: 7px; font-weight: 700; font-size: 12.5px; cursor: pointer; white-space: nowrap; }
+  .hist-restore:hover { background: #0da06f; }
+  .hist-empty { color: #7a8a82; font-size: 13px; padding: 12px 0; }
+  .pending-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: transparent; margin-right: 6px; }
+  .pending-dot.on { background: #e08020; }
 </style>
 </head>
 <body>
@@ -88,18 +121,41 @@
         <div class="sub">Công ty TNHH TM DV Khải Thịnh · Catalogue 2026</div>
       </div>
     </div>
-    <button class="logout" id="logoutBtn">Thoát</button>
+    <div class="topbar-actions">
+      <button class="hist-btn" id="histBtn">Lịch sử</button>
+      <button class="save-all" id="saveAllBtn">Lưu tất cả thay đổi</button>
+      <button class="logout" id="logoutBtn">Thoát</button>
+    </div>
   </div>
 
   <div class="toolbar">
     <input type="search" id="search" placeholder="Tìm sản phẩm...">
-    <span class="status">Đang tải…</span>
+    <span class="status" id="status">Đang tải…</span>
   </div>
 
   <div class="wrap" id="groups">
   </div>
-  <div class="wrap" style="text-align:right;">
-    <button class="save-btn save-all" id="saveAllBtn">Lưu tất cả thay đổi</button>
+</div>
+
+<div class="modal-overlay" id="descModal">
+  <div class="modal">
+    <h3>Lưu tất cả thay đổi</h3>
+    <div class="count" id="descSummary"></div>
+    <textarea id="descInput" placeholder="Nhập mô tả thay đổi (bắt buộc)…"></textarea>
+    <div class="modal-actions">
+      <button class="cancel" id="descCancel">Hủy</button>
+      <button class="ok" id="descOk">Lưu thay đổi</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="histModal">
+  <div class="modal">
+    <h3>Lịch sử thay đổi</h3>
+    <div id="histList"></div>
+    <div class="modal-actions">
+      <button class="cancel" id="histClose">Đóng</button>
+    </div>
   </div>
 </div>
 
@@ -109,11 +165,14 @@
 (function(){
   "use strict";
   var PWD_KEY = "kt-admin-pwd";
-  var overrides = {};       // src -> price
-  var names = {};           // src -> {vi, en}
-  var hidden = [];          // srcs of hidden products
+  var overrides = {};       // src -> price (saved)
+  var names = {};           // src -> {vi, en} (saved)
+  var hidden = [];          // srcs of hidden products (saved)
   var products = [];         // from products.json
-  var dirty = {};            // src -> price (unsaved edits)
+  var dirty = {};            // src -> price (staged edits)
+  var dirtyHidden = {};      // src -> bool (staged hide state, only entries staged)
+  var dirtyNames = {};       // src -> {vi,en} (staged name edits)
+  var versions = [];         // [{id, at, desc, snapshot}]
   var sortKey = "src";
 
   function $(id){ return document.getElementById(id); }
@@ -143,8 +202,8 @@
       var g = gmap[gn];
       var shown = g.items.filter(function(p){
         if (!q) return true;
-        var nv = (names[p.src] && names[p.src].vi) || p.vi;
-        var ne = (names[p.src] && names[p.src].en) || p.en;
+        var nv = stagedName(p.src).vi;
+        var ne = stagedName(p.src).en;
         return nv.toLowerCase().indexOf(q) >= 0 || ne.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
       });
       if (!shown.length) return;
@@ -160,11 +219,13 @@
         '<thead><tr><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Giá mặc định</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
       var tb = document.createElement("tbody");
       shown.forEach(function(p){
-        var cur = hashOwn(dirty, p.src) ? dirty[p.src] : (hashOwn(overrides, p.src) ? overrides[p.src] : p.price);
-        var hid = hidden.indexOf(p.src) >= 0;
-        var nv = (names[p.src] && names[p.src].vi) || p.vi;
-        var ne = (names[p.src] && names[p.src].en) || p.en;
-        var renamed = !!(names[p.src]);
+        var cur = stagedPrice(p.src);
+        var hid = stagedHidden(p.src);
+        var nv = stagedName(p.src).vi;
+        var ne = stagedName(p.src).en;
+        var renamed = !!stagedName(p.src).renamed;
+        var priceStaged = hashOwn(dirty, p.src);
+        var hideStaged = hashOwn(dirtyHidden, p.src);
         var tr = document.createElement("tr");
         tr.className = hid ? "row-hidden" : "";
         tr.innerHTML =
@@ -172,10 +233,10 @@
           '<td><div class="prod-name">' + escHtml(nv) + '</div><div class="prod-en">' + escHtml(ne) + '</div>' +
           '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + (hid ? ' · <span class="hid-badge">Đã ẩn</span>' : '') + (renamed ? ' · <span class="hid-badge" style="background:#eaf2f7;color:#2a6f97">Đã đổi tên</span>' : '') + '</div>' +
           '<button class="rename-btn" data-rename="' + escAttr(p.src) + '" title="Đổi tên">✎</button></td>' +
-          '<td><input class="price-input' + (hashOwn(dirty, p.src) ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
+          '<td><input class="price-input' + (priceStaged ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
           '<td><span class="price-def">' + money(p.price) + '</span></td>' +
-          '<td><button class="save-btn" data-save="' + escAttr(p.src) + '">Lưu</button></td>' +
-          '<td><button class="hide-btn' + (hid ? ' hidden' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>';
+          '<td><button class="save-btn' + (priceStaged ? ' staged' : '') + '" data-save="' + escAttr(p.src) + '">' + (priceStaged ? 'Đã sửa' : 'Lưu') + '</button></td>' +
+          '<td><button class="hide-btn' + (hid ? ' hidden' : '') + (hideStaged ? ' staged' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>';
         tb.appendChild(tr);
       });
       tbl.appendChild(tb);
@@ -188,12 +249,33 @@
     var total = Object.keys(gmap).reduce(function(s, gn){ return s + (gmap[gn].items.filter(function(p){
       var q2 = q;
       if (!q2) return true;
-      var nv = (names[p.src] && names[p.src].vi) || p.vi;
-      var ne = (names[p.src] && names[p.src].en) || p.en;
+      var nv = stagedName(p.src).vi;
+      var ne = stagedName(p.src).en;
       return nv.toLowerCase().indexOf(q2) >= 0 || ne.toLowerCase().indexOf(q2) >= 0 || p.brand.toLowerCase().indexOf(q2) >= 0;
     }).length); }, 0);
-    var status = document.querySelector(".status");
+    var status = $("status");
     if (status) status.textContent = total + " sản phẩm";
+  }
+
+  // ---- staged-state helpers ----
+  function stagedPrice(src){
+    if (hashOwn(dirty, src)) return dirty[src];
+    if (hashOwn(overrides, src)) return overrides[src];
+    var p = findProd(src);
+    return p ? p.price : 0;
+  }
+
+  function stagedHidden(src){
+    if (hashOwn(dirtyHidden, src)) return !!dirtyHidden[src];
+    return hidden.indexOf(src) >= 0;
+  }
+
+  function stagedName(src){
+    var p = findProd(src) || { vi: "", en: "" };
+    var base = { vi: p.vi, en: p.en, renamed: false };
+    if (hashOwn(dirtyNames, src)) return { vi: dirtyNames[src].vi || p.vi, en: dirtyNames[src].en || p.en, renamed: true };
+    if (hashOwn(names, src)) return { vi: names[src].vi || p.vi, en: names[src].en || p.en, renamed: true };
+    return base;
   }
 
   function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
@@ -205,25 +287,35 @@
 
     $("groups").addEventListener("input", function(e){
       if (e.target.classList.contains("price-input")){
-        var src = e.target.getAttribute("data-src");
-        dirty[src] = Number(e.target.value);
+        // Chỉ đánh dấu pending — KHÔNG stage, không render, không toast.
+        var btn = e.target.closest("tr").querySelector("[data-save]");
+        if (btn){
+          btn.textContent = "Lưu";
+          btn.classList.add("pending");
+        }
         e.target.classList.add("changed");
-        updateSaveAllState();
       }
     });
 
     $("groups").addEventListener("click", function(e){
       var btn = e.target.closest("[data-save]");
       if (btn){
-        var dataSrc = btn.getAttribute("data-save");
-        var src = dataSrc;
-        var val = Number(btn.closest("tr").querySelector('input[data-src="'+dataSrc+'"]').value);
-        saveOne(src, val, btn);
+        // Chỉ khi bấm "Lưu" thì sửa mới được tính là xong ở sản phẩm này.
+        var src = btn.getAttribute("data-save");
+        dirty[src] = Number(btn.closest("tr").querySelector('input[data-src="'+src+'"]').value);
+        render();
+        updateSaveAllState();
+        showMsg("Đã lưu tạm sản phẩm. Nhấn “Lưu tất cả thay đổi” ở trên để áp dụng.");
         return;
       }
       var hbtn = e.target.closest("[data-hide]");
       if (hbtn){
-        toggleHidden(hbtn.getAttribute("data-hide"), hbtn);
+        var hsrc = hbtn.getAttribute("data-hide");
+        var next = !stagedHidden(hsrc);
+        dirtyHidden[hsrc] = next;
+        render();
+        updateSaveAllState();
+        showMsg((next ? "Sẽ ẩn" : "Sẽ hiện") + " sản phẩm sau khi lưu tất cả.");
         return;
       }
       var rbtn = e.target.closest("[data-rename]");
@@ -233,7 +325,7 @@
       }
       var sbtn = e.target.closest("[data-rename-save]");
       if (sbtn){
-        saveName(sbtn.closest("[data-rename-form]").getAttribute("data-rename-form"));
+        stageNameSave(sbtn.closest("[data-rename-form]").getAttribute("data-rename-form"));
         return;
       }
       var cbtn = e.target.closest("[data-rename-cancel]");
@@ -243,17 +335,28 @@
       }
       var rbtn2 = e.target.closest("[data-rename-reset]");
       if (rbtn2){
-        resetName(rbtn2.closest("[data-rename-form]").getAttribute("data-rename-form"));
+        stageNameReset(rbtn2.closest("[data-rename-form]").getAttribute("data-rename-form"));
       }
     });
 
-    $("saveAllBtn").addEventListener("click", saveAll);
+    $("saveAllBtn").addEventListener("click", openPublishModal);
+    $("histBtn").addEventListener("click", openHistory);
     $("logoutBtn").addEventListener("click", function(){ localStorage.removeItem(PWD_KEY); location.reload(); });
+
+    $("descCancel").addEventListener("click", closePublishModal);
+    $("descOk").addEventListener("click", publishAll);
+    $("histClose").addEventListener("click", function(){ $("histModal").classList.remove("open"); });
+    $("histList").addEventListener("click", function(e){
+      var rb = e.target.closest("[data-restore]");
+      if (rb) restoreVersion(rb.getAttribute("data-restore"));
+    });
   }
 
   function updateSaveAllState(){
-    var n = Object.keys(dirty).length;
-    $("saveAllBtn").textContent = n ? "Lưu tất cả thay đổi (" + n + ")" : "Lưu tất cả thay đổi";
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length;
+    var btn = $("saveAllBtn");
+    btn.textContent = n ? "Lưu tất cả thay đổi (" + n + ")" : "Lưu tất cả thay đổi";
+    btn.classList.toggle("has-pending", n > 0);
   }
 
   function authHeaders(){
@@ -261,44 +364,6 @@
     var pwd = localStorage.getItem(PWD_KEY) || "";
     if (pwd) h["x-admin-password"] = pwd;
     return h;
-  }
-
-  function saveOne(src, val, btn){
-    btn.disabled = true;
-    fetch("/api/prices", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, price: val }) })
-      .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
-      .then(function(t){
-        if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
-        overrides = t.d.overrides || {};
-        delete dirty[src];
-        render();
-        showMsg("Đã lưu");
-      })
-      .catch(function(err){
-        showMsg("Lỗi: " + err.message);
-        if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
-      })
-      .finally(function(){ runInline(btn, function(){ btn.disabled = false; }); });
-  }
-
-  function isHidden(src){ return hidden.indexOf(src) >= 0; }
-
-  function toggleHidden(src, btn){
-    var next = !isHidden(src);
-    btn.disabled = true;
-    fetch("/api/hidden", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, hidden: next }) })
-      .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
-      .then(function(t){
-        if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
-        hidden = t.d.hidden || [];
-        render();
-        showMsg(next ? "Đã ẩn sản phẩm" : "Đã hiện sản phẩm");
-      })
-      .catch(function(err){
-        showMsg("Lỗi: " + err.message);
-        if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
-      })
-      .finally(function(){ runInline(btn, function(){ btn.disabled = false; }); });
   }
 
   function findProd(src){
@@ -310,7 +375,7 @@
     var src = btn.getAttribute("data-rename");
     var p = findProd(src);
     if (!p) return;
-    var cur = names[src] || p;
+    var cur = stagedName(src);
     var cell = btn.closest("td");
     var form = document.createElement("div");
     form.className = "rename-form";
@@ -327,62 +392,152 @@
     btn.style.display = "none";
   }
 
-  function saveName(src){
+  function stageNameSave(src){
     var form = document.querySelector('[data-rename-form="' + src + '"]');
     if (!form) return;
     var vi = form.querySelector(".rename-vi").value.trim();
     var en = form.querySelector(".rename-en").value.trim();
     if (!vi && !en){ render(); return; }
-    var btns = form.querySelectorAll("button");
-    btns.forEach(function(b){ b.disabled = true; });
-    fetch("/api/names", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, vi: vi, en: en }) })
+    dirtyNames[src] = { vi: vi, en: en };
+    render();
+    updateSaveAllState();
+    showMsg("Đã lưu tạm tên sản phẩm. Nhấn “Lưu tất cả thay đổi” để áp dụng.");
+  }
+
+  function stageNameReset(src){
+    var p = findProd(src);
+    if (!p) return;
+    dirtyNames[src] = { vi: p.vi, en: p.en };
+    render();
+    updateSaveAllState();
+    showMsg("Đã khôi phục tên mặc định (sẽ áp dụng khi lưu tất cả).");
+  }
+
+  // ---- Publish all staged changes ----
+  function openPublishModal(){
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length;
+    if (!n){ showMsg("Không có thay đổi nào để lưu."); return; }
+    $("descSummary").textContent = n + " thay đổi đang chờ được lưu.";
+    $("descInput").value = "";
+    $("descModal").classList.add("open");
+    setTimeout(function(){ $("descInput").focus(); }, 50);
+  }
+
+  function closePublishModal(){ $("descModal").classList.remove("open"); }
+
+  function publishAll(){
+    var desc = $("descInput").value.trim();
+    if (!desc){ $("descInput").style.borderColor = "#e74c3c"; return; }
+    $("descInput").style.borderColor = "";
+    var next = computeMergedState();
+    $("descOk").disabled = true;
+    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names }) })
       .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
       .then(function(t){
         if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
+        overrides = t.d.overrides || {};
+        hidden = t.d.hidden || [];
         names = t.d.names || {};
+        versions = t.d.versions || [];
+        dirty = {}; dirtyHidden = {}; dirtyNames = {};
+        closePublishModal();
         render();
-        showMsg("Đã đổi tên sản phẩm");
+        updateSaveAllState();
+        showMsg("Đã lưu tất cả thay đổi.");
       })
       .catch(function(err){
         showMsg("Lỗi: " + err.message);
         if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
       })
-      .finally(function(){ btns.forEach(function(b){ b.disabled = false; }); });
+      .finally(function(){ runInline(null, function(){ $("descOk").disabled = false; }); });
   }
 
-  function resetName(src){
-    var form = document.querySelector('[data-rename-form="' + src + '"]');
-    if (!form) return;
-    var btns = form.querySelectorAll("button");
-    btns.forEach(function(b){ b.disabled = true; });
-    fetch("/api/names", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, vi: "", en: "" }) })
+  function computeMergedState(){
+    // prices: staged dirty overrides saved
+    var ov = Object.keys(overrides).reduce(function(o, src){ o[src] = overrides[src]; return o; }, {});
+    Object.keys(dirty).forEach(function(src){
+      if (dirty[src] > 0) ov[src] = dirty[src];
+      else delete ov[src];
+    });
+    // hidden
+    var hidSet = hidden.slice();
+    Object.keys(dirtyHidden).forEach(function(src){
+      var idx = hidSet.indexOf(src);
+      if (dirtyHidden[src]){ if (idx < 0) hidSet.push(src); }
+      else if (idx >= 0) hidSet.splice(idx, 1);
+    });
+    // names: staged dirtyNames overrides saved
+    var nm = Object.keys(names).reduce(function(o, src){ o[src] = { vi: names[src].vi, en: names[src].en }; return o; }, {});
+    Object.keys(dirtyNames).forEach(function(src){
+      var p = findProd(src);
+      if (!dirtyNames[src].vi && !dirtyNames[src].en && !(p && p.vi === dirtyNames[src].vi)) {
+        delete nm[src];
+      } else if (dirtyNames[src].vi || dirtyNames[src].en) {
+        nm[src] = { vi: dirtyNames[src].vi, en: dirtyNames[src].en };
+      }
+    });
+    return { overrides: ov, hidden: hidSet, names: nm };
+  }
+
+  // ---- History ----
+  function openHistory(){
+    fetch("/api/history", { headers: authHeaders() })
       .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
       .then(function(t){
         if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
-        names = t.d.names || {};
-        render();
-        showMsg("Đã khôi phục tên mặc định");
+        versions = t.d.versions || [];
+        renderHistory();
+        $("histModal").classList.add("open");
       })
       .catch(function(err){
         showMsg("Lỗi: " + err.message);
         if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
-      })
-      .finally(function(){ btns.forEach(function(b){ b.disabled = false; }); });
+      });
   }
 
-  function saveAll(){
-    if (!Object.keys(dirty).length) return;
-    $("saveAllBtn").disabled = true;
-    var tasks = Object.keys(dirty).map(function(src){ return new Promise(function(res, rej){
-      fetch("/api/prices", { method:"PUT", headers: authHeaders(), body: JSON.stringify({ src: src, price: dirty[src] }) })
-        .then(function(r){ return r.json().then(function(d){ if(!r.ok) rej(new Error(d.error)); return d; }); })
-        .then(function(d){ overrides = d.overrides || {}; res(); })
-        .catch(rej);
-    }); });
-    Promise.all(tasks)
-      .then(function(){ dirty = {}; render(); updateSaveAllState(); showMsg("Đã lưu tất cả"); })
-      .catch(function(err){ showMsg("Lỗi: " + err.message); })
-      .finally(function(){ $("saveAllBtn").disabled = false; });
+  function renderHistory(){
+    var box = $("histList");
+    box.innerHTML = "";
+    if (!versions.length){
+      box.innerHTML = '<div class="hist-empty">Chưa có lịch sử thay đổi.</div>';
+      return;
+    }
+    versions.forEach(function(v){
+      var item = document.createElement("div");
+      item.className = "hist-item";
+      var t = new Date(v.at).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+      item.innerHTML =
+        '<div class="h-time">' + escHtml(t) + '</div>' +
+        '<div class="h-desc">' + escHtml(v.desc || "") + '</div>' +
+        '<button class="hist-restore" data-restore="' + escAttr(v.id) + '">Khôi phục</button>';
+      box.appendChild(item);
+    });
+  }
+
+  function restoreVersion(id){
+    var v = null;
+    for (var i=0;i<versions.length;i++){ if (versions[i].id === id){ v = versions[i]; break; } }
+    if (!v) return;
+    var t = new Date(v.at).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    if (!confirm("Khôi phục trạng thái từ phiên bản lúc " + t + "?\n\nHiện tại: " + (v.desc || "(không mô tả)") + "\n\nCác thay đổi chưa lưu sẽ bị mất.")) return;
+    fetch("/api/restore", { method: "POST", headers: authHeaders(), body: JSON.stringify({ id: id }) })
+      .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
+      .then(function(t2){
+        if (!t2.r.ok){ throw new Error(t2.d.error || "Lỗi"); }
+        overrides = t2.d.overrides || {};
+        hidden = t2.d.hidden || [];
+        names = t2.d.names || {};
+        versions = t2.d.versions || [];
+        dirty = {}; dirtyHidden = {}; dirtyNames = {};
+        $("histModal").classList.remove("open");
+        render();
+        updateSaveAllState();
+        showMsg("Đã khôi phục phiên bản cũ.");
+      })
+      .catch(function(err){
+        showMsg("Lỗi: " + err.message);
+        if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
+      });
   }
 
   function logoutLocal(){ localStorage.removeItem(PWD_KEY); location.reload(); }
@@ -398,9 +553,9 @@
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })
-      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; })
+      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; versions = d.versions || []; })
       .then(render)
-      .then(function(){ document.querySelector(".status").textContent = products.length + " sản phẩm"; })
+      .then(function(){ $("status").textContent = products.length + " sản phẩm"; })
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });
   }
 

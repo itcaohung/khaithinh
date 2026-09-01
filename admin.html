@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản lý giá | Khải Thịnh</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Be Vietnam Pro", system-ui, Arial, sans-serif; background: #f0f4f7; color: #13251e; }
+  .topbar { background: #0b3327; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .topbar h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; }
+  .topbar .sub { font-size: 12px; opacity: 0.75; }
+  .topbar .logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  .toolbar { max-width: 1100px; margin: 18px auto 0; padding: 0 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .toolbar input[type=search] { flex: 1; min-width: 240px; padding: 11px 14px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; }
+  .toolbar select { padding: 10px 12px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; background:#fff; }
+  .toolbar .status { font-size: 13px; color: #0b6b3f; font-weight: 600; }
+  .wrap { max-width: 1100px; margin: 14px auto 40px; padding: 0 16px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(11,51,39,.08); }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; vertical-align: middle; }
+  th { background: #eef5f1; color: #0b3b2b; font-weight: 700; white-space: nowrap; }
+  tr:nth-child(even) td { background: #fafcfa; }
+  .prod-thumb { width: 44px; height: 44px; object-fit: contain; background: #fff; border-radius: 6px; border: 1px solid #e2e8e4; }
+  .prod-name { font-weight: 600; color: #0b3327; }
+  .prod-en { font-size: 12px; color: #7a8a82; }
+  .prod-meta { font-size: 12px; color: #55685f; margin-top: 2px; }
+  .price-input { width: 110px; padding: 8px 10px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 14px; text-align: right; }
+  .price-input.changed { border-color: #e08020; background: #fff7ec; }
+  .price-def { font-size: 12px; color: #88968e; display:block; margin-top:2px; }
+  .save-btn { background: #10b981; color: #fff; border: none; padding: 9px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; font-size: 13px; }
+  .save-btn:hover { background: #0da06f; }
+  .save-btn:disabled { background: #b8c4bd; cursor: not-allowed; }
+  .save-all { background: #0b3327; }
+  .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:10px; background:#eef5f1; color:#0b6b3f; }
+  .msg { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #13251e; color: #fff; padding: 12px 22px; border-radius: 8px; font-size: 14px; z-index: 10; opacity: 0; transition: opacity .25s; }
+  .msg.show { opacity: 1; }
+  .login-screen { position: fixed; inset: 0; background: #0b3327; display: flex; align-items: center; justify-content: center; z-index: 20; }
+  .login-box { background: #fff; padding: 32px; border-radius: 14px; width: 320px; text-align: center; }
+  .login-box h2 { font-size: 17px; color: #0b3327; margin-bottom: 16px; }
+  .login-box input { width: 100%; padding: 11px 14px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 15px; margin-bottom: 14px; }
+  .login-box button { width: 100%; padding: 11px; background: #0b3327; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 15px; }
+  .login-box .err { color: #c0392b; font-size: 13px; margin-top: 8px; min-height: 18px; }
+  .count { font-size: 12px; color: #7a8a82; }
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <h2>Quản lý giá — Khải Thịnh</h2>
+    <input type="password" id="pwd" placeholder="Mật khẩu quản trị" autocomplete="current-password">
+    <button id="loginBtn">Đăng nhập</button>
+    <div class="err" id="loginErr"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="topbar">
+    <div>
+      <h1>Quản lý giá sản phẩm</h1>
+      <div class="sub">Công ty TNHH TM DV Khải Thịnh · Catalogue 2026</div>
+    </div>
+    <button class="logout" id="logoutBtn">Thoát</button>
+  </div>
+
+  <div class="toolbar">
+    <input type="search" id="search" placeholder="Tìm sản phẩm...">
+    <select id="groupFilter"><option value="">Tất cả nhóm</option></select>
+    <span class="status">Đang tải…</span>
+  </div>
+
+  <div class="wrap">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Sản phẩm</th>
+          <th>Giá hiện tại (₫)</th>
+          <th>Giá mặc định (₫)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div style="text-align:right; margin-top:12px;">
+      <button class="save-btn save-all" id="saveAllBtn">Lưu tất cả thay đổi</button>
+    </div>
+  </div>
+</div>
+
+<div class="msg" id="msg"></div>
+
+<script>
+(function(){
+  "use strict";
+  var PWD_KEY = "kt-admin-pwd";
+  var overrides = {};       // src -> price
+  var products = [];         // from products.json
+  var dirty = {};            // src -> price (unsaved edits)
+  var sortKey = "src";
+
+  function $(id){ return document.getElementById(id); }
+
+  function showMsg(t){
+    var m = $("msg"); m.textContent = t; m.classList.add("show");
+    clearTimeout(m._t); m._t = setTimeout(function(){ m.classList.remove("show"); }, 2200);
+  }
+
+  function money(v){ return (v==null || v===0) ? "—" : v.toLocaleString("vi-VN") + " ₫"; }
+
+  function groupsOf(){
+    var map = {};
+    products.forEach(function(p){ map[p.group] = map[p.group] || { count:0 }; map[p.group].count++; });
+    return map;
+  }
+
+  function render(){
+    var q = $("search").value.trim().toLowerCase();
+    var gf = $("groupFilter").value;
+    var tb = $("tbody");
+    tb.innerHTML = "";
+    var list = products.filter(function(p){
+      var okQ = !q || p.vi.toLowerCase().indexOf(q) >= 0 || p.en.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
+      var okG = gf === "" || String(p.group) === gf;
+      return okQ && okG;
+    });
+    $("count").textContent = "";
+    list.forEach(function(p){
+      var tr = document.createElement("tr");
+      var cur = hashOwn(dirty, p.src) ? dirty[p.src] : (hashOwn(overrides, p.src) ? overrides[p.src] : p.price);
+      tr.innerHTML =
+        '<td><img class="prod-thumb" src="' + p.src + '" onerror="this.style.display=\'none\'"></td>' +
+        '<td><div class="prod-name">' + escHtml(p.vi) + '</div><div class="prod-en">' + escHtml(p.en) + '</div>' +
+        '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + '</div></td>' +
+        '<td><input class="price-input' + (hashOwn(dirty, p.src) ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
+        '<td><span class="price-def">' + money(p.price) + '</span></td>' +
+        '<td><button class="save-btn" data-save="' + escAttr(p.src) + '">Lưu</button></td>';
+      tb.appendChild(tr);
+    });
+  }
+
+  function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
+  function escHtml(s){ var d=document.createElement("div"); d.textContent=s==null?"":s; return d.innerHTML; }
+  function escAttr(s){ return escHtml(s).replace(/"/g,'&quot;'); }
+
+  function bindEvents(){
+    $("search").addEventListener("input", render);
+    $("groupFilter").addEventListener("change", render);
+
+    $("tbody").addEventListener("input", function(e){
+      if (e.target.classList.contains("price-input")){
+        var src = e.target.getAttribute("data-src");
+        dirty[src] = Number(e.target.value);
+        e.target.classList.add("changed");
+        updateSaveAllState();
+      }
+    });
+
+    $("tbody").addEventListener("click", function(e){
+      var btn = e.target.closest("[data-save]");
+      if (btn){
+        var dataSrc = btn.getAttribute("data-save");
+        var src = dataSrc;
+        var val = Number($("tbody").querySelector('input[data-src="'+dataSrc+'"]').value);
+        saveOne(src, val, btn);
+      }
+    });
+
+    $("saveAllBtn").addEventListener("click", saveAll);
+    $("logoutBtn").addEventListener("click", function(){ localStorage.removeItem(PWD_KEY); location.reload(); });
+  }
+
+  function updateSaveAllState(){
+    var n = Object.keys(dirty).length;
+    $("saveAllBtn").textContent = n ? "Lưu tất cả thay đổi (" + n + ")" : "Lưu tất cả thay đổi";
+  }
+
+  function authHeaders(){
+    var h = { "Content-Type": "application/json" };
+    var pwd = localStorage.getItem(PWD_KEY) || "";
+    if (pwd) h["x-admin-password"] = pwd;
+    return h;
+  }
+
+  function saveOne(src, val, btn){
+    btn.disabled = true;
+    fetch("/api/prices", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, price: val }) })
+      .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
+      .then(function(t){
+        if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
+        overrides = t.d.overrides || {};
+        delete dirty[src];
+        render();
+        showMsg("Đã lưu");
+      })
+      .catch(function(err){
+        showMsg("Lỗi: " + err.message);
+        if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
+      })
+      .finally(function(){ runInline(btn, function(){ btn.disabled = false; }); });
+  }
+
+  function saveAll(){
+    if (!Object.keys(dirty).length) return;
+    $("saveAllBtn").disabled = true;
+    var tasks = Object.keys(dirty).map(function(src){ return new Promise(function(res, rej){
+      fetch("/api/prices", { method:"PUT", headers: authHeaders(), body: JSON.stringify({ src: src, price: dirty[src] }) })
+        .then(function(r){ return r.json().then(function(d){ if(!r.ok) rej(new Error(d.error)); return d; }); })
+        .then(function(d){ overrides = d.overrides || {}; res(); })
+        .catch(rej);
+    }); });
+    Promise.all(tasks)
+      .then(function(){ dirty = {}; render(); updateSaveAllState(); showMsg("Đã lưu tất cả"); })
+      .catch(function(err){ showMsg("Lỗi: " + err.message); })
+      .finally(function(){ $("saveAllBtn").disabled = false; });
+  }
+
+  function logoutLocal(){ localStorage.removeItem(PWD_KEY); location.reload(); }
+
+  function runInline(btn, fn){ try{ fn(); }catch(e){} }
+
+  function bootstrap(){
+    // Load product catalog
+    fetch("/products.json")
+      .then(function(r){ return r.json(); })
+      .then(function(list){
+        products = list;
+        var g = groupsOf();
+        var sel = $("groupFilter");
+        Object.keys(g).sort(function(a,b){ return Number(a)-Number(b); }).forEach(function(gid){
+          var o = document.createElement("option"); o.value = gid; o.textContent = "Nhóm " + String(Number(gid)+1).padStart(2,"0") + " (" + g[gid].count + ")";
+          sel.appendChild(o);
+        });
+        return fetch("/api/prices", { headers: authHeaders() });
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(d){ overrides = d.overrides || {}; })
+      .then(render)
+      .then(function(){ document.querySelector(".status").textContent = products.length + " sản phẩm"; })
+      .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });
+  }
+
+  // ---- Login flow ----
+  var saved = localStorage.getItem(PWD_KEY);
+  if (saved){
+    $("app").style.display = "block";
+    $("loginScreen").style.display = "none";
+    bindEvents();
+    bootstrap();
+  } else {
+    $("loginBtn").addEventListener("click", tryLogin);
+    $("pwd").addEventListener("keydown", function(e){ if (e.key === "Enter") tryLogin(); });
+  }
+
+  function tryLogin(){
+    var pwd = $("pwd").value;
+    fetch("/api/auth/verify", { headers: { "x-admin-password": pwd } })
+      .then(function(r){
+        if (r.status === 401) throw new Error("pwd");
+        return r.json();
+      })
+      .then(function(){
+        localStorage.setItem(PWD_KEY, pwd);
+        $("app").style.display = "block";
+        $("loginScreen").style.display = "none";
+        bindEvents();
+        bootstrap();
+      })
+      .catch(function(){ $("loginErr").textContent = "Sai mật khẩu."; });
+  }
+})();
+</script>
+</body>
+</html>

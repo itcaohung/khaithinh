@@ -1,3 +1,9 @@
 name = "khaithinh"
+main = "worker.mjs"
 compatibility_date = "2026-08-02"
-assets = { directory = "./" }
+
+assets = { directory = "./", binding = "ASSETS" }
+
+[[kv_namespaces]]
+binding = "PRICES"
+id = "5de1cb545895470b8ae300d75da5f86d"

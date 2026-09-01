@@ -9,24 +9,24 @@
   body { font-family: "Be Vietnam Pro", system-ui, Arial, sans-serif; background: #eef4f0; color: #13251e; }
   img { -webkit-user-drag: none; }
 
-  /* ===== Header nền sáng — logo nổi bật ===== */
+  /* ===== Header nền xanh dương đậm — logo nổi bật ===== */
   .topbar {
     position: sticky; top: 0; z-index: 40;
-    background: linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%);
-    border-bottom: 1px solid #e2ece5;
-    box-shadow: 0 2px 10px rgba(11,51,39,.08);
+    background: linear-gradient(90deg, #14304e 0%, #1b4d86 100%);
+    border-bottom: 3px solid #f0c049;
+    box-shadow: 0 2px 12px rgba(9,26,46,.35);
     padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
   }
   .topbar-left { display: flex; align-items: center; gap: 14px; }
-  .topbar .brand-logo { height: 42px; width: auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,.14)); }
-  .topbar h1 { font-size: 18px; font-weight: 800; letter-spacing: .5px; color: #0b3b2b; }
-  .topbar .sub { font-size: 12px; color: #6b7b73; }
+  .topbar .brand-logo { height: 64px; width: auto; background: #fff; padding: 6px 8px; border-radius: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.32); }
+  .topbar h1 { font-size: 18px; font-weight: 800; letter-spacing: .5px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.3); }
+  .topbar .sub { font-size: 12px; color: #cfe0f5; }
   .topbar-actions { display: flex; align-items: center; gap: 10px; }
-  .topbar .logout { background: transparent; color: #40564c; border: 1px solid #cfdbd4; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; }
-  .topbar .logout:hover { background: #f3f6f4; }
-  .topbar .hist-btn { background: transparent; color: #0b3b2b; border: 1px solid #cfdbd4; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; white-space: nowrap; font-weight: 600; }
-  .topbar .hist-btn:hover { background: #eef5f1; border-color: #10b981; }
-  .topbar .save-all { background: linear-gradient(135deg, #e0a030, #d9771a); color: #fff; border: none; padding: 10px 18px; border-radius: 9px; font-weight: 800; cursor: pointer; font-size: 13px; white-space: nowrap; box-shadow: 0 3px 8px rgba(217,119,26,.35); }
+  .topbar .logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.55); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+  .topbar .logout:hover { background: rgba(255,255,255,.14); }
+  .topbar .hist-btn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.55); padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; white-space: nowrap; font-weight: 600; }
+  .topbar .hist-btn:hover { background: rgba(255,255,255,.14); border-color: #f0c049; }
+  .topbar .save-all { background: linear-gradient(135deg, #f0c049, #d9771a); color: #fff; border: none; padding: 10px 18px; border-radius: 9px; font-weight: 800; cursor: pointer; font-size: 13px; white-space: nowrap; box-shadow: 0 3px 8px rgba(217,119,26,.45); }
   .topbar .save-all:hover { filter: brightness(1.06); }
   .topbar .save-all:disabled { background: #b8c4bd; box-shadow: none; cursor: not-allowed; filter: none; }
   .topbar .save-all.has-pending { animation: pulse 1.6s infinite; }
@@ -44,8 +44,8 @@
 
   .wrap { max-width: 1100px; margin: 16px auto 44px; padding: 0 16px; }
   .group-block { margin-bottom: 20px; background: #fff; border: 1px solid #e2ece5; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(11,51,39,.07); }
-  .group-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(90deg, #0b3b2b, #15614a); color: #fff; }
-  .group-num { background: linear-gradient(135deg, #e0a030, #d9771a); color: #fff; font-weight: 800; font-size: 13px; padding: 4px 11px; border-radius: 10px; box-shadow: 0 2px 5px rgba(217,119,26,.35); }
+  .group-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(90deg, #14304e, #1b4d86); color: #fff; }
+  .group-num { background: linear-gradient(135deg, #f0c049, #d9771a); color: #fff; font-weight: 800; font-size: 13px; padding: 4px 11px; border-radius: 10px; box-shadow: 0 2px 5px rgba(217,119,26,.35); }
   .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
   .group-count { margin-left: auto; font-size: 12px; color: #d3e8dd; white-space: nowrap; background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 12px; }
   table { width: 100%; table-layout: fixed; border-collapse: collapse; }
@@ -88,7 +88,7 @@
   .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:10px; background:#eef5f1; color:#0b6b3f; }
   .msg { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: #13251e; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; z-index: 60; opacity: 0; transition: opacity .25s; box-shadow: 0 6px 16px rgba(0,0,0,.22); }
   .msg.show { opacity: 1; }
-  .login-screen { position: fixed; inset: 0; background: linear-gradient(135deg, #0b3b2b, #145c47 48%, #0e3a6b); display: flex; align-items: center; justify-content: center; z-index: 70; }
+  .login-screen { position: fixed; inset: 0; background: linear-gradient(135deg, #14304e, #1b4d86 50%, #0e3a6b); display: flex; align-items: center; justify-content: center; z-index: 70; }
   .login-box { background: #fff; padding: 34px 32px; border-radius: 16px; width: 340px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,.3); }
   .login-box .brand-logo { height: 56px; width: auto; margin-bottom: 12px; }
   .login-box h2 { font-size: 17px; color: #0b3327; margin-bottom: 16px; }

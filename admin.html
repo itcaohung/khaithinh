@@ -26,10 +26,10 @@
   .topbar .logout:hover { background: rgba(255,255,255,.14); }
   .topbar .hist-btn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.55); padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; white-space: nowrap; font-weight: 600; }
   .topbar .hist-btn:hover { background: rgba(255,255,255,.14); border-color: #f0c049; }
-  .summary .save-all { background: linear-gradient(135deg, #f0c049, #d9771a); color: #fff; border: none; padding: 10px 18px; border-radius: 9px; font-weight: 800; cursor: pointer; font-size: 13px; white-space: nowrap; box-shadow: 0 3px 8px rgba(217,119,26,.45); margin-left: auto; }
-  .summary .save-all:hover { filter: brightness(1.06); }
-  .summary .save-all:disabled { background: #b8c4bd; box-shadow: none; cursor: not-allowed; filter: none; }
-  .summary .save-all.has-pending { animation: pulse 1.6s infinite; }
+  .topbar .save-all { background: linear-gradient(135deg, #f0c049, #d9771a); color: #fff; border: none; padding: 10px 18px; border-radius: 9px; font-weight: 800; cursor: pointer; font-size: 13px; white-space: nowrap; box-shadow: 0 3px 8px rgba(217,119,26,.45); }
+  .topbar .save-all:hover { filter: brightness(1.06); }
+  .topbar .save-all:disabled { background: #b8c4bd; box-shadow: none; cursor: not-allowed; filter: none; }
+  .topbar .save-all.has-pending { animation: pulse 1.6s infinite; }
   @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(224,128,32,.55); } 50% { box-shadow: 0 0 0 9px rgba(224,128,32,0); } }
 
   .toolbar { max-width: 1100px; margin: 20px auto 0; padding: 0 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
@@ -148,6 +148,7 @@
     </div>
     <div class="topbar-actions">
       <a class="hist-btn" href="/catalogue" target="_blank" rel="noreferrer" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">Catalogue <span style="font-size:12px;opacity:.8">↗</span></a>
+      <button class="save-all" id="saveAllBtn" disabled>Lưu tất cả thay đổi</button>
       <button class="hist-btn" id="histBtn">Lịch sử</button>
       <button class="logout" id="logoutBtn">Thoát</button>
     </div>
@@ -294,15 +295,12 @@
     products.forEach(function(p){ if (stagedHidden(p.src)) hiddenCount++; });
     var el = $("summary");
     if (!el) return;
-    var saveBtn = '<button class="save-all' + (changed ? ' has-pending' : '') + '" id="saveAllBtn">' +
-                  (changed ? 'Lưu tất cả thay đổi (' + changed + ')' : 'Lưu tất cả thay đổi') + '</button>';
     el.innerHTML =
       '<span class="stat">Tổng: <b>' + products.length + '</b> sản phẩm</span>' +
       '<span class="stat">Đang ẩn: <b>' + hiddenCount + '</b></span>' +
       (changed
         ? '<span class="stat warn">' + changed + ' thay đổi chưa lưu</span>'
-        : '<span class="stat">Không có thay đổi chờ lưu</span>') +
-      saveBtn;
+        : '<span class="stat">Không có thay đổi chờ lưu</span>');
   }
 
   // ---- staged-state helpers ----
@@ -365,8 +363,10 @@
         // Chỉ khi bấm "Lưu" thì sửa mới được tính là xong ở sản phẩm này.
         var src = btn.getAttribute("data-save");
         dirty[src] = Number(btn.closest("tr").querySelector('input[data-src="'+src+'"]').value);
+        pruneNoopStaged();
         render();
         updateSaveAllState();
+        if (!hashOwn(dirty, src)){ showMsg("Giá trùng với mặc định — không tính là thay đổi."); return; }
         showMsg("Đã lưu tạm sản phẩm. Nhấn “Lưu tất cả thay đổi” ở trên để áp dụng.");
         return;
       }
@@ -375,8 +375,10 @@
         var hsrc = hbtn.getAttribute("data-hide");
         var next = !stagedHidden(hsrc);
         dirtyHidden[hsrc] = next;
+        pruneNoopStaged();
         render();
         updateSaveAllState();
+        if (!hashOwn(dirtyHidden, hsrc)){ showMsg("Đã trở về trạng thái ban đầu — không tính là thay đổi."); return; }
         showMsg((next ? "Sẽ ẩn" : "Sẽ hiện") + " sản phẩm sau khi lưu tất cả.");
         return;
       }
@@ -458,13 +460,64 @@
       // capture the new order (full group, unsorted) as the saved/staged order
       var orderSrcs = rows.map(function(r){ return r.getAttribute("data-src"); });
       dirtyOrders[gn] = orderSrcs;
+      pruneNoopStaged();
       render();
       updateSaveAllState();
-      showMsg("Đã sắp xếp lại. Nhấn “Lưu tất cả thay đổi” để áp dụng.");
+      showMsg(hashOwn(dirtyOrders, gn) ? "Đã sắp xếp lại. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Đã trở về thứ tự ban đầu — không tính là thay đổi.");
     });
   }
 
+  function arrayEq(a, b){
+    if (a === b) return true;
+    if (!a || !b || a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+    return true;
+  }
+
+  function savedPrice(src){
+    return hashOwn(overrides, src) ? overrides[src] : (findProd(src) ? findProd(src).price : 0);
+  }
+
+  function savedHidden(src){
+    return hidden.indexOf(src) >= 0;
+  }
+
+  function savedOrderSrcs(gn){
+    if (hashOwn(orders, gn) && orders[gn] && orders[gn].length) return orders[gn];
+    return products.filter(function(p){ return p.group_num === gn; }).map(function(p){ return p.src; });
+  }
+
+  function pruneNoopStaged(){
+    var changedAny = false;
+    Object.keys(dirty).forEach(function(src){
+      if (dirty[src] === savedPrice(src)){ delete dirty[src]; changedAny = true; }
+    });
+    Object.keys(dirtyHidden).forEach(function(src){
+      if (!!dirtyHidden[src] === savedHidden(src)){ delete dirtyHidden[src]; changedAny = true; }
+    });
+    Object.keys(dirtyNames).forEach(function(src){
+      var p = findProd(src);
+      var saved = hashOwn(names, src) ? names[src] : (p ? { vi: p.vi, en: p.en } : null);
+      if (!saved) return;
+      var dv = dirtyNames[src].vi || "";
+      var dev = dirtyNames[src].en || "";
+      if (dv === (saved.vi || "") && dev === (saved.en || "")){ delete dirtyNames[src]; changedAny = true; }
+    });
+    Object.keys(dirtyOrders).forEach(function(gn){
+      if (arrayEq(dirtyOrders[gn], savedOrderSrcs(gn))){ delete dirtyOrders[gn]; changedAny = true; }
+    });
+    return changedAny;
+  }
+
   function updateSaveAllState(){
+    pruneNoopStaged();
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length;
+    var btn = $("saveAllBtn");
+    if (btn){
+      btn.disabled = n === 0;
+      btn.textContent = n ? "Lưu tất cả thay đổi (" + n + ")" : "Lưu tất cả thay đổi";
+      btn.classList.toggle("has-pending", n > 0);
+    }
     updateSummary();
   }
 
@@ -508,18 +561,20 @@
     var en = form.querySelector(".rename-en").value.trim();
     if (!vi && !en){ render(); return; }
     dirtyNames[src] = { vi: vi, en: en };
+    pruneNoopStaged();
     render();
     updateSaveAllState();
-    showMsg("Đã lưu tạm tên sản phẩm. Nhấn “Lưu tất cả thay đổi” để áp dụng.");
+    showMsg(hashOwn(dirtyNames, src) ? "Đã lưu tạm tên sản phẩm. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Tên trùng với tên hiện tại — không tính là thay đổi.");
   }
 
   function stageNameReset(src){
     var p = findProd(src);
     if (!p) return;
     dirtyNames[src] = { vi: p.vi, en: p.en };
+    pruneNoopStaged();
     render();
     updateSaveAllState();
-    showMsg("Đã khôi phục tên mặc định (sẽ áp dụng khi lưu tất cả).");
+    showMsg(hashOwn(dirtyNames, src) ? "Đã khôi phục tên mặc định (sẽ áp dụng khi lưu tất cả)." : "Tên đã là mặc định — không tính là thay đổi.");
   }
 
   // ---- Publish all staged changes ----

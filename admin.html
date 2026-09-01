@@ -75,7 +75,6 @@
   .rename-cancel:hover { background: #dfe6e2; }
   .price-input { width: 110px; padding: 8px 10px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; text-align: right; }
   .price-input.changed { border-color: #e08020; background: #fff7ec; }
-  .price-def { font-size: 12px; color: #88968e; display:block; margin-top:2px; }
   .save-btn { background: #10b981; color: #fff; border: none; padding: 9px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; }
   .save-btn:hover { background: #0da06f; }
   .save-btn:disabled { background: #b8c4bd; cursor: not-allowed; }
@@ -245,8 +244,8 @@
         '<span class="group-count">' + shown.length + ' sản phẩm</span>';
       var tbl = document.createElement("table");
       tbl.innerHTML =
-        '<colgroup><col style="width:64px"><col style="width:34px"><col><col style="width:135px"><col style="width:95px"><col style="width:80px"><col style="width:80px"></colgroup>' +
-        '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Giá mặc định</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
+        '<colgroup><col style="width:64px"><col style="width:34px"><col><col style="width:135px"><col style="width:80px"><col style="width:80px"></colgroup>' +
+        '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
       var tb = document.createElement("tbody");
       shown.forEach(function(p){
         var cur = stagedPrice(p.src);
@@ -268,7 +267,6 @@
           '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + (hid ? ' · <span class="hid-badge">Đã ẩn</span>' : '') + (renamed ? ' · <span class="hid-badge" style="background:#eaf2f7;color:#2a6f97">Đã đổi tên</span>' : '') + '</div>' +
           '<button class="rename-btn" data-rename="' + escAttr(p.src) + '" title="Đổi tên">✎</button></td>' +
           '<td><input class="price-input' + (priceStaged ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
-          '<td><span class="price-def">' + money(p.price) + '</span></td>' +
           '<td><button class="save-btn' + (priceStaged ? ' staged' : '') + '" data-save="' + escAttr(p.src) + '">' + (priceStaged ? 'Đã sửa' : 'Lưu') + '</button></td>' +
           '<td><button class="hide-btn' + (hid ? ' hidden' : '') + (hideStaged ? ' staged' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>';
         tb.appendChild(tr);

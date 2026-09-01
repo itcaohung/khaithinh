@@ -27,6 +27,7 @@ async function readState(env) {
     overrides: (await env.PRICES.get("overrides", "json")) || {},
     hidden: (await env.PRICES.get("hidden", "json")) || [],
     names: (await env.PRICES.get("names", "json")) || {},
+    orders: (await env.PRICES.get("orders", "json")) || {},
   };
 }
 
@@ -35,6 +36,7 @@ async function writeState(env, state) {
     env.PRICES.put("overrides", JSON.stringify(state.overrides || {})),
     env.PRICES.put("hidden", JSON.stringify(state.hidden || [])),
     env.PRICES.put("names", JSON.stringify(state.names || {})),
+    env.PRICES.put("orders", JSON.stringify(state.orders || {})),
   ]);
 }
 
@@ -95,12 +97,13 @@ export default {
           overrides: body.overrides || {},
           hidden: body.hidden || [],
           names: body.names || {},
+          orders: body.orders || {},
         };
         const prev = await readState(env);
         await pushVersion(env, prev, body.desc);
         await writeState(env, next);
         const versions = await readVersions(env);
-        return json({ ok: true, overrides: next.overrides, hidden: next.hidden, names: next.names, versions }, 200, origin);
+        return json({ ok: true, overrides: next.overrides, hidden: next.hidden, names: next.names, orders: next.orders, versions }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }
@@ -141,6 +144,7 @@ export default {
         return json({ ok: false, error: String(e) }, 500, origin);
       }
     }
+
 
     // ---------- Static assets (everything else) ----------
     const res = await env.ASSETS.fetch(request);

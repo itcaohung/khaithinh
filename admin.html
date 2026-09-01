@@ -55,6 +55,10 @@
   th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6) { text-align: center; }
   tbody tr:hover td { background: #fafdfb; }
   .save-btn, .hide-btn { width: 60px; display: inline-block; }
+  .drag-handle { cursor: grab; color: #9db0a5; font-size: 16px; user-select: none; padding: 2px; display: inline-block; vertical-align: middle; }
+  .drag-handle:hover { color: #1b4d86; }
+  tr.dragging { opacity: .35; }
+  tr.drag-over td { box-shadow: inset 0 2px 0 0 #1b4d86; }
   .prod-thumb { width: 44px; height: 44px; object-fit: contain; background: #fff; border-radius: 6px; border: 1px solid #e2e8e4; }
   .prod-name { font-weight: 600; color: #0b3327; }
   .prod-en { font-size: 12px; color: #7a8a82; }
@@ -191,10 +195,12 @@
   var overrides = {};       // src -> price (saved)
   var names = {};           // src -> {vi, en} (saved)
   var hidden = [];          // srcs of hidden products (saved)
+  var orders = {};          // group_num -> [src,...] (saved order)
   var products = [];         // from products.json
   var dirty = {};            // src -> price (staged edits)
   var dirtyHidden = {};      // src -> bool (staged hide state, only entries staged)
   var dirtyNames = {};       // src -> {vi,en} (staged name edits)
+  var dirtyOrders = {};      // group_num -> [src,...] (staged order)
   var versions = [];         // [{id, at, desc, snapshot}]
   var sortKey = "src";
 
@@ -223,7 +229,8 @@
     });
     order.forEach(function(gn, i){
       var g = gmap[gn];
-      var shown = g.items.filter(function(p){
+      var groupAll = orderedGroupItems(gn, g.items);
+      var shown = groupAll.filter(function(p){
         if (!q) return true;
         var nv = stagedName(p.src).vi;
         var ne = stagedName(p.src).en;
@@ -238,8 +245,8 @@
         '<span class="group-count">' + shown.length + ' sản phẩm</span>';
       var tbl = document.createElement("table");
       tbl.innerHTML =
-        '<colgroup><col style="width:60px"><col><col style="width:135px"><col style="width:95px"><col style="width:80px"><col style="width:80px"></colgroup>' +
-        '<thead><tr><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Giá mặc định</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
+        '<colgroup><col style="width:64px"><col style="width:34px"><col><col style="width:135px"><col style="width:95px"><col style="width:80px"><col style="width:80px"></colgroup>' +
+        '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Giá mặc định</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
       var tb = document.createElement("tbody");
       shown.forEach(function(p){
         var cur = stagedPrice(p.src);
@@ -251,8 +258,12 @@
         var hideStaged = hashOwn(dirtyHidden, p.src);
         var tr = document.createElement("tr");
         tr.className = hid ? "row-hidden" : "";
+        tr.setAttribute("data-group", gn);
+        tr.setAttribute("data-src", p.src);
+        tr.setAttribute("draggable", "true");
         tr.innerHTML =
           '<td><img class="prod-thumb" src="' + escAttr(p.src) + '" onerror="this.style.display=\'none\'"></td>' +
+          '<td><span class="drag-handle" title="Kéo để sắp xếp">⠿</span></td>' +
           '<td><div class="prod-name">' + escHtml(nv) + '</div><div class="prod-en">' + escHtml(ne) + '</div>' +
           '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + (hid ? ' · <span class="hid-badge">Đã ẩn</span>' : '') + (renamed ? ' · <span class="hid-badge" style="background:#eaf2f7;color:#2a6f97">Đã đổi tên</span>' : '') + '</div>' +
           '<button class="rename-btn" data-rename="' + escAttr(p.src) + '" title="Đổi tên">✎</button></td>' +
@@ -269,19 +280,18 @@
       blk.appendChild(tbl);
       box.appendChild(blk);
     });
-    var total = Object.keys(gmap).reduce(function(s, gn){ return s + (gmap[gn].items.filter(function(p){
+    var total = order.reduce(function(s, gn){ return s + (orderedGroupItems(gn, gmap[gn].items).filter(function(p){
       var q2 = q;
       if (!q2) return true;
       var nv = stagedName(p.src).vi;
       var ne = stagedName(p.src).en;
       return nv.toLowerCase().indexOf(q2) >= 0 || ne.toLowerCase().indexOf(q2) >= 0 || p.brand.toLowerCase().indexOf(q2) >= 0;
     }).length); }, 0);
-    var status = $("summary");
     updateSummary();
   }
 
   function updateSummary(){
-    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length;
+    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length;
     var hiddenCount = 0;
     products.forEach(function(p){ if (stagedHidden(p.src)) hiddenCount++; });
     var el = $("summary");
@@ -313,6 +323,20 @@
     if (hashOwn(dirtyNames, src)) return { vi: dirtyNames[src].vi || p.vi, en: dirtyNames[src].en || p.en, renamed: true };
     if (hashOwn(names, src)) return { vi: names[src].vi || p.vi, en: names[src].en || p.en, renamed: true };
     return base;
+  }
+
+  // Effective per-group product order: staged dirty > saved > default (products.json order preserved)
+  function orderedGroupItems(gn, items){
+    var order = hashOwn(dirtyOrders, gn) ? dirtyOrders[gn]
+              : hashOwn(orders, gn) ? orders[gn]
+              : null;
+    if (!order) return items.slice();
+    var bySrc = {};
+    items.forEach(function(p){ bySrc[p.src] = p; });
+    var out = [];
+    order.forEach(function(src){ if (bySrc[src]){ out.push(bySrc[src]); } });
+    items.forEach(function(p){ if (out.indexOf(p) < 0) out.push(p); });
+    return out;
   }
 
   function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
@@ -387,10 +411,58 @@
       var rb = e.target.closest("[data-restore]");
       if (rb) restoreVersion(rb.getAttribute("data-restore"));
     });
+
+    // Drag-and-drop reorder within a group
+    var dragSrc = null;
+    $("groups").addEventListener("dragstart", function(e){
+      var tr = e.target.closest("tr[data-src]");
+      if (!tr) return;
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", tr.getAttribute("data-src"));
+      dragSrc = tr.getAttribute("data-src");
+      tr.classList.add("dragging");
+    });
+    $("groups").addEventListener("dragend", function(){
+      dragSrc = null;
+      var d = document.querySelectorAll("tr.dragging, tr.drag-over");
+      for (var i = 0; i < d.length; i++) d[i].classList.remove("dragging", "drag-over");
+    });
+    $("groups").addEventListener("dragover", function(e){
+      var tr = e.target.closest("tr[data-group]");
+      if (!tr || !dragSrc) return;
+      var from = document.querySelector('tr[data-src="' + dragSrc + '"]');
+      if (!from || from.getAttribute("data-group") !== tr.getAttribute("data-group")) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      var overClass = document.querySelectorAll("tr.drag-over");
+      for (var i = 0; i < overClass.length; i++) overClass[i].classList.remove("drag-over");
+      tr.classList.add("drag-over");
+    });
+    $("groups").addEventListener("drop", function(e){
+      e.preventDefault();
+      var tr = e.target.closest("tr[data-group]");
+      if (!tr || !dragSrc) return;
+      var from = document.querySelector('tr[data-src="' + dragSrc + '"]');
+      if (!from || from === tr || from.getAttribute("data-group") !== tr.getAttribute("data-group")) return;
+      var gn = from.getAttribute("data-group");
+      var tbody = tr.parentNode;
+      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr[data-src]"));
+      var fromIdx = rows.indexOf(from);
+      var toIdx = rows.indexOf(tr);
+      rows.splice(fromIdx, 1);
+      rows.splice(toIdx, 0, from);
+      rows.forEach(function(r){ tbody.appendChild(r); });
+      // capture the new order (full group, unsorted) as the saved/staged order
+      var orderSrcs = rows.map(function(r){ return r.getAttribute("data-src"); });
+      dirtyOrders[gn] = orderSrcs;
+      render();
+      updateSaveAllState();
+      showMsg("Đã sắp xếp lại. Nhấn “Lưu tất cả thay đổi” để áp dụng.");
+    });
   }
 
   function updateSaveAllState(){
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length;
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length;
     var btn = $("saveAllBtn");
     btn.textContent = n ? "Lưu tất cả thay đổi (" + n + ")" : "Lưu tất cả thay đổi";
     btn.classList.toggle("has-pending", n > 0);
@@ -453,7 +525,7 @@
 
   // ---- Publish all staged changes ----
   function openPublishModal(){
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length;
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length;
     if (!n){ showMsg("Không có thay đổi nào để lưu."); return; }
     $("descSummary").textContent = n + " thay đổi đang chờ được lưu.";
     $("descInput").value = "";
@@ -469,15 +541,16 @@
     $("descInput").style.borderColor = "";
     var next = computeMergedState();
     $("descOk").disabled = true;
-    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names }) })
+    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names, orders: next.orders }) })
       .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
       .then(function(t){
         if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
         overrides = t.d.overrides || {};
         hidden = t.d.hidden || [];
         names = t.d.names || {};
+        orders = t.d.orders || {};
         versions = t.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {};
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {};
         closePublishModal();
         render();
         updateSaveAllState();
@@ -514,7 +587,13 @@
         nm[src] = { vi: dirtyNames[src].vi, en: dirtyNames[src].en };
       }
     });
-    return { overrides: ov, hidden: hidSet, names: nm };
+    // orders: staged dirtyOrders overrides saved
+    var odr = Object.keys(orders).reduce(function(o, gn){ var arr = orders[gn] ? orders[gn].slice() : []; if (arr.length) o[gn] = arr; return o; }, {});
+    Object.keys(dirtyOrders).forEach(function(gn){
+      if (dirtyOrders[gn] && dirtyOrders[gn].length) odr[gn] = dirtyOrders[gn].slice();
+      else delete odr[gn];
+    });
+    return { overrides: ov, hidden: hidSet, names: nm, orders: odr };
   }
 
   // ---- History ----
@@ -565,8 +644,9 @@
         overrides = t2.d.overrides || {};
         hidden = t2.d.hidden || [];
         names = t2.d.names || {};
+        orders = t2.d.orders || {};
         versions = t2.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {};
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {};
         $("histModal").classList.remove("open");
         render();
         updateSaveAllState();
@@ -591,7 +671,7 @@
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })
-      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; versions = d.versions || []; })
+      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; orders = d.orders || {}; versions = d.versions || []; })
       .then(render)
       .then(updateSummary)
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });

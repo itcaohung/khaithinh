@@ -23,6 +23,34 @@
     var overrides = d.overrides || {};
     var hidden = d.hidden || [];
     var names = d.names || {};
+    var orders = d.orders || {};
+
+    // Reorder cards within each group using { group_key -> [src,...] }.
+    // Groups are matched by their section id (slug) falling back to data-group_num.
+    document.querySelectorAll(".cat-group").forEach(function (group) {
+      var key = group.getAttribute("data-order") || group.getAttribute("data-group_num");
+      var orderList = key ? orders[key] : null;
+      if (!orderList || !orderList.length) { group.style.removeProperty("--kt-reordered"); return; }
+      var grid = group.querySelector(".cat-grid");
+      if (!grid) { group.style.removeProperty("--kt-reordered"); return; }
+      var cards = Array.prototype.slice.call(grid.querySelectorAll(".cat-card"));
+      var bySrc = {};
+      cards.forEach(function (c) {
+        var img = c.querySelector(".cat-thumb img");
+        var src = img ? img.getAttribute("src") : null;
+        if (src) bySrc[src] = c;
+      });
+      var out = [];
+      orderList.forEach(function (src) { if (bySrc[src]) out.push(bySrc[src]); });
+      cards.forEach(function (c) {
+        var src = c.querySelector(".cat-thumb img") ? c.querySelector(".cat-thumb img").getAttribute("src") : null;
+        if (src && out.indexOf(c) < 0) out.push(c);
+      });
+      if (out.length === cards.length) {
+        out.forEach(function (c) { grid.appendChild(c); });
+        group.style.setProperty("--kt-reordered", "1");
+      }
+    });
 
     document.querySelectorAll(".cat-card").forEach(function (card) {
       var img = card.querySelector(".cat-thumb img");

@@ -1,4 +1,4 @@
-/* Khải Thịnh — apply live price overrides + hidden products from /api/prices (Cloudflare KV) */
+/* Khải Thịnh — live price overrides, hidden products, and renamed products from /api/prices (Cloudflare KV) */
 (function () {
   "use strict";
 
@@ -6,10 +6,23 @@
     return Number(v).toLocaleString("vi-VN") + " đ";
   }
 
+  // Update a bilingual element (textContent + data-vi/data-en) so language toggle still works.
+  function currentLang() {
+    try { return localStorage.getItem("kt-lang") || "vi"; } catch (e) { return "vi"; }
+  }
+
+  function setBilingual(el, vi, en) {
+    var lang = currentLang();
+    el.textContent = lang === "en" ? en : vi;
+    el.setAttribute("data-vi", vi);
+    if (el.getAttribute("data-en") !== null) el.setAttribute("data-en", en);
+  }
+
   function apply(d) {
     if (!d) return;
     var overrides = d.overrides || {};
     var hidden = d.hidden || [];
+    var names = d.names || {};
 
     document.querySelectorAll(".cat-card").forEach(function (card) {
       var img = card.querySelector(".cat-thumb img");
@@ -23,6 +36,13 @@
       }
       if (priceEl && overrides.hasOwnProperty(src) && overrides[src] > 0) {
         priceEl.textContent = money(overrides[src]);
+      }
+      if (names.hasOwnProperty(src)) {
+        var nameEl = card.querySelector(".cat-name");
+        var enEl = card.querySelector(".cat-en");
+        var n = names[src];
+        if (nameEl) setBilingual(nameEl, n.vi, n.en);
+        if (enEl) enEl.textContent = n.en;
       }
     });
 
@@ -44,13 +64,19 @@
       if (allGone) page.style.display = "none";
     });
 
-    // Hide products on the home page (cards + slides)
+    // Home page: hide products + rename (cards + slides)
     document.querySelectorAll(".product-card").forEach(function (card) {
       var img = card.querySelector(".product-img img");
       if (!img) return;
       var src = img.getAttribute("src");
       if (hidden.indexOf(src) >= 0) {
         card.style.display = "none";
+        return;
+      }
+      if (names.hasOwnProperty(src)) {
+        var h = card.querySelector("h3");
+        var n = names[src];
+        if (h) setBilingual(h, n.vi, n.en);
       }
     });
     document.querySelectorAll(".p-slide").forEach(function (slide) {
@@ -59,6 +85,12 @@
       var src = img.getAttribute("src");
       if (hidden.indexOf(src) >= 0) {
         slide.style.display = "none";
+        return;
+      }
+      if (names.hasOwnProperty(src)) {
+        var strong = slide.querySelector(".ps-text strong");
+        var n = names[src];
+        if (strong) setBilingual(strong, n.vi, n.en);
       }
     });
   }
@@ -66,5 +98,5 @@
   fetch("/api/prices", { headers: { "cache": "no-store" } })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
     .then(apply)
-    .catch(function () { /* fall back to baked-in prices */ });
+    .catch(function () { /* fall back to baked-in data */ });
 })();

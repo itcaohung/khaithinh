@@ -43,7 +43,8 @@ export default {
       try {
         const raw = await env.PRICES.get("overrides", "json");
         const hidden = await env.PRICES.get("hidden", "json");
-        return json({ ok: true, overrides: raw || {}, hidden: hidden || [] }, 200, origin);
+        const names = await env.PRICES.get("names", "json");
+        return json({ ok: true, overrides: raw || {}, hidden: hidden || [], names: names || {} }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }
@@ -104,6 +105,32 @@ export default {
         }
         await env.PRICES.put("hidden", JSON.stringify(hidden));
         return json({ ok: true, hidden });
+      } catch (e) {
+        return json({ ok: false, error: String(e) }, 500, origin);
+      }
+    }
+
+    // ---------- Product name overrides (KV-backed) ----------
+    if (path === "/api/names" && request.method === "PUT") {
+      if (request.headers.get("x-admin-password") !== env.ADMIN_PASSWORD) {
+        return unauthorized(origin);
+      }
+      try {
+        const body = await request.json();
+        const src = body.src;
+        const vi = body.vi ? String(body.vi).trim() : "";
+        const en = body.en ? String(body.en).trim() : "";
+        if (!src) {
+          return json({ ok: false, error: "Dữ liệu không hợp lệ" }, 400, origin);
+        }
+        const names = (await env.PRICES.get("names", "json")) || {};
+        if (!vi && !en) {
+          delete names[src]; // reset name back to baked-in default
+        } else {
+          names[src] = { vi, en };
+        }
+        await env.PRICES.put("names", JSON.stringify(names));
+        return json({ ok: true, names });
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }

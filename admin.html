@@ -33,6 +33,16 @@
   .prod-name { font-weight: 600; color: #0b3327; }
   .prod-en { font-size: 12px; color: #7a8a82; }
   .prod-meta { font-size: 12px; color: #55685f; margin-top: 2px; }
+  .rename-btn { background: none; border: 1px solid #cdd9d2; border-radius: 6px; color: #0b3b2b; cursor: pointer; padding: 4px 8px; font-size: 13px; margin-top: 6px; }
+  .rename-btn:hover { background: #eef5f1; border-color: #10b981; }
+  .rename-form { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+  .rename-form input { padding: 7px 9px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 13px; width: 100%; box-sizing: border-box; }
+  .rename-row { display: flex; gap: 6px; align-items: center; }
+  .rename-row button { padding: 7px 12px; border-radius: 6px; font-weight: 700; font-size: 12.5px; cursor: pointer; border: none; }
+  .rename-save { background: #10b981; color: #fff; }
+  .rename-save:hover { background: #0da06f; }
+  .rename-cancel { background: #eef1ef; color: #33443c; }
+  .rename-cancel:hover { background: #dfe6e2; }
   .price-input { width: 110px; padding: 8px 10px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 14px; text-align: right; }
   .price-input.changed { border-color: #e08020; background: #fff7ec; }
   .price-def { font-size: 12px; color: #88968e; display:block; margin-top:2px; }
@@ -100,6 +110,7 @@
   "use strict";
   var PWD_KEY = "kt-admin-pwd";
   var overrides = {};       // src -> price
+  var names = {};           // src -> {vi, en}
   var hidden = [];          // srcs of hidden products
   var products = [];         // from products.json
   var dirty = {};            // src -> price (unsaved edits)
@@ -131,7 +142,10 @@
     order.forEach(function(gn, i){
       var g = gmap[gn];
       var shown = g.items.filter(function(p){
-        return !q || p.vi.toLowerCase().indexOf(q) >= 0 || p.en.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
+        if (!q) return true;
+        var nv = (names[p.src] && names[p.src].vi) || p.vi;
+        var ne = (names[p.src] && names[p.src].en) || p.en;
+        return nv.toLowerCase().indexOf(q) >= 0 || ne.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
       });
       if (!shown.length) return;
       var head = document.createElement("div");
@@ -148,12 +162,16 @@
       shown.forEach(function(p){
         var cur = hashOwn(dirty, p.src) ? dirty[p.src] : (hashOwn(overrides, p.src) ? overrides[p.src] : p.price);
         var hid = hidden.indexOf(p.src) >= 0;
+        var nv = (names[p.src] && names[p.src].vi) || p.vi;
+        var ne = (names[p.src] && names[p.src].en) || p.en;
+        var renamed = !!(names[p.src]);
         var tr = document.createElement("tr");
         tr.className = hid ? "row-hidden" : "";
         tr.innerHTML =
           '<td><img class="prod-thumb" src="' + escAttr(p.src) + '" onerror="this.style.display=\'none\'"></td>' +
-          '<td><div class="prod-name">' + escHtml(p.vi) + '</div><div class="prod-en">' + escHtml(p.en) + '</div>' +
-          '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + (hid ? ' · <span class="hid-badge">Đã ẩn</span>' : '') + '</div></td>' +
+          '<td><div class="prod-name">' + escHtml(nv) + '</div><div class="prod-en">' + escHtml(ne) + '</div>' +
+          '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + (hid ? ' · <span class="hid-badge">Đã ẩn</span>' : '') + (renamed ? ' · <span class="hid-badge" style="background:#eaf2f7;color:#2a6f97">Đã đổi tên</span>' : '') + '</div>' +
+          '<button class="rename-btn" data-rename="' + escAttr(p.src) + '" title="Đổi tên">✎</button></td>' +
           '<td><input class="price-input' + (hashOwn(dirty, p.src) ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
           '<td><span class="price-def">' + money(p.price) + '</span></td>' +
           '<td><button class="save-btn" data-save="' + escAttr(p.src) + '">Lưu</button></td>' +
@@ -169,7 +187,10 @@
     });
     var total = Object.keys(gmap).reduce(function(s, gn){ return s + (gmap[gn].items.filter(function(p){
       var q2 = q;
-      return !q2 || p.vi.toLowerCase().indexOf(q2) >= 0 || p.en.toLowerCase().indexOf(q2) >= 0 || p.brand.toLowerCase().indexOf(q2) >= 0;
+      if (!q2) return true;
+      var nv = (names[p.src] && names[p.src].vi) || p.vi;
+      var ne = (names[p.src] && names[p.src].en) || p.en;
+      return nv.toLowerCase().indexOf(q2) >= 0 || ne.toLowerCase().indexOf(q2) >= 0 || p.brand.toLowerCase().indexOf(q2) >= 0;
     }).length); }, 0);
     var status = document.querySelector(".status");
     if (status) status.textContent = total + " sản phẩm";
@@ -203,6 +224,26 @@
       var hbtn = e.target.closest("[data-hide]");
       if (hbtn){
         toggleHidden(hbtn.getAttribute("data-hide"), hbtn);
+        return;
+      }
+      var rbtn = e.target.closest("[data-rename]");
+      if (rbtn){
+        openRename(rbtn);
+        return;
+      }
+      var sbtn = e.target.closest("[data-rename-save]");
+      if (sbtn){
+        saveName(sbtn.closest("[data-rename-form]").getAttribute("data-rename-form"));
+        return;
+      }
+      var cbtn = e.target.closest("[data-rename-cancel]");
+      if (cbtn){
+        render();
+        return;
+      }
+      var rbtn2 = e.target.closest("[data-rename-reset]");
+      if (rbtn2){
+        resetName(rbtn2.closest("[data-rename-form]").getAttribute("data-rename-form"));
       }
     });
 
@@ -260,6 +301,75 @@
       .finally(function(){ runInline(btn, function(){ btn.disabled = false; }); });
   }
 
+  function findProd(src){
+    for (var i=0;i<products.length;i++){ if (products[i].src === src) return products[i]; }
+    return null;
+  }
+
+  function openRename(btn){
+    var src = btn.getAttribute("data-rename");
+    var p = findProd(src);
+    if (!p) return;
+    var cur = names[src] || p;
+    var cell = btn.closest("td");
+    var form = document.createElement("div");
+    form.className = "rename-form";
+    form.setAttribute("data-rename-form", src);
+    form.innerHTML =
+      '<input class="rename-vi" value="' + escAttr(cur.vi) + '" placeholder="Tên tiếng Việt">' +
+      '<input class="rename-en" value="' + escAttr(cur.en) + '" placeholder="Tên tiếng Anh">' +
+      '<div class="rename-row">' +
+        '<button type="button" class="rename-save" data-rename-save="1">Lưu tên</button>' +
+        '<button type="button" class="rename-cancel" data-rename-cancel="1">Hủy</button>' +
+        '<button type="button" class="rename-cancel" data-rename-reset="1" title="Khôi phục tên mặc định">Khôi phục</button>' +
+      '</div>';
+    cell.appendChild(form);
+    btn.style.display = "none";
+  }
+
+  function saveName(src){
+    var form = document.querySelector('[data-rename-form="' + src + '"]');
+    if (!form) return;
+    var vi = form.querySelector(".rename-vi").value.trim();
+    var en = form.querySelector(".rename-en").value.trim();
+    if (!vi && !en){ render(); return; }
+    var btns = form.querySelectorAll("button");
+    btns.forEach(function(b){ b.disabled = true; });
+    fetch("/api/names", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, vi: vi, en: en }) })
+      .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
+      .then(function(t){
+        if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
+        names = t.d.names || {};
+        render();
+        showMsg("Đã đổi tên sản phẩm");
+      })
+      .catch(function(err){
+        showMsg("Lỗi: " + err.message);
+        if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
+      })
+      .finally(function(){ btns.forEach(function(b){ b.disabled = false; }); });
+  }
+
+  function resetName(src){
+    var form = document.querySelector('[data-rename-form="' + src + '"]');
+    if (!form) return;
+    var btns = form.querySelectorAll("button");
+    btns.forEach(function(b){ b.disabled = true; });
+    fetch("/api/names", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, vi: "", en: "" }) })
+      .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
+      .then(function(t){
+        if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
+        names = t.d.names || {};
+        render();
+        showMsg("Đã khôi phục tên mặc định");
+      })
+      .catch(function(err){
+        showMsg("Lỗi: " + err.message);
+        if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
+      })
+      .finally(function(){ btns.forEach(function(b){ b.disabled = false; }); });
+  }
+
   function saveAll(){
     if (!Object.keys(dirty).length) return;
     $("saveAllBtn").disabled = true;
@@ -288,7 +398,7 @@
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })
-      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; })
+      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; })
       .then(render)
       .then(function(){ document.querySelector(".status").textContent = products.length + " sản phẩm"; })
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });

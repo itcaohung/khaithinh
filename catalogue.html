@@ -1789,6 +1789,28 @@
   <script>
     document.getElementById('pdfBtn').addEventListener('click', () => window.print());
   </script>
+<script>
+    (function(){
+      var y = String(new Date().getFullYear());
+      if (y === "2026") return;
+      function sub(s){ return s.split("2026").join(y); }
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      for (var i = 0; i < nodes.length; i++){
+        if (nodes[i].nodeValue.indexOf("2026") >= 0) nodes[i].nodeValue = sub(nodes[i].nodeValue);
+      }
+      var flagged = document.querySelectorAll("[data-vi],[data-en],[title]");
+      for (var j = 0; j < flagged.length; j++){
+        var el = flagged[j], dvi = el.getAttribute("data-vi"), den = el.getAttribute("data-en");
+        if (dvi && dvi.indexOf("2026") >= 0) el.setAttribute("data-vi", sub(dvi));
+        if (den && den.indexOf("2026") >= 0) el.setAttribute("data-en", sub(den));
+      }
+      var metas = document.querySelectorAll("meta[content*='2026']");
+      for (var k = 0; k < metas.length; k++) metas[k].content = sub(metas[k].content);
+      if (document.title.indexOf("2026") >= 0) document.title = sub(document.title);
+    })();
+  </script>
   <script src="js/prices.js"></script>
 </body>
 </html>

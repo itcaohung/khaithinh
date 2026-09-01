@@ -627,5 +627,21 @@
   }
 })();
 </script>
+<script>
+  (function(){
+    var y = String(new Date().getFullYear());
+    if (y === "2026") return;
+    function sub(s){ return s.split("2026").join(y); }
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    for (var i = 0; i < nodes.length; i++){
+      if (nodes[i].nodeValue.indexOf("2026") >= 0) nodes[i].nodeValue = sub(nodes[i].nodeValue);
+    }
+    var metas = document.querySelectorAll("meta[content*='2026']");
+    for (var k = 0; k < metas.length; k++) metas[k].content = sub(metas[k].content);
+    if (document.title.indexOf("2026") >= 0) document.title = sub(document.title);
+  })();
+</script>
 </body>
 </html>

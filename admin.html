@@ -6,29 +6,55 @@
 <title>Quản lý giá | Khải Thịnh</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: "Be Vietnam Pro", system-ui, Arial, sans-serif; background: #f0f4f7; color: #13251e; }
-  .topbar { background: #0b3327; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  body { font-family: "Be Vietnam Pro", system-ui, Arial, sans-serif; background: #eef4f0; color: #13251e; }
+  img { -webkit-user-drag: none; }
+
+  /* ===== Header nền sáng — logo nổi bật ===== */
+  .topbar {
+    position: sticky; top: 0; z-index: 40;
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%);
+    border-bottom: 1px solid #e2ece5;
+    box-shadow: 0 2px 10px rgba(11,51,39,.08);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
   .topbar-left { display: flex; align-items: center; gap: 14px; }
-  .topbar .brand-logo { height: 44px; width: auto; }
-  .topbar h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; }
-  .topbar .sub { font-size: 12px; opacity: 0.75; }
-  .topbar .logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
-  .toolbar { max-width: 1100px; margin: 18px auto 0; padding: 0 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .toolbar input[type=search] { flex: 1; min-width: 240px; padding: 11px 14px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; }
-  .toolbar select { padding: 10px 12px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; background:#fff; }
-  .toolbar .status { font-size: 13px; color: #0b6b3f; font-weight: 600; }
-  .wrap { max-width: 1100px; margin: 14px auto 40px; padding: 0 16px; }
-  .group-block { margin-bottom: 22px; }
-  .group-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(90deg, #0b3327, #10503c); border-radius: 10px 10px 0 0; color: #fff; }
-  .group-num { background: #e08020; color: #fff; font-weight: 800; font-size: 13px; padding: 3px 10px; border-radius: 9px; }
+  .topbar .brand-logo { height: 42px; width: auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,.14)); }
+  .topbar h1 { font-size: 18px; font-weight: 800; letter-spacing: .5px; color: #0b3b2b; }
+  .topbar .sub { font-size: 12px; color: #6b7b73; }
+  .topbar-actions { display: flex; align-items: center; gap: 10px; }
+  .topbar .logout { background: transparent; color: #40564c; border: 1px solid #cfdbd4; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+  .topbar .logout:hover { background: #f3f6f4; }
+  .topbar .hist-btn { background: transparent; color: #0b3b2b; border: 1px solid #cfdbd4; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; white-space: nowrap; font-weight: 600; }
+  .topbar .hist-btn:hover { background: #eef5f1; border-color: #10b981; }
+  .topbar .save-all { background: linear-gradient(135deg, #e0a030, #d9771a); color: #fff; border: none; padding: 10px 18px; border-radius: 9px; font-weight: 800; cursor: pointer; font-size: 13px; white-space: nowrap; box-shadow: 0 3px 8px rgba(217,119,26,.35); }
+  .topbar .save-all:hover { filter: brightness(1.06); }
+  .topbar .save-all:disabled { background: #b8c4bd; box-shadow: none; cursor: not-allowed; filter: none; }
+  .topbar .save-all.has-pending { animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(224,128,32,.55); } 50% { box-shadow: 0 0 0 9px rgba(224,128,32,0); } }
+
+  .toolbar { max-width: 1100px; margin: 20px auto 0; padding: 0 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .toolbar input[type=search] { flex: 1; min-width: 240px; padding: 12px 16px; border: 1px solid #cfdbd4; border-radius: 10px; font-size: 14px; background: #fff; box-shadow: 0 1px 3px rgba(11,51,39,.05); }
+  .toolbar input[type=search]:focus { outline: 2px solid #b7dfc9; border-color: #10b981; }
+  .toolbar .status { font-size: 13px; color: #0b6b3f; font-weight: 700; white-space: nowrap; }
+
+  .summary { max-width: 1100px; margin: 14px auto 0; padding: 0 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .stat { background: #fff; border: 1px solid #e2ece5; border-radius: 18px; padding: 6px 14px; font-size: 12.5px; color: #40564c; box-shadow: 0 1px 3px rgba(11,51,39,.05); }
+  .stat b { color: #0b3b2b; }
+  .stat.warn { background: #fff4e5; border-color: #f0c98a; color: #9a5b0e; font-weight: 700; }
+
+  .wrap { max-width: 1100px; margin: 16px auto 44px; padding: 0 16px; }
+  .group-block { margin-bottom: 20px; background: #fff; border: 1px solid #e2ece5; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(11,51,39,.07); }
+  .group-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(90deg, #0b3b2b, #15614a); color: #fff; }
+  .group-num { background: linear-gradient(135deg, #e0a030, #d9771a); color: #fff; font-weight: 800; font-size: 13px; padding: 4px 11px; border-radius: 10px; box-shadow: 0 2px 5px rgba(217,119,26,.35); }
   .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
-  .group-count { margin-left: auto; font-size: 12px; color: #cfe4d9; white-space: nowrap; }
-  table { width: 100%; table-layout: fixed; border-collapse: collapse; background: #fff; border-radius: 0 0 10px 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(11,51,39,.08); }
-  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; vertical-align: middle; }
-  th { background: #eef5f1; color: #0b3b2b; font-weight: 700; white-space: nowrap; }
+  .group-count { margin-left: auto; font-size: 12px; color: #d3e8dd; white-space: nowrap; background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 12px; }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; }
+  th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  th { background: #f0f6f3; color: #0b3b2b; font-weight: 700; white-space: nowrap; }
   th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6) { text-align: center; }
+  tbody tr:hover td { background: #fafdfb; }
   .save-btn, .hide-btn { width: 60px; display: inline-block; }
-  tr:nth-child(even) td { background: #fafcfa; }
   .prod-thumb { width: 44px; height: 44px; object-fit: contain; background: #fff; border-radius: 6px; border: 1px solid #e2e8e4; }
   .prod-name { font-weight: 600; color: #0b3327; }
   .prod-en { font-size: 12px; color: #7a8a82; }
@@ -43,42 +69,36 @@
   .rename-save:hover { background: #0da06f; }
   .rename-cancel { background: #eef1ef; color: #33443c; }
   .rename-cancel:hover { background: #dfe6e2; }
-  .price-input { width: 110px; padding: 8px 10px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 14px; text-align: right; }
+  .price-input { width: 110px; padding: 8px 10px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; text-align: right; }
   .price-input.changed { border-color: #e08020; background: #fff7ec; }
   .price-def { font-size: 12px; color: #88968e; display:block; margin-top:2px; }
-  .save-btn { background: #10b981; color: #fff; border: none; padding: 9px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; font-size: 13px; }
+  .save-btn { background: #10b981; color: #fff; border: none; padding: 9px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; }
   .save-btn:hover { background: #0da06f; }
   .save-btn:disabled { background: #b8c4bd; cursor: not-allowed; }
   .save-btn.staged { box-shadow: inset 0 0 0 2px #e08020; background: #10b981; }
   .save-btn.pending { box-shadow: inset 0 0 0 2px #e08020; background: #10b981; }
   .save-btn.pending:hover { background: #0da06f; }
   .hide-btn.staged { box-shadow: inset 0 0 0 2px #e08020; }
-  .topbar .save-all.has-pending { animation: pulse 1.6s infinite; }
-  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(224,128,32,.5); } 50% { box-shadow: 0 0 0 8px rgba(224,128,32,0); } }
-  .save-all { background: #0b3327; }
-  .hide-btn { background: #e74c3c; color: #fff; border: none; padding: 9px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; font-size: 13px; }
+  .hide-btn { background: #e74c3c; color: #fff; border: none; padding: 9px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; }
   .hide-btn:hover { background: #c0392b; }
   .hide-btn.hidden { background: #10b981; }
   .hide-btn.hidden:hover { background: #0da06f; }
   .row-hidden td { opacity: .55; }
   .hid-badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:10px; background:#fdecea; color:#c0392b; font-weight:700; }
   .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:10px; background:#eef5f1; color:#0b6b3f; }
-  .msg { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #13251e; color: #fff; padding: 12px 22px; border-radius: 8px; font-size: 14px; z-index: 10; opacity: 0; transition: opacity .25s; }
+  .msg { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: #13251e; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; z-index: 60; opacity: 0; transition: opacity .25s; box-shadow: 0 6px 16px rgba(0,0,0,.22); }
   .msg.show { opacity: 1; }
-  .login-screen { position: fixed; inset: 0; background: #0b3327; display: flex; align-items: center; justify-content: center; z-index: 20; }
-  .login-box { background: #fff; padding: 32px; border-radius: 14px; width: 320px; text-align: center; }
+  .login-screen { position: fixed; inset: 0; background: linear-gradient(135deg, #0b3b2b, #145c47 48%, #0e3a6b); display: flex; align-items: center; justify-content: center; z-index: 70; }
+  .login-box { background: #fff; padding: 34px 32px; border-radius: 16px; width: 340px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+  .login-box .brand-logo { height: 56px; width: auto; margin-bottom: 12px; }
   .login-box h2 { font-size: 17px; color: #0b3327; margin-bottom: 16px; }
-  .login-box input { width: 100%; padding: 11px 14px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 15px; margin-bottom: 14px; }
-  .login-box button { width: 100%; padding: 11px; background: #0b3327; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 15px; }
+  .login-box input { width: 100%; padding: 12px 14px; border: 1px solid #cdd9d2; border-radius: 9px; font-size: 15px; margin-bottom: 14px; }
+  .login-box input:focus { outline: 2px solid #b7dfc9; border-color: #10b981; }
+  .login-box button { width: 100%; padding: 12px; background: linear-gradient(135deg, #0b3b2b, #15614a); color: #fff; border: none; border-radius: 9px; font-weight: 700; cursor: pointer; font-size: 15px; }
+  .login-box button:hover { filter: brightness(1.08); }
   .login-box .err { color: #c0392b; font-size: 13px; margin-top: 8px; min-height: 18px; }
   .count { font-size: 12px; color: #7a8a82; }
-  .topbar-actions { display: flex; align-items: center; gap: 10px; }
-  .topbar .save-all { background: #e08020; color: #fff; border: none; padding: 9px 18px; border-radius: 7px; font-weight: 800; cursor: pointer; font-size: 13px; white-space: nowrap; }
-  .topbar .save-all:hover { background: #c96f17; }
-  .topbar .save-all:disabled { background: #5a6a62; cursor: not-allowed; }
-  .topbar .hist-btn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); padding: 9px 14px; border-radius: 7px; cursor: pointer; font-size: 13px; white-space: nowrap; }
-  .topbar .hist-btn:hover { background: rgba(255,255,255,.12); }
-  .modal-overlay { position: fixed; inset: 0; background: rgba(11,26,21,.55); display: none; align-items: center; justify-content: center; z-index: 30; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(11,26,21,.55); display: none; align-items: center; justify-content: center; z-index: 50; }
   .modal-overlay.open { display: flex; }
   .modal { background: #fff; border-radius: 14px; width: 520px; max-width: 94vw; max-height: 84vh; overflow: auto; padding: 24px; box-shadow: 0 14px 40px rgba(0,0,0,.25); }
   .modal h3 { font-size: 16px; color: #0b3327; margin-bottom: 12px; }
@@ -90,11 +110,12 @@
   .modal-actions .cancel { background: #eef1ef; color: #33443c; }
   .modal-actions .cancel:hover { background: #dfe6e2; }
   .hist-item { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid #eef2ef; }
+  .hist-item:last-child { border-bottom: none; }
   .hist-item .h-time { font-size: 12px; color: #7a8a82; min-width: 148px; }
   .hist-item .h-desc { flex: 1; font-size: 13.5px; color: #13251e; }
   .hist-item .h-chips { white-space: nowrap; }
   .chip { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 700; color: #7a8a82; }
-  .hist-restore { background: #10b981; color: #fff; border: none; padding: 7px 12px; border-radius: 7px; font-weight: 700; font-size: 12.5px; cursor: pointer; white-space: nowrap; }
+  .hist-restore { background: #10b981; color: #fff; border: none; padding: 7px 12px; border-radius: 8px; font-weight: 700; font-size: 12.5px; cursor: pointer; white-space: nowrap; }
   .hist-restore:hover { background: #0da06f; }
   .hist-empty { color: #7a8a82; font-size: 13px; padding: 12px 0; }
   .pending-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: transparent; margin-right: 6px; }
@@ -105,7 +126,8 @@
 
 <div id="loginScreen" class="login-screen">
   <div class="login-box">
-    <h2>Quản lý giá — Khải Thịnh</h2>
+    <img src="assets/logo.png" alt="Khải Thịnh" class="brand-logo">
+    <h2>Quản lý giá sản phẩm</h2>
     <input type="password" id="pwd" placeholder="Mật khẩu quản trị" autocomplete="current-password">
     <button id="loginBtn">Đăng nhập</button>
     <div class="err" id="loginErr"></div>
@@ -130,8 +152,9 @@
 
   <div class="toolbar">
     <input type="search" id="search" placeholder="Tìm sản phẩm...">
-    <span class="status" id="status">Đang tải…</span>
   </div>
+
+  <div class="summary" id="summary"></div>
 
   <div class="wrap" id="groups">
   </div>
@@ -253,8 +276,22 @@
       var ne = stagedName(p.src).en;
       return nv.toLowerCase().indexOf(q2) >= 0 || ne.toLowerCase().indexOf(q2) >= 0 || p.brand.toLowerCase().indexOf(q2) >= 0;
     }).length); }, 0);
-    var status = $("status");
-    if (status) status.textContent = total + " sản phẩm";
+    var status = $("summary");
+    updateSummary();
+  }
+
+  function updateSummary(){
+    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length;
+    var hiddenCount = 0;
+    products.forEach(function(p){ if (stagedHidden(p.src)) hiddenCount++; });
+    var el = $("summary");
+    if (!el) return;
+    el.innerHTML =
+      '<span class="stat">Tổng: <b>' + products.length + '</b> sản phẩm</span>' +
+      '<span class="stat">Đang ẩn: <b>' + hiddenCount + '</b></span>' +
+      (changed
+        ? '<span class="stat warn">' + changed + ' thay đổi chưa lưu</span>'
+        : '<span class="stat">Không có thay đổi chờ lưu</span>');
   }
 
   // ---- staged-state helpers ----
@@ -357,6 +394,7 @@
     var btn = $("saveAllBtn");
     btn.textContent = n ? "Lưu tất cả thay đổi (" + n + ")" : "Lưu tất cả thay đổi";
     btn.classList.toggle("has-pending", n > 0);
+    updateSummary();
   }
 
   function authHeaders(){
@@ -555,7 +593,7 @@
       .then(function(r){ return r.json(); })
       .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; versions = d.versions || []; })
       .then(render)
-      .then(function(){ $("status").textContent = products.length + " sản phẩm"; })
+      .then(updateSummary)
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });
   }
 

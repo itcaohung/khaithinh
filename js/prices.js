@@ -17,15 +17,31 @@
       if (!img) return;
       var src = img.getAttribute("src");
 
-      // Hide product
       if (hidden.indexOf(src) >= 0) {
         card.style.display = "none";
         return;
       }
-      // Apply price override
       if (priceEl && overrides.hasOwnProperty(src) && overrides[src] > 0) {
         priceEl.textContent = money(overrides[src]);
       }
+    });
+
+    // Hide a group when all its products are hidden (affects screen + print).
+    document.querySelectorAll(".cat-group").forEach(function (group) {
+      var cards = group.querySelectorAll(".cat-card");
+      var allHidden = cards.length > 0 && Array.prototype.every.call(cards, function (c) {
+        return c.style.display === "none";
+      });
+      if (allHidden) group.style.display = "none";
+    });
+
+    // Hide a print page when every group inside is hidden (avoids blank PDF page).
+    document.querySelectorAll(".pt-page").forEach(function (page) {
+      var groups = page.querySelectorAll(".cat-group");
+      var allGone = groups.length > 0 && Array.prototype.every.call(groups, function (g) {
+        return g.style.display === "none";
+      });
+      if (allGone) page.style.display = "none";
     });
 
     // Hide products on the home page (cards + slides)

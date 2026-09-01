@@ -44,10 +44,13 @@
 
   .wrap { max-width: 1100px; margin: 16px auto 44px; padding: 0 16px; }
   .group-block { margin-bottom: 20px; background: #fff; border: 1px solid #e2ece5; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(11,51,39,.07); }
-  .group-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(90deg, #14304e, #1b4d86); color: #fff; }
+  .group-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(90deg, #14304e, #1b4d86); color: #fff; cursor: pointer; user-select: none; }
+  .group-chevron { margin-left: auto; width: 18px; height: 18px; transition: transform .2s ease; color: #cfe0f5; flex-shrink: 0; }
+  .group-block.collapsed .group-chevron { transform: rotate(-90deg); }
+  .group-block.collapsed table { display: none; }
   .group-num { background: linear-gradient(135deg, #f0c049, #d9771a); color: #fff; font-weight: 800; font-size: 13px; padding: 4px 11px; border-radius: 10px; box-shadow: 0 2px 5px rgba(217,119,26,.35); }
   .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
-  .group-count { margin-left: auto; font-size: 12px; color: #d3e8dd; white-space: nowrap; background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 12px; }
+  .group-count { font-size: 12px; color: #d3e8dd; white-space: nowrap; background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 12px; }
   table { width: 100%; table-layout: fixed; border-collapse: collapse; }
   th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
@@ -204,6 +207,9 @@
   var dirtyOrders = {};      // group_num -> [src,...] (staged order)
   var versions = [];         // [{id, at, desc, snapshot}]
   var sortKey = "src";
+  var COLLAPSE_KEY = "kt-admin-collapsed";
+  var collapsed = {};        // group_num -> true (collapsed)
+  try { collapsed = JSON.parse(localStorage.getItem(COLLAPSE_KEY)) || {}; } catch(e){ collapsed = {}; }
 
   function $(id){ return document.getElementById(id); }
 
@@ -243,7 +249,8 @@
       head.innerHTML =
         '<span class="group-num">' + escHtml(g.num) + '</span>' +
         '<span class="group-title">' + escHtml(g.title) + '</span>' +
-        '<span class="group-count">' + shown.length + ' sản phẩm</span>';
+        '<span class="group-count">' + shown.length + ' sản phẩm</span>' +
+        '<svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
       var tbl = document.createElement("table");
       tbl.innerHTML =
         '<colgroup><col style="width:88px"><col style="width:34px"><col><col style="width:135px"><col style="width:110px"><col style="width:80px"></colgroup>' +
@@ -275,7 +282,8 @@
       });
       tbl.appendChild(tb);
       var blk = document.createElement("div");
-      blk.className = "group-block";
+      blk.className = "group-block" + (collapsed[gn] ? " collapsed" : "");
+      blk.setAttribute("data-group-num", gn);
       blk.appendChild(head);
       blk.appendChild(tbl);
       box.appendChild(blk);
@@ -345,6 +353,20 @@
 
   function bindEvents(){
     $("search").addEventListener("input", render);
+
+    $("groups").addEventListener("click", function(e){
+      var gh = e.target.closest(".group-head");
+      if (gh){
+        var blk = gh.closest(".group-block");
+        var gn = blk ? blk.getAttribute("data-group-num") : null;
+        if (!gn) return;
+        blk.classList.toggle("collapsed");
+        if (blk.classList.contains("collapsed")) collapsed[gn] = true;
+        else delete collapsed[gn];
+        try{ localStorage.setItem(COLLAPSE_KEY, JSON.stringify(collapsed)); }catch(err){}
+        return;
+      }
+    });
 
     $("groups").addEventListener("input", function(e){
       if (e.target.classList.contains("price-input")){

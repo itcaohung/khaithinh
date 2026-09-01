@@ -62,7 +62,7 @@
   .drag-handle:hover { color: #1b4d86; }
   tr.dragging { opacity: .35; }
   tr.drag-over td { box-shadow: inset 0 2px 0 0 #1b4d86; }
-  .prod-thumb { width: 60px; height: 60px; object-fit: contain; background: #fff; border-radius: 8px; border: 1px solid #e2e8e4; }
+  .prod-thumb { width: 120px; height: 120px; object-fit: contain; background: #fff; border-radius: 8px; border: 1px solid #e2e8e4; }
   .prod-name { font-weight: 600; color: #0b3327; }
   .prod-en { font-size: 12px; color: #7a8a82; }
   .prod-meta { font-size: 12px; color: #55685f; margin-top: 2px; }
@@ -76,7 +76,7 @@
   .rename-save:hover { background: #0da06f; }
   .rename-cancel { background: #eef1ef; color: #33443c; }
   .rename-cancel:hover { background: #dfe6e2; }
-  .price-input { width: 110px; padding: 8px 10px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; text-align: right; }
+  .price-input { width: 135px; padding: 8px 10px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; text-align: right; }
   .price-input.changed { border-color: #e08020; background: #fff7ec; }
   .save-btn { background: #10b981; color: #fff; border: none; padding: 9px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; }
   .save-btn:hover { background: #0da06f; }
@@ -219,6 +219,7 @@
   }
 
   function money(v){ return (v==null || v===0) ? "—" : v.toLocaleString("vi-VN") + " ₫"; }
+  function fmtPrice(v){ if (v==null || v==="") return ""; var n = Number(String(v).replace(/[^\d]/g,"")); if (isNaN(n)) return ""; return n.toLocaleString("vi-VN"); }
 
   function render(){
     var q = $("search").value.trim().toLowerCase();
@@ -253,7 +254,7 @@
         '<svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
       var tbl = document.createElement("table");
       tbl.innerHTML =
-        '<colgroup><col style="width:88px"><col style="width:34px"><col><col style="width:135px"><col style="width:110px"><col style="width:80px"></colgroup>' +
+        '<colgroup><col style="width:168px"><col style="width:34px"><col><col style="width:175px"><col style="width:110px"><col style="width:80px"></colgroup>' +
         '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
       var tb = document.createElement("tbody");
       shown.forEach(function(p){
@@ -275,7 +276,7 @@
           '<td><div class="prod-name">' + escHtml(nv) + '</div><div class="prod-en">' + escHtml(ne) + '</div>' +
           '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + (hid ? ' · <span class="hid-badge">Đã ẩn</span>' : '') + (renamed ? ' · <span class="hid-badge" style="background:#eaf2f7;color:#2a6f97">Đã đổi tên</span>' : '') + '</div>' +
           '<button class="rename-btn" data-rename="' + escAttr(p.src) + '" title="Đổi tên">✎</button></td>' +
-          '<td><input class="price-input' + (priceStaged ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
+          '<td><input class="price-input' + (priceStaged ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="text" inputmode="numeric" value="' + fmtPrice(cur) + '"></td>' +
           '<td><button class="save-btn' + (priceStaged ? ' staged' : '') + '" data-save="' + escAttr(p.src) + '">' + (priceStaged ? 'Đã sửa' : 'Lưu') + '</button></td>' +
           '<td><button class="hide-btn' + (hid ? ' hidden' : '') + (hideStaged ? ' staged' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>';
         tb.appendChild(tr);
@@ -370,6 +371,15 @@
 
     $("groups").addEventListener("input", function(e){
       if (e.target.classList.contains("price-input")){
+        // Format nghìn với dấu chấm khi gõ, giữ caret ở cuối
+        var raw = e.target.value;
+        var digits = String(raw).replace(/[^\d]/g, "");
+        var out = digits ? Number(digits).toLocaleString("vi-VN") : "";
+        if (raw !== out){
+          e.target.value = out;
+          var pos = out.length;
+          try { e.target.setSelectionRange(pos, pos); } catch(err){}
+        }
         // Chỉ đánh dấu pending — KHÔNG stage, không render, không toast.
         var btn = e.target.closest("tr").querySelector("[data-save]");
         if (btn){
@@ -385,7 +395,7 @@
       if (btn){
         // Chỉ khi bấm "Lưu" thì sửa mới được tính là xong ở sản phẩm này.
         var src = btn.getAttribute("data-save");
-        dirty[src] = Number(btn.closest("tr").querySelector('input[data-src="'+src+'"]').value);
+        dirty[src] = Number(String(btn.closest("tr").querySelector('input[data-src="'+src+'"]').value).replace(/[^\d]/g, "")) || 0;
         pruneNoopStaged();
         render();
         updateSaveAllState();

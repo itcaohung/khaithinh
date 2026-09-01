@@ -8,6 +8,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: "Be Vietnam Pro", system-ui, Arial, sans-serif; background: #f0f4f7; color: #13251e; }
   .topbar { background: #0b3327; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .topbar-left { display: flex; align-items: center; gap: 14px; }
+  .topbar .brand-logo { height: 44px; width: auto; }
   .topbar h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; }
   .topbar .sub { font-size: 12px; opacity: 0.75; }
   .topbar .logout { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
@@ -21,9 +23,11 @@
   .group-num { background: #e08020; color: #fff; font-weight: 800; font-size: 13px; padding: 3px 10px; border-radius: 9px; }
   .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
   .group-count { margin-left: auto; font-size: 12px; color: #cfe4d9; white-space: nowrap; }
-  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 0 0 10px 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(11,51,39,.08); }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; background: #fff; border-radius: 0 0 10px 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(11,51,39,.08); }
   th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; vertical-align: middle; }
   th { background: #eef5f1; color: #0b3b2b; font-weight: 700; white-space: nowrap; }
+  th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6) { text-align: center; }
+  .save-btn, .hide-btn { width: 60px; display: inline-block; }
   tr:nth-child(even) td { background: #fafcfa; }
   .prod-thumb { width: 44px; height: 44px; object-fit: contain; background: #fff; border-radius: 6px; border: 1px solid #e2e8e4; }
   .prod-name { font-weight: 600; color: #0b3327; }
@@ -67,9 +71,12 @@
 
 <div id="app" style="display:none">
   <div class="topbar">
-    <div>
-      <h1>Quản lý giá sản phẩm</h1>
-      <div class="sub">Công ty TNHH TM DV Khải Thịnh · Catalogue 2026</div>
+    <div class="topbar-left">
+      <img src="assets/logo.png" alt="Khải Thịnh" class="brand-logo">
+      <div>
+        <h1>Quản lý giá sản phẩm</h1>
+        <div class="sub">Công ty TNHH TM DV Khải Thịnh · Catalogue 2026</div>
+      </div>
     </div>
     <button class="logout" id="logoutBtn">Thoát</button>
   </div>
@@ -134,7 +141,9 @@
         '<span class="group-title">' + escHtml(g.title) + '</span>' +
         '<span class="group-count">' + shown.length + ' sản phẩm</span>';
       var tbl = document.createElement("table");
-      tbl.innerHTML = '<thead><tr><th></th><th>Sản phẩm</th><th>Giá hiện tại (₫)</th><th>Giá mặc định (₫)</th><th></th><th></th></tr></thead>';
+      tbl.innerHTML =
+        '<colgroup><col style="width:60px"><col><col style="width:135px"><col style="width:95px"><col style="width:80px"><col style="width:80px"></colgroup>' +
+        '<thead><tr><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Giá mặc định</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
       var tb = document.createElement("tbody");
       shown.forEach(function(p){
         var cur = hashOwn(dirty, p.src) ? dirty[p.src] : (hashOwn(overrides, p.src) ? overrides[p.src] : p.price);

@@ -16,7 +16,12 @@
   .toolbar select { padding: 10px 12px; border: 1px solid #cdd9d2; border-radius: 8px; font-size: 14px; background:#fff; }
   .toolbar .status { font-size: 13px; color: #0b6b3f; font-weight: 600; }
   .wrap { max-width: 1100px; margin: 14px auto 40px; padding: 0 16px; }
-  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(11,51,39,.08); }
+  .group-block { margin-bottom: 22px; }
+  .group-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(90deg, #0b3327, #10503c); border-radius: 10px 10px 0 0; color: #fff; }
+  .group-num { background: #e08020; color: #fff; font-weight: 800; font-size: 13px; padding: 3px 10px; border-radius: 9px; }
+  .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
+  .group-count { margin-left: auto; font-size: 12px; color: #cfe4d9; white-space: nowrap; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 0 0 10px 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(11,51,39,.08); }
   th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; vertical-align: middle; }
   th { background: #eef5f1; color: #0b3b2b; font-weight: 700; white-space: nowrap; }
   tr:nth-child(even) td { background: #fafcfa; }
@@ -65,26 +70,13 @@
 
   <div class="toolbar">
     <input type="search" id="search" placeholder="Tìm sản phẩm...">
-    <select id="groupFilter"><option value="">Tất cả nhóm</option></select>
     <span class="status">Đang tải…</span>
   </div>
 
-  <div class="wrap">
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Sản phẩm</th>
-          <th>Giá hiện tại (₫)</th>
-          <th>Giá mặc định (₫)</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
-    <div style="text-align:right; margin-top:12px;">
-      <button class="save-btn save-all" id="saveAllBtn">Lưu tất cả thay đổi</button>
-    </div>
+  <div class="wrap" id="groups">
+  </div>
+  <div class="wrap" style="text-align:right;">
+    <button class="save-btn save-all" id="saveAllBtn">Lưu tất cả thay đổi</button>
   </div>
 </div>
 
@@ -108,35 +100,60 @@
 
   function money(v){ return (v==null || v===0) ? "—" : v.toLocaleString("vi-VN") + " ₫"; }
 
-  function groupsOf(){
-    var map = {};
-    products.forEach(function(p){ map[p.group] = map[p.group] || { count:0 }; map[p.group].count++; });
-    return map;
-  }
-
   function render(){
     var q = $("search").value.trim().toLowerCase();
-    var gf = $("groupFilter").value;
-    var tb = $("tbody");
-    tb.innerHTML = "";
-    var list = products.filter(function(p){
-      var okQ = !q || p.vi.toLowerCase().indexOf(q) >= 0 || p.en.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
-      var okG = gf === "" || String(p.group) === gf;
-      return okQ && okG;
+    var box = $("groups");
+    box.innerHTML = "";
+    // products already in catalogue order; group by group_num (in order)
+    var gmap = {};
+    var order = [];
+    products.forEach(function(p){
+      if (!(p.group_num in gmap)){
+        gmap[p.group_num] = { num: p.group_num, title: p.group_title, items: [] };
+        order.push(p.group_num);
+      }
+      gmap[p.group_num].items.push(p);
     });
-    $("count").textContent = "";
-    list.forEach(function(p){
-      var tr = document.createElement("tr");
-      var cur = hashOwn(dirty, p.src) ? dirty[p.src] : (hashOwn(overrides, p.src) ? overrides[p.src] : p.price);
-      tr.innerHTML =
-        '<td><img class="prod-thumb" src="' + p.src + '" onerror="this.style.display=\'none\'"></td>' +
-        '<td><div class="prod-name">' + escHtml(p.vi) + '</div><div class="prod-en">' + escHtml(p.en) + '</div>' +
-        '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + '</div></td>' +
-        '<td><input class="price-input' + (hashOwn(dirty, p.src) ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
-        '<td><span class="price-def">' + money(p.price) + '</span></td>' +
-        '<td><button class="save-btn" data-save="' + escAttr(p.src) + '">Lưu</button></td>';
-      tb.appendChild(tr);
+    order.forEach(function(gn, i){
+      var g = gmap[gn];
+      var shown = g.items.filter(function(p){
+        return !q || p.vi.toLowerCase().indexOf(q) >= 0 || p.en.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
+      });
+      if (!shown.length) return;
+      var head = document.createElement("div");
+      head.className = "group-head";
+      head.innerHTML =
+        '<span class="group-num">' + escHtml(g.num) + '</span>' +
+        '<span class="group-title">' + escHtml(g.title) + '</span>' +
+        '<span class="group-count">' + shown.length + ' sản phẩm</span>';
+      var tbl = document.createElement("table");
+      tbl.innerHTML = '<thead><tr><th></th><th>Sản phẩm</th><th>Giá hiện tại (₫)</th><th>Giá mặc định (₫)</th><th></th></tr></thead>';
+      var tb = document.createElement("tbody");
+      shown.forEach(function(p){
+        var cur = hashOwn(dirty, p.src) ? dirty[p.src] : (hashOwn(overrides, p.src) ? overrides[p.src] : p.price);
+        var tr = document.createElement("tr");
+        tr.innerHTML =
+          '<td><img class="prod-thumb" src="' + escAttr(p.src) + '" onerror="this.style.display=\'none\'"></td>' +
+          '<td><div class="prod-name">' + escHtml(p.vi) + '</div><div class="prod-en">' + escHtml(p.en) + '</div>' +
+          '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + '</div></td>' +
+          '<td><input class="price-input' + (hashOwn(dirty, p.src) ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
+          '<td><span class="price-def">' + money(p.price) + '</span></td>' +
+          '<td><button class="save-btn" data-save="' + escAttr(p.src) + '">Lưu</button></td>';
+        tb.appendChild(tr);
+      });
+      tbl.appendChild(tb);
+      var blk = document.createElement("div");
+      blk.className = "group-block";
+      blk.appendChild(head);
+      blk.appendChild(tbl);
+      box.appendChild(blk);
     });
+    var total = Object.keys(gmap).reduce(function(s, gn){ return s + (gmap[gn].items.filter(function(p){
+      var q2 = q;
+      return !q2 || p.vi.toLowerCase().indexOf(q2) >= 0 || p.en.toLowerCase().indexOf(q2) >= 0 || p.brand.toLowerCase().indexOf(q2) >= 0;
+    }).length); }, 0);
+    var status = document.querySelector(".status");
+    if (status) status.textContent = total + " sản phẩm";
   }
 
   function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
@@ -145,9 +162,8 @@
 
   function bindEvents(){
     $("search").addEventListener("input", render);
-    $("groupFilter").addEventListener("change", render);
 
-    $("tbody").addEventListener("input", function(e){
+    $("groups").addEventListener("input", function(e){
       if (e.target.classList.contains("price-input")){
         var src = e.target.getAttribute("data-src");
         dirty[src] = Number(e.target.value);
@@ -156,12 +172,12 @@
       }
     });
 
-    $("tbody").addEventListener("click", function(e){
+    $("groups").addEventListener("click", function(e){
       var btn = e.target.closest("[data-save]");
       if (btn){
         var dataSrc = btn.getAttribute("data-save");
         var src = dataSrc;
-        var val = Number($("tbody").querySelector('input[data-src="'+dataSrc+'"]').value);
+        var val = Number(btn.closest("tr").querySelector('input[data-src="'+dataSrc+'"]').value);
         saveOne(src, val, btn);
       }
     });
@@ -225,12 +241,6 @@
       .then(function(r){ return r.json(); })
       .then(function(list){
         products = list;
-        var g = groupsOf();
-        var sel = $("groupFilter");
-        Object.keys(g).sort(function(a,b){ return Number(a)-Number(b); }).forEach(function(gid){
-          var o = document.createElement("option"); o.value = gid; o.textContent = "Nhóm " + String(Number(gid)+1).padStart(2,"0") + " (" + g[gid].count + ")";
-          sel.appendChild(o);
-        });
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })

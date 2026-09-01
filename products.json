@@ -7,7 +7,9 @@
   "country": "Mỹ",
   "weight": "250g",
   "group": 0,
-  "price": 186577
+  "price": 186577,
+  "group_title": "TAYLOR - TRÁI CÂY KHÔ CAO CẤP",
+  "group_num": "01"
  },
  {
   "src": "assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-taylor-prunes-naturally-sweet-250g.webp",
@@ -17,7 +19,9 @@
   "country": "Mỹ",
   "weight": "250g",
   "group": 0,
-  "price": 126577
+  "price": 126577,
+  "group_title": "TAYLOR - TRÁI CÂY KHÔ CAO CẤP",
+  "group_num": "01"
  },
  {
   "src": "assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/trai-va-kho-tu-nhien-hieu-taylor-taylor-dried-figs-190g.webp",
@@ -27,7 +31,9 @@
   "country": "Mỹ",
   "weight": "190g",
   "group": 0,
-  "price": 131577
+  "price": 131577,
+  "group_title": "TAYLOR - TRÁI CÂY KHÔ CAO CẤP",
+  "group_num": "01"
  },
  {
   "src": "assets/catalog/taylor-trai-cay-kho-cao-cap-goi-nho-smart-packs-1/man-kho-taylor-prunes-naturally-sweet-50g.webp",
@@ -37,7 +43,9 @@
   "country": "Mỹ",
   "weight": "50g",
   "group": 0,
-  "price": 31577
+  "price": 31577,
+  "group_title": "TAYLOR - TRÁI CÂY KHÔ CAO CẤP",
+  "group_num": "01"
  },
  {
   "src": "assets/catalog/taylor-trai-cay-kho-cao-cap-goi-nho-smart-packs-1/trai-anh-ao-kho-tu-nhien-hieu-taylor-taylor-dried-bing-cherries-45g.webp",
@@ -47,7 +55,9 @@
   "country": "Mỹ",
   "weight": "45g",
   "group": 0,
-  "price": 50577
+  "price": 50577,
+  "group_title": "TAYLOR - TRÁI CÂY KHÔ CAO CẤP",
+  "group_num": "01"
  },
  {
   "src": "assets/catalog/snow-farms-trai-cay-kho-cao-cap-2/trai-viet-quat-kho-tu-nhien-hieu-snow-farms-120g.webp",
@@ -57,7 +67,9 @@
   "country": "Canada",
   "weight": "120g",
   "group": 1,
-  "price": 104577
+  "price": 104577,
+  "group_title": "SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP",
+  "group_num": "02"
  },
  {
   "src": "assets/catalog/snow-farms-trai-cay-kho-cao-cap-2/trai-nam-viet-quat-kho-tu-nhien-hieu-snow-farms-120g.webp",
@@ -67,7 +79,9 @@
   "country": "Canada",
   "weight": "120g",
   "group": 1,
-  "price": 61577
+  "price": 61577,
+  "group_title": "SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP",
+  "group_num": "02"
  },
  {
   "src": "assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-huu-co-hieu-taylor-100-organic-prune-juice-946ml.webp",
@@ -77,7 +91,9 @@
   "country": "Mỹ",
   "weight": "946ml",
   "group": 2,
-  "price": 225577
+  "price": 225577,
+  "group_title": "TAYLOR - NƯỚC ÉP MẬN CAO CẤP",
+  "group_num": "03"
  },
  {
   "src": "assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-hieu-taylor-taylor-prune-juice-946ml.webp",
@@ -87,7 +103,9 @@
   "country": "Mỹ",
   "weight": "946ml",
   "group": 2,
-  "price": 169577
+  "price": 169577,
+  "group_title": "TAYLOR - NƯỚC ÉP MẬN CAO CẤP",
+  "group_num": "03"
  },
  {
   "src": "assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-digestives-400g.webp",
@@ -97,7 +115,9 @@
   "country": "Vương Quốc Anh",
   "weight": "400g",
   "group": 3,
-  "price": 63577
+  "price": 63577,
+  "group_title": "ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG",
+  "group_num": "04"
  },
  {
   "src": "assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-oaties-300g.webp",
@@ -107,7 +127,9 @@
   "country": "Vương Quốc Anh",
   "weight": "300g",
   "group": 3,
-  "price": 63577
+  "price": 63577,
+  "group_title": "ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG",
+  "group_num": "04"
  },
  {
   "src": "assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-ginger-nuts-300g.webp",
@@ -117,7 +139,9 @@
   "country": "Vương Quốc Anh",
   "weight": "300g",
   "group": 3,
-  "price": 63577
+  "price": 63577,
+  "group_title": "ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG",
+  "group_num": "04"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-gung-hieu-coolberg-ginger-330ml.webp",
@@ -127,7 +151,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-nam-viet-quat-hieu-coolberg-cranberry-330ml.webp",
@@ -137,7 +163,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-bac-ha-hieu-coolberg-mint-330ml.webp",
@@ -147,7 +175,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-hon-hop-vi-vai-va-dua-haiwai-hieu-coolberg-hawai-330ml.webp",
@@ -157,7 +187,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-dau-hieu-coolberg-strawberry-330ml.webp",
@@ -167,7 +199,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-ao-hieu-coolberg-peach-330ml.webp",
@@ -177,7 +211,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-ao-khong-uong-hieu-coolberg-diet-peach-330ml.webp",
@@ -187,7 +223,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-dau-khong-uong-hieu-coolberg-diet-strawberry-330ml.webp",
@@ -197,7 +235,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-tao-hieu-coolberg-apple-330ml.webp",
@@ -207,7 +247,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-chanh-va-gung-hieu-coolberg-lemon-ginger-330ml.webp",
@@ -217,7 +259,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-gung-hieu-royalty-ginger-330ml.webp",
@@ -227,7 +271,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-gung-khong-uong-hieu-royalty-ginger-330ml.webp",
@@ -237,7 +283,9 @@
   "country": "Ấn Độ",
   "weight": "330ml",
   "group": 4,
-  "price": 25577
+  "price": 25577,
+  "group_title": "ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN",
+  "group_num": "05"
  },
  {
   "src": "assets/catalog/cleary-s-siro-la-phong-6/siro-la-phong-nguyen-chat-hieu-cleary-s-pure-maple-syrup-236ml.webp",
@@ -247,7 +295,9 @@
   "country": "Canada",
   "weight": "236ml",
   "group": 5,
-  "price": 160577
+  "price": 160577,
+  "group_title": "CLEARY'S - SIRO LÁ PHONG",
+  "group_num": "06"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-vani-hieu-pik-cake-mix-velvet-vanilla-250g.webp",
@@ -257,7 +307,9 @@
   "country": "Ấn Độ",
   "weight": "350g",
   "group": 7,
-  "price": 51577
+  "price": 51577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-cake-mix-rich-chocolate-350g.webp",
@@ -267,7 +319,9 @@
   "country": "Ấn Độ",
   "weight": "350g",
   "group": 7,
-  "price": 55577
+  "price": 55577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-cake-mix-red-velvet-250g.webp",
@@ -277,7 +331,9 @@
   "country": "Ấn Độ",
   "weight": "350g",
   "group": 7,
-  "price": 56577
+  "price": 56577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-pancake-mix-500g.webp",
@@ -287,7 +343,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 7,
-  "price": 52577
+  "price": 52577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-bo-sua-hieu-pik-pancake-mix-buttermilk-500g.webp",
@@ -297,7 +355,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 7,
-  "price": 52577
+  "price": 52577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-hieu-pik-pancake-mix-350g.webp",
@@ -307,7 +367,9 @@
   "country": "Ấn Độ",
   "weight": "350g",
   "group": 7,
-  "price": 44577
+  "price": 44577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-bo-sua-hieu-pik-pancake-mix-buttermilk-350g.webp",
@@ -317,7 +379,9 @@
   "country": "Ấn Độ",
   "weight": "350g",
   "group": 7,
-  "price": 44577
+  "price": 44577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-no-hieu-pik-baking-powder-100g.webp",
@@ -327,7 +391,9 @@
   "country": "Ấn Độ",
   "weight": "100g",
   "group": 7,
-  "price": 19577
+  "price": 19577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-baking-soda-hieu-pik-baking-soda-500g.webp",
@@ -337,7 +403,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 7,
-  "price": 42577
+  "price": 42577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/bot-ca-cao-hieu-pik-cocoa-powder-50g.webp",
@@ -347,7 +415,9 @@
   "country": "Ấn Độ",
   "weight": "50g",
   "group": 7,
-  "price": 16577
+  "price": 16577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/pik-bot-lam-banh-7/men-kho-hieu-pik-active-dry-yeast-25g.webp",
@@ -357,7 +427,9 @@
   "country": "Ấn Độ",
   "weight": "25g",
   "group": 7,
-  "price": 11577
+  "price": 11577,
+  "group_title": "PIK - BỘT LÀM BÁNH",
+  "group_num": "08"
  },
  {
   "src": "assets/catalog/briovinegars-dam-tao-huu-co-8/giam-tao-huu-co-hieu-briovinegars-organic-apple-cider-vinegar-473ml.webp",
@@ -367,7 +439,9 @@
   "country": "Ấn Độ",
   "weight": "473ml",
   "group": 6,
-  "price": 72577
+  "price": 72577,
+  "group_title": "BRIOVINEGARS - GIẤM TÁO HỮU CƠ",
+  "group_num": "07"
  },
  {
   "src": "assets/catalog/nison-ca-ong-hop-9/ca-trich-ngam-dau-thuc-vat-hieu-nison-nison-sardines-in-vegetable-oil-125g.webp",
@@ -377,7 +451,9 @@
   "country": "Indonesia",
   "weight": "125g",
   "group": 8,
-  "price": 23577
+  "price": 23577,
+  "group_title": "NISON - CÁ ĐÓNG HỘP",
+  "group_num": "09"
  },
  {
   "src": "assets/catalog/nison-ca-ong-hop-9/ca-trich-ngam-dau-thuc-vat-voi-ot-hieu-nison-nison-sardines-in-vegetable-oil-with-chili-125g.webp",
@@ -387,7 +463,9 @@
   "country": "Indonesia",
   "weight": "125g",
   "group": 8,
-  "price": 24577
+  "price": 24577,
+  "group_title": "NISON - CÁ ĐÓNG HỘP",
+  "group_num": "09"
  },
  {
   "src": "assets/catalog/nison-ca-ong-hop-9/ca-trich-chien-sot-tuong-cay-hieu-nison-nison-fried-sardines-in-spicy-soy-sauce-125g.webp",
@@ -397,7 +475,9 @@
   "country": "Indonesia",
   "weight": "125g",
   "group": 8,
-  "price": 24577
+  "price": 24577,
+  "group_title": "NISON - CÁ ĐÓNG HỘP",
+  "group_num": "09"
  },
  {
   "src": "assets/catalog/nison-ca-ong-hop-9/ca-trich-sot-ca-chua-hieu-nison-nison-sardines-in-tomato-sauce-155g.webp",
@@ -407,7 +487,9 @@
   "country": "Indonesia",
   "weight": "155g",
   "group": 8,
-  "price": 21577
+  "price": 21577,
+  "group_title": "NISON - CÁ ĐÓNG HỘP",
+  "group_num": "09"
  },
  {
   "src": "assets/catalog/nison-ca-ong-hop-9/ca-trich-sot-cay-hieu-nison-nison-sardines-in-extra-hot-sauce-155g.webp",
@@ -417,7 +499,9 @@
   "country": "Indonesia",
   "weight": "155g",
   "group": 8,
-  "price": 22577
+  "price": 22577,
+  "group_title": "NISON - CÁ ĐÓNG HỘP",
+  "group_num": "09"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-den-huu-co-hieu-just-organik-organic-amaranth-500g.webp",
@@ -427,7 +511,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 58577
+  "price": 58577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-ke-huu-co-hieu-just-organik-hat-ke-vang-organic-foxtail-millet-500g.webp",
@@ -437,7 +523,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 67577
+  "price": 67577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-ke-huu-co-hieu-just-organik-organic-barnyard-millet-500g.webp",
@@ -447,7 +535,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 67577
+  "price": 67577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-kieu-mach-huu-co-hieu-just-organik-organic-buckwheat-hulled-500g.webp",
@@ -457,7 +547,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 119577
+  "price": 119577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-diem-mach-trang-huu-co-hieu-just-organik-organic-quinoa-white-500g.webp",
@@ -467,7 +559,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 119577
+  "price": 119577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-diem-mach-o-huu-co-hieu-just-organik-organic-quinoa-red-500g.webp",
@@ -477,7 +571,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 208577
+  "price": 208577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-lua-mach-huu-co-hieu-just-organik-organic-barley-pearled-500g.webp",
@@ -487,7 +583,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 58577
+  "price": 58577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/yen-mach-huu-co-cat-hieu-just-organik-organic-steel-cut-oat-500g.webp",
@@ -497,7 +595,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 9,
-  "price": 114577
+  "price": 114577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-lanh-huu-co-hieu-just-organik-organic-flax-seeds-200g.webp",
@@ -507,7 +607,9 @@
   "country": "Ấn Độ",
   "weight": "200g",
   "group": 9,
-  "price": 74577
+  "price": 74577,
+  "group_title": "JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC",
+  "group_num": "10"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-o-tay-huu-co-hieu-just-organik-organic-red-kindey-beans-500g.webp",
@@ -517,7 +619,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 81577
+  "price": 81577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-en-huu-co-hieu-just-organik-organic-black-gram-500g.webp",
@@ -527,7 +631,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 64577
+  "price": 64577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-ga-huu-co-hieu-just-organik-organic-chickpea-500g.webp",
@@ -537,7 +643,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 75577
+  "price": 75577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-lang-o-huu-co-hieu-just-organik-organic-red-lentils-500g.webp",
@@ -547,7 +655,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 67577
+  "price": 67577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-lang-nau-huu-co-hieu-just-organik-organic-brown-lentils-500g.webp",
@@ -557,7 +667,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 62577
+  "price": 62577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-xanh-huu-co-hieu-just-organik-organic-moong-split-dehusked-500g.webp",
@@ -567,7 +679,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 79577
+  "price": 79577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-trang-huu-co-hieu-just-organik-organic-cowpea-500g.webp",
@@ -577,7 +691,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 64577
+  "price": 64577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-nanh-huu-co-hieu-just-organik-organic-soyabean-white-500g.webp",
@@ -587,7 +703,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 52577
+  "price": 52577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-nanh-en-huu-co-hieu-just-organik-organic-soyabean-black-500g.webp",
@@ -597,7 +715,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 87577
+  "price": 87577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/pulses-lentils-au-huu-co-11/au-hon-hop-huu-co-hieu-just-organik-organic-mix-lentils-500g.webp",
@@ -607,7 +727,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 10,
-  "price": 67577
+  "price": 67577,
+  "group_title": "PULSES & LENTILS _ ĐẬU HỮU CƠ",
+  "group_num": "11"
  },
  {
   "src": "assets/catalog/flours-bot-lam-banh-huu-co-12/bot-huu-co-hieu-just-organik-organic-9-grains-flour-1kg.webp",
@@ -617,7 +739,9 @@
   "country": "Ấn Độ",
   "weight": "1kg",
   "group": 11,
-  "price": 93577
+  "price": 93577,
+  "group_title": "FLOURS _ BỘT LÀM BÁNH HỮU CƠ",
+  "group_num": "12"
  },
  {
   "src": "assets/catalog/flours-bot-lam-banh-huu-co-12/bot-kieu-mach-huu-co-hieu-just-organik-organic-buckwheat-flour-500g.webp",
@@ -627,7 +751,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 11,
-  "price": 127577
+  "price": 127577,
+  "group_title": "FLOURS _ BỘT LÀM BÁNH HỮU CƠ",
+  "group_num": "12"
  },
  {
   "src": "assets/catalog/flours-bot-lam-banh-huu-co-12/bot-yen-mach-huu-co-hieu-just-organik-organic-oat-flour-500g.webp",
@@ -637,7 +763,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 11,
-  "price": 121577
+  "price": 121577,
+  "group_title": "FLOURS _ BỘT LÀM BÁNH HỮU CƠ",
+  "group_num": "12"
  },
  {
   "src": "assets/catalog/flours-bot-lam-banh-huu-co-12/bot-gao-huu-co-hieu-just-organik-organic-white-rice-flour-500g.webp",
@@ -647,7 +775,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 11,
-  "price": 48577
+  "price": 48577,
+  "group_title": "FLOURS _ BỘT LÀM BÁNH HỮU CƠ",
+  "group_num": "12"
  },
  {
   "src": "assets/catalog/flours-bot-lam-banh-huu-co-12/bot-bap-huu-co-hieu-just-organik-organic-corn-flour-500g.webp",
@@ -657,7 +787,9 @@
   "country": "Ấn Độ",
   "weight": "500g",
   "group": 11,
-  "price": 51577
+  "price": 51577,
+  "group_title": "FLOURS _ BỘT LÀM BÁNH HỮU CƠ",
+  "group_num": "12"
  },
  {
   "src": "assets/catalog/spices-gia-vi-nau-an-huu-co-13/hat-methi-huu-co-hieu-just-organik-organic-fenugreek-methi-100g.webp",
@@ -667,7 +799,9 @@
   "country": "Ấn Độ",
   "weight": "100g",
   "group": 12,
-  "price": 31577
+  "price": 31577,
+  "group_title": "SPICES _ GIA VỊ NẤU ĂN HỮU CƠ",
+  "group_num": "13"
  },
  {
   "src": "assets/catalog/spices-gia-vi-nau-an-huu-co-13/bot-nghe-huu-co-hieu-just-organik-organic-turmeric-powder-100g.webp",
@@ -677,7 +811,9 @@
   "country": "Ấn Độ",
   "weight": "100g",
   "group": 12,
-  "price": 35577
+  "price": 35577,
+  "group_title": "SPICES _ GIA VỊ NẤU ĂN HỮU CƠ",
+  "group_num": "13"
  },
  {
   "src": "assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp",
@@ -687,7 +823,9 @@
   "country": "Vương Quốc Anh",
   "weight": "500ml",
   "group": 13,
-  "price": 66577
+  "price": 66577,
+  "group_title": "ENGLISH BREEZE - NƯỚC RỬA TAY",
+  "group_num": "14"
  },
  {
   "src": "assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-lily-pond-500ml.webp",
@@ -697,7 +835,9 @@
   "country": "Vương Quốc Anh",
   "weight": "500ml",
   "group": 13,
-  "price": 66577
+  "price": 66577,
+  "group_title": "ENGLISH BREEZE - NƯỚC RỬA TAY",
+  "group_num": "14"
  },
  {
   "src": "assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-relaxing-violet-500ml.webp",
@@ -707,7 +847,9 @@
   "country": "Vương Quốc Anh",
   "weight": "500ml",
   "group": 13,
-  "price": 66577
+  "price": 66577,
+  "group_title": "ENGLISH BREEZE - NƯỚC RỬA TAY",
+  "group_num": "14"
  },
  {
   "src": "assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-cool-coconut-500ml.webp",
@@ -717,7 +859,9 @@
   "country": "Vương Quốc Anh",
   "weight": "500ml",
   "group": 13,
-  "price": 66577
+  "price": 66577,
+  "group_title": "ENGLISH BREEZE - NƯỚC RỬA TAY",
+  "group_num": "14"
  },
  {
   "src": "assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-summer-honey-500ml.webp",
@@ -727,6 +871,8 @@
   "country": "Vương Quốc Anh",
   "weight": "500ml",
   "group": 13,
-  "price": 66577
+  "price": 66577,
+  "group_title": "ENGLISH BREEZE - NƯỚC RỬA TAY",
+  "group_num": "14"
  }
 ]

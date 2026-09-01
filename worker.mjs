@@ -42,7 +42,8 @@ export default {
     if (path === "/api/prices" && request.method === "GET") {
       try {
         const raw = await env.PRICES.get("overrides", "json");
-        return json({ ok: true, overrides: raw || {} }, 200, origin);
+        const hidden = await env.PRICES.get("hidden", "json");
+        return json({ ok: true, overrides: raw || {}, hidden: hidden || [] }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }
@@ -69,6 +70,40 @@ export default {
         }
         await env.PRICES.put("overrides", JSON.stringify(overrides));
         return json({ ok: true, overrides });
+      } catch (e) {
+        return json({ ok: false, error: String(e) }, 500, origin);
+      }
+    }
+
+    // ---------- Hide/show products (KV-backed) ----------
+    if (path === "/api/hidden" && request.method === "GET") {
+      try {
+        const hidden = await env.PRICES.get("hidden", "json");
+        return json({ ok: true, hidden: hidden || [] }, 200, origin);
+      } catch (e) {
+        return json({ ok: false, error: String(e) }, 500, origin);
+      }
+    }
+
+    if (path === "/api/hidden" && request.method === "PUT") {
+      if (request.headers.get("x-admin-password") !== env.ADMIN_PASSWORD) {
+        return unauthorized(origin);
+      }
+      try {
+        const body = await request.json();
+        const src = body.src;
+        const hideOp = !!body.hidden;
+        if (!src) {
+          return json({ ok: false, error: "Dữ liệu không hợp lệ" }, 400, origin);
+        }
+        let hidden = (await env.PRICES.get("hidden", "json")) || [];
+        if (hideOp) {
+          if (!hidden.includes(src)) hidden.push(src);
+        } else {
+          hidden = hidden.filter((s) => s !== src);
+        }
+        await env.PRICES.put("hidden", JSON.stringify(hidden));
+        return json({ ok: true, hidden });
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }

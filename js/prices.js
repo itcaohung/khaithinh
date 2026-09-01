@@ -1,4 +1,4 @@
-/* Khải Thịnh — apply live price overrides from /api/prices (Cloudflare KV) */
+/* Khải Thịnh — apply live price overrides + hidden products from /api/prices (Cloudflare KV) */
 (function () {
   "use strict";
 
@@ -6,21 +6,49 @@
     return Number(v).toLocaleString("vi-VN") + " đ";
   }
 
-  function apply(overrides) {
-    if (!overrides) return;
+  function apply(d) {
+    if (!d) return;
+    var overrides = d.overrides || {};
+    var hidden = d.hidden || [];
+
     document.querySelectorAll(".cat-card").forEach(function (card) {
       var img = card.querySelector(".cat-thumb img");
       var priceEl = card.querySelector(".cat-price");
-      if (!img || !priceEl) return;
+      if (!img) return;
       var src = img.getAttribute("src");
-      if (overrides.hasOwnProperty(src) && overrides[src] > 0) {
+
+      // Hide product
+      if (hidden.indexOf(src) >= 0) {
+        card.style.display = "none";
+        return;
+      }
+      // Apply price override
+      if (priceEl && overrides.hasOwnProperty(src) && overrides[src] > 0) {
         priceEl.textContent = money(overrides[src]);
+      }
+    });
+
+    // Hide products on the home page (cards + slides)
+    document.querySelectorAll(".product-card").forEach(function (card) {
+      var img = card.querySelector(".product-img img");
+      if (!img) return;
+      var src = img.getAttribute("src");
+      if (hidden.indexOf(src) >= 0) {
+        card.style.display = "none";
+      }
+    });
+    document.querySelectorAll(".p-slide").forEach(function (slide) {
+      var img = slide.querySelector("img");
+      if (!img) return;
+      var src = img.getAttribute("src");
+      if (hidden.indexOf(src) >= 0) {
+        slide.style.display = "none";
       }
     });
   }
 
   fetch("/api/prices", { headers: { "cache": "no-store" } })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-    .then(function (d) { apply(d.overrides); })
+    .then(apply)
     .catch(function () { /* fall back to baked-in prices */ });
 })();

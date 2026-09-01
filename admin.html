@@ -36,6 +36,12 @@
   .save-btn:hover { background: #0da06f; }
   .save-btn:disabled { background: #b8c4bd; cursor: not-allowed; }
   .save-all { background: #0b3327; }
+  .hide-btn { background: #e74c3c; color: #fff; border: none; padding: 9px 14px; border-radius: 7px; font-weight: 700; cursor: pointer; font-size: 13px; }
+  .hide-btn:hover { background: #c0392b; }
+  .hide-btn.hidden { background: #10b981; }
+  .hide-btn.hidden:hover { background: #0da06f; }
+  .row-hidden td { opacity: .55; }
+  .hid-badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:10px; background:#fdecea; color:#c0392b; font-weight:700; }
   .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:10px; background:#eef5f1; color:#0b6b3f; }
   .msg { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #13251e; color: #fff; padding: 12px 22px; border-radius: 8px; font-size: 14px; z-index: 10; opacity: 0; transition: opacity .25s; }
   .msg.show { opacity: 1; }
@@ -87,6 +93,7 @@
   "use strict";
   var PWD_KEY = "kt-admin-pwd";
   var overrides = {};       // src -> price
+  var hidden = [];          // srcs of hidden products
   var products = [];         // from products.json
   var dirty = {};            // src -> price (unsaved edits)
   var sortKey = "src";
@@ -127,18 +134,21 @@
         '<span class="group-title">' + escHtml(g.title) + '</span>' +
         '<span class="group-count">' + shown.length + ' sản phẩm</span>';
       var tbl = document.createElement("table");
-      tbl.innerHTML = '<thead><tr><th></th><th>Sản phẩm</th><th>Giá hiện tại (₫)</th><th>Giá mặc định (₫)</th><th></th></tr></thead>';
+      tbl.innerHTML = '<thead><tr><th></th><th>Sản phẩm</th><th>Giá hiện tại (₫)</th><th>Giá mặc định (₫)</th><th></th><th></th></tr></thead>';
       var tb = document.createElement("tbody");
       shown.forEach(function(p){
         var cur = hashOwn(dirty, p.src) ? dirty[p.src] : (hashOwn(overrides, p.src) ? overrides[p.src] : p.price);
+        var hid = hidden.indexOf(p.src) >= 0;
         var tr = document.createElement("tr");
+        tr.className = hid ? "row-hidden" : "";
         tr.innerHTML =
           '<td><img class="prod-thumb" src="' + escAttr(p.src) + '" onerror="this.style.display=\'none\'"></td>' +
           '<td><div class="prod-name">' + escHtml(p.vi) + '</div><div class="prod-en">' + escHtml(p.en) + '</div>' +
-          '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + '</div></td>' +
+          '<div class="prod-meta">' + escHtml(p.brand) + ' · ' + escHtml(p.weight) + (hid ? ' · <span class="hid-badge">Đã ẩn</span>' : '') + '</div></td>' +
           '<td><input class="price-input' + (hashOwn(dirty, p.src) ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="number" min="0" step="1" value="' + cur + '"></td>' +
           '<td><span class="price-def">' + money(p.price) + '</span></td>' +
-          '<td><button class="save-btn" data-save="' + escAttr(p.src) + '">Lưu</button></td>';
+          '<td><button class="save-btn" data-save="' + escAttr(p.src) + '">Lưu</button></td>' +
+          '<td><button class="hide-btn' + (hid ? ' hidden' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>';
         tb.appendChild(tr);
       });
       tbl.appendChild(tb);
@@ -179,6 +189,11 @@
         var src = dataSrc;
         var val = Number(btn.closest("tr").querySelector('input[data-src="'+dataSrc+'"]').value);
         saveOne(src, val, btn);
+        return;
+      }
+      var hbtn = e.target.closest("[data-hide]");
+      if (hbtn){
+        toggleHidden(hbtn.getAttribute("data-hide"), hbtn);
       }
     });
 
@@ -216,6 +231,26 @@
       .finally(function(){ runInline(btn, function(){ btn.disabled = false; }); });
   }
 
+  function isHidden(src){ return hidden.indexOf(src) >= 0; }
+
+  function toggleHidden(src, btn){
+    var next = !isHidden(src);
+    btn.disabled = true;
+    fetch("/api/hidden", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ src: src, hidden: next }) })
+      .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
+      .then(function(t){
+        if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
+        hidden = t.d.hidden || [];
+        render();
+        showMsg(next ? "Đã ẩn sản phẩm" : "Đã hiện sản phẩm");
+      })
+      .catch(function(err){
+        showMsg("Lỗi: " + err.message);
+        if (err.message.indexOf("401") >= 0 || err.message.indexOf("Sai mật khẩu") >= 0){ logoutLocal(); }
+      })
+      .finally(function(){ runInline(btn, function(){ btn.disabled = false; }); });
+  }
+
   function saveAll(){
     if (!Object.keys(dirty).length) return;
     $("saveAllBtn").disabled = true;
@@ -244,7 +279,7 @@
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })
-      .then(function(d){ overrides = d.overrides || {}; })
+      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; })
       .then(render)
       .then(function(){ document.querySelector(".status").textContent = products.length + " sản phẩm"; })
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });

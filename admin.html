@@ -421,10 +421,12 @@
     l.forEach(function(g){ if (g.num === toNum) target = g; });
     if (!target) return;
     target.srcs.push(src);
+    // Remove now-empty groups and renumber the rest sequentially.
+    l = l.filter(function(g){ return g.srcs.length > 0; });
     stageLayout(l);
     render();
     updateSaveAllState();
-    showMsg("Đã di chuyển sản phẩm sang nhóm " + toNum + ". Nhấn “Lưu tất cả thay đổi” để áp dụng.");
+    showMsg("Đã di chuyển sản phẩm sang nhóm " + toNum + ". Nhóm trống được bỏ và đánh số lại. Nhấn “Lưu tất cả thay đổi” để áp dụng.");
   }
 
   function deleteGroup(sh){

@@ -319,7 +319,7 @@
       var head = document.createElement("div");
       head.className = "group-head";
       head.innerHTML =
-        '<span class="group-num">' + escHtml(g.num) + '</span>' +
+        '<span class="group-num">' + escHtml(displayGroupNum(g.num)) + '</span>' +
         '<span class="group-title">' + escHtml(gtitle) + '</span>' +
         '<button class="group-rename-btn" data-group-rename="' + escAttr(g.num) + '" title="Đổi tên nhóm">✎</button>' +
         '<button class="group-del-btn" data-group-del="' + escAttr(g.num) + '" title="Xóa nhóm (gộp SP và đánh số lại)">🗑</button>' +
@@ -614,6 +614,8 @@
   function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
   function escHtml(s){ var d=document.createElement("div"); d.textContent=s==null?"":s; return d.innerHTML; }
   function escAttr(s){ return escHtml(s).replace(/"/g,'&quot;'); }
+  // Drop the leading zero from a group number for display (01 -> 1), keep ≥10 as-is.
+  function displayGroupNum(num){ var n = Number(num); return (isNaN(n) || String(num) === String(n)) ? String(num) : String(n); }
 
   function bindEvents(){
     $("search").addEventListener("input", render);

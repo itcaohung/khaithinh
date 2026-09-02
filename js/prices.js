@@ -18,6 +18,12 @@
     if (el.getAttribute("data-en") !== null) el.setAttribute("data-en", en);
   }
 
+  // Drop the leading zero from group number for display (01 -> 1), keep ≥10 as-is.
+  function displayGroupNum(num) {
+    var n = Number(num);
+    return (isNaN(n) || String(num) === String(n)) ? String(num) : String(n);
+  }
+
   function apply(d) {
     if (!d) return;
     var overrides = d.overrides || {};
@@ -67,7 +73,7 @@
         section.setAttribute("data-order", g.num);
         if (section.hasAttribute("data-group_num")) section.setAttribute("data-group_num", g.num);
         var numEl = section.querySelector(".group-num");
-        if (numEl) numEl.textContent = g.num;
+        if (numEl) numEl.textContent = displayGroupNum(g.num);
         var title = section.querySelector(".group-title");
         if (title) setBilingual(title, g.title, title.getAttribute("data-en") || g.title);
         var grid = section.querySelector(".cat-grid");

@@ -187,6 +187,15 @@
       letter-spacing: -0.3px;
       white-space: nowrap;
     }
+    .cat-price::after {
+      content: "* Đơn giá chưa bao gồm VAT";
+      display: block;
+      font-size: 8px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0;
+      white-space: normal;
+    }
     .cat-wt {
       align-self: flex-end;
       margin-top: 0;
@@ -198,17 +207,6 @@
       padding: 2px 9px;
       border-radius: 999px;
     }
-    .price-note {
-      text-align: right;
-      font-size: 13px;
-      color: #000;
-      font-weight: 700;
-      margin: 0 0 8px;
-    }
-    @media print {
-      .price-note { display: none; }
-    }
-
     .pdf-fab {
       position: fixed;
       right: 22px;
@@ -471,6 +469,7 @@
       .cat-en { font-size: 7pt; }
       .cat-wt { font-size: 6.5pt; padding: 0.4mm 2mm; margin-top: 0; }
       .cat-price { font-size: 8.5pt; }
+      .cat-price::after { font-size: 5.5pt; }
       .cat-foot { padding-top: 1.5mm; }
       .cat-brand-name { font-size: 7pt; }
       .cat-origin { font-size: 7.5pt; }
@@ -503,7 +502,6 @@
         <p class="cat-header-sub">Công ty TNHH TM DV Khải Thịnh</p>
       </div>
     </header>
-    <p class="price-note">* Đơn giá chưa bao gồm VAT</p>
     <header class="print-cover">
       <div class="pc-top">
         <div class="pc-logo-wrap"><img src="assets/logo.png" alt="Khải Thịnh" class="pc-logo"></div>
@@ -539,7 +537,7 @@
     <!-- 01 TAYLOR - TRÁI CÂY KHÔ CAO CẤP -->
     <section class="cat-group" id="taylor-trai-cay-kho-cao-cap" data-order="01">
       <div class="group-head">
-        <span class="group-num">01</span>
+        <span class="group-num">1</span>
         <h2 class="group-title" data-vi="TAYLOR - TRÁI CÂY KHÔ CAO CẤP" data-en="Premium Dried Fruits">TAYLOR - TRÁI CÂY KHÔ CAO CẤP</h2>
         <span class="group-rule"></span>
               </div>
@@ -616,7 +614,7 @@
     <!-- 02 SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP -->
     <section class="cat-group" id="snow-farms-trai-cay-kho-cao-cap-2" data-order="02">
       <div class="group-head">
-        <span class="group-num">02</span>
+        <span class="group-num">2</span>
         <h2 class="group-title" data-vi="SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP" data-en="Premium Dried Fruits">SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP</h2>
         <span class="group-rule"></span>
               </div>
@@ -650,7 +648,7 @@
     <!-- 03 TAYLOR - NƯỚC ÉP MẬN CAO CẤP -->
     <section class="cat-group" id="taylor-nuoc-ep-trai-cay-cao-cap-3" data-order="03">
       <div class="group-head">
-        <span class="group-num">03</span>
+        <span class="group-num">3</span>
         <h2 class="group-title" data-vi="TAYLOR - NƯỚC ÉP MẬN CAO CẤP" data-en="Premium Fruit Juices">TAYLOR - NƯỚC ÉP MẬN CAO CẤP</h2>
         <span class="group-rule"></span>
               </div>
@@ -691,7 +689,7 @@
     <!-- 04 ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG -->
     <section class="cat-group" id="royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4" data-order="04">
       <div class="group-head">
-        <span class="group-num">04</span>
+        <span class="group-num">4</span>
         <h2 class="group-title" data-vi="ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG" data-en="Dietary &amp; Oat Biscuits">ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG</h2>
         <span class="group-rule"></span>
               </div>
@@ -744,7 +742,7 @@
     <!-- 05 ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN -->
     <section class="cat-group wide" id="coolberg-thuc-uong-khong-con-5" data-order="05">
       <div class="group-head">
-        <span class="group-num">05</span>
+        <span class="group-num">5</span>
         <h2 class="group-title" data-vi="ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN" data-en="Non-Alcoholic Drinks">ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN</h2>
         <span class="group-rule"></span>
               </div>
@@ -905,7 +903,7 @@
     <!-- 06 CLEARY'S - SIRO LÁ PHONG -->
     <section class="cat-group" id="cleary-s-siro-la-phong-6" data-order="06">
       <div class="group-head">
-        <span class="group-num">06</span>
+        <span class="group-num">6</span>
         <h2 class="group-title" data-vi="CLEARY'S - SIRO LÁ PHONG" data-en="Maple Syrup">CLEARY'S - SIRO LÁ PHONG</h2>
         <span class="group-rule"></span>
               </div>
@@ -927,7 +925,7 @@
     <!-- 07 BRIOVINEGARS - GIẤM TÁO HỮU CƠ -->
     <section class="cat-group" id="briovinegars-dam-tao-huu-co-8" data-order="07">
       <div class="group-head">
-        <span class="group-num">07</span>
+        <span class="group-num">7</span>
         <h2 class="group-title" data-vi="BRIOVINEGARS - GIẤM TÁO HỮU CƠ" data-en="Organic Apple Cider Vinegar">BRIOVINEGARS - GIẤM TÁO HỮU CƠ</h2>
         <span class="group-rule"></span>
               </div>
@@ -956,7 +954,7 @@
     <!-- 08 PIK - BỘT LÀM BÁNH -->
     <section class="cat-group wide" id="pik-bot-lam-banh-7" data-order="08">
       <div class="group-head">
-        <span class="group-num">08</span>
+        <span class="group-num">8</span>
         <h2 class="group-title" data-vi="PIK - BỘT LÀM BÁNH" data-en="Baking Mixes">PIK - BỘT LÀM BÁNH</h2>
         <span class="group-rule"></span>
               </div>
@@ -1105,7 +1103,7 @@
     <!-- 09 NISON - CÁ ĐÓNG HỘP -->
     <section class="cat-group" id="nison-ca-ong-hop-9" data-order="09">
       <div class="group-head">
-        <span class="group-num">09</span>
+        <span class="group-num">9</span>
         <h2 class="group-title" data-vi="NISON - CÁ ĐÓNG HỘP" data-en="Canned Sardines">NISON - CÁ ĐÓNG HỘP</h2>
         <span class="group-rule"></span>
               </div>

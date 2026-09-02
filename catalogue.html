@@ -435,6 +435,112 @@
         letter-spacing: 0.4px;
         padding-bottom: 11mm;
       }
+      .print-contact {
+        display: block;
+        break-before: page;
+        page-break-before: always;
+        margin: 0;
+        padding: 16mm 15mm 10mm;
+        min-height: 297mm;
+        background: #ffffff;
+        color: #0f172a;
+        position: relative;
+      }
+      .contact-box {
+        display: flex;
+        max-width: 180mm;
+        margin: 10mm auto 0;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .contact-box .c-logo { height: 24mm; width: auto; margin-bottom: 6mm; }
+      .contact-box .c-company {
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+        font-size: 15pt;
+        font-weight: 800;
+        color: #4060a0;
+        margin: 0 0 2mm;
+        text-transform: uppercase;
+      }
+      .contact-box .c-tagline {
+        font-size: 10pt;
+        color: #64748b;
+        margin: 0 0 8mm;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4mm 6mm;
+        width: 100%;
+        text-align: left;
+      }
+      .contact-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 3mm;
+        padding: 5mm 6mm;
+        background: #f8fafc;
+      }
+      .contact-card .cc-label {
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+        font-size: 8pt;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #d97706;
+        margin: 0 0 2mm;
+        display: flex;
+        align-items: center;
+        gap: 2mm;
+      }
+      .contact-card .cc-value {
+        font-size: 9.5pt;
+        line-height: 1.5;
+        color: #0f172a;
+      }
+      .contact-card .cc-value a { color: #4060a0; text-decoration: none; }
+      .c-banner {
+        width: 100%;
+        max-width: 170mm;
+        height: auto;
+        display: block;
+        margin: 8mm auto 6mm;
+        border-radius: 3mm;
+        border: 1px solid #e2e8f0;
+      }
+      .contact-channels {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4mm;
+        width: 100%;
+        margin-top: 6mm;
+      }
+      .channel {
+        border: 1px dashed #cbd5e1;
+        border-radius: 3mm;
+        padding: 4mm 5mm;
+        background: #ffffff;
+        min-height: 24mm;
+      }
+      .channel .ch-name {
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+        font-size: 9pt;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2mm;
+      }
+      .channel .ch-logo { height: 8mm; width: auto; object-fit: contain; }
+      .channel .ch-link {
+        display: block;
+        font-size: 8pt;
+        color: #4060a0;
+        word-break: break-all;
+        margin-top: 2mm;
+      }
+      .channel-facebook { color: #1877f2; }
+      .channel-shopee { color: #ee4d2d; }
+      .channel-lazada { color: #0f146d; }
       .group-head {
         margin-bottom: 3mm;
         padding-bottom: 1.5mm;
@@ -1625,6 +1731,54 @@
       <div class="pt-foot" aria-hidden="true">
         <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
         <span class="pf-copy">© 2008–2026 · 0903 674 959 &nbsp;·&nbsp; <span class="pf-vat">* Đơn giá chưa bao gồm VAT</span></span>
+      </div>
+    </div>
+
+    <div class="pt-page print-contact" aria-label="Thông tin liên hệ">
+      <div class="contact-box">
+        <img src="assets/logo.png" alt="Logo Khải Thịnh" class="c-logo">
+        <p class="c-company">Công ty TNHH TM DV Khải Thịnh</p>
+        <p class="c-tagline">Kênh phân phối các sản phẩm tiêu dùng chính hãng</p>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <p class="cc-label">Địa chỉ</p>
+            <div class="cc-value">82 Đường số 4, Phường An Hội Đông, TP. Hồ Chí Minh</div>
+          </div>
+          <div class="contact-card">
+            <p class="cc-label">Hotline</p>
+            <div class="cc-value">0903 674 959<br>+84 (28) 3916 1027 · Fax +84 (28) 3916 5669</div>
+          </div>
+          <div class="contact-card">
+            <p class="cc-label">Email</p>
+            <div class="cc-value"><a href="mailto:khoi.nlb@khaithinh.com.vn">khoi.nlb@khaithinh.com.vn</a></div>
+          </div>
+          <div class="contact-card">
+            <p class="cc-label">Website</p>
+            <div class="cc-value"><a href="https://khaithinh.com.vn">khaithinh.com.vn</a></div>
+          </div>
+        </div>
+
+        <img src="assets/kenh-phan-phoi.png" alt="Kênh phân phối" class="c-banner">
+
+        <div class="contact-channels">
+          <div class="channel">
+            <p class="ch-name channel-facebook"><img src="assets/logo-fb.png" alt="Facebook" class="ch-logo" style="height:7mm;"> Facebook</p>
+            <a class="ch-link" href="https://www.facebook.com/khaithinh.com.vn">facebook.com/khaithinh.com.vn</a>
+          </div>
+          <div class="channel">
+            <p class="ch-name channel-shopee"><img src="assets/channel-shopee.png" alt="Shopee" class="ch-logo"> Shopee</p>
+            <a class="ch-link" href="https://shopee.vn">shopee.vn</a>
+          </div>
+          <div class="channel">
+            <p class="ch-name channel-lazada"><img src="assets/channel-lazada.png" alt="Lazada" class="ch-logo"> Lazada</p>
+            <a class="ch-link" href="https://www.lazada.vn">lazada.vn</a>
+          </div>
+        </div>
+      </div>
+      <div class="pt-foot" aria-hidden="true">
+        <span><img src="assets/logo.png" alt="" class="pf-logo"></span>
+        <span class="pf-copy">© 2008–2026 · 0903 674 959 · khaithinh.com.vn</span>
       </div>
     </div>
 

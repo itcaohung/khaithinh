@@ -170,6 +170,14 @@
       if (allGone) page.style.display = "none";
     });
 
+    // Print: use 4 columns inside a group whenever it has more than 9 visible products.
+    document.querySelectorAll(".cat-group").forEach(function (group) {
+      var visible = Array.prototype.filter.call(group.querySelectorAll(".cat-card"), function (c) {
+        return c.style.display !== "none";
+      }).length;
+      group.classList.toggle("wide", visible > 9);
+    });
+
     // Home page: hide products + rename (cards + slides)
     document.querySelectorAll(".product-card").forEach(function (card) {
       var img = card.querySelector(".product-img img");
@@ -201,8 +209,12 @@
     });
   }
 
+  function reveal() {
+    document.body.classList.remove("kt-loading");
+  }
+
   fetch("/api/prices", { headers: { "cache": "no-store" } })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-    .then(apply)
-    .catch(function () { /* fall back to baked-in data */ });
+    .then(function (data) { apply(data); reveal(); })
+    .catch(function () { reveal(); /* fall back to baked-in data */ });
 })();

@@ -76,6 +76,15 @@
       padding: 52px clamp(20px, 5vw, 60px) 60px;
       position: relative;
     }
+    body.kt-loading .paper {
+      visibility: hidden;
+      opacity: 0;
+      transition: none;
+    }
+    body:not(.kt-loading) .paper {
+      opacity: 1;
+      transition: opacity 0.35s ease;
+    }
 
     /* group sections */
     .pt-page { display: contents; }
@@ -94,7 +103,6 @@
       font-weight: 700;
       font-variant-numeric: tabular-nums;
       color: var(--amber);
-      letter-spacing: 1px;
     }
     .group-title {
       font-size: clamp(17px, 2vw, 22px);
@@ -492,7 +500,7 @@
     }
   </style>
 </head>
-<body>
+<body class="kt-loading">
   <!-- ===== PAPER ===== -->
   <main class="paper">
     <header class="cat-header">

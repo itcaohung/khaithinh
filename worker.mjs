@@ -28,6 +28,7 @@ async function readState(env) {
     hidden: (await env.PRICES.get("hidden", "json")) || [],
     names: (await env.PRICES.get("names", "json")) || {},
     orders: (await env.PRICES.get("orders", "json")) || {},
+    group_names: (await env.PRICES.get("group_names", "json")) || {},
   };
 }
 
@@ -37,6 +38,7 @@ async function writeState(env, state) {
     env.PRICES.put("hidden", JSON.stringify(state.hidden || [])),
     env.PRICES.put("names", JSON.stringify(state.names || {})),
     env.PRICES.put("orders", JSON.stringify(state.orders || {})),
+    env.PRICES.put("group_names", JSON.stringify(state.group_names || {})),
   ]);
 }
 
@@ -98,12 +100,13 @@ export default {
           hidden: body.hidden || [],
           names: body.names || {},
           orders: body.orders || {},
+          group_names: body.group_names || {},
         };
         const prev = await readState(env);
         await pushVersion(env, prev, body.desc);
         await writeState(env, next);
         const versions = await readVersions(env);
-        return json({ ok: true, overrides: next.overrides, hidden: next.hidden, names: next.names, orders: next.orders, versions }, 200, origin);
+        return json({ ok: true, overrides: next.overrides, hidden: next.hidden, names: next.names, orders: next.orders, group_names: next.group_names, versions }, 200, origin);
       } catch (e) {
         return json({ ok: false, error: String(e) }, 500, origin);
       }

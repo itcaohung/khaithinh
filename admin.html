@@ -50,6 +50,11 @@
   .group-block.collapsed table { display: none; }
   .group-num { background: linear-gradient(135deg, #f0c049, #d9771a); color: #fff; font-weight: 800; font-size: 13px; padding: 4px 11px; border-radius: 10px; box-shadow: 0 2px 5px rgba(217,119,26,.35); }
   .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
+  .group-rename-btn { background: none; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; color: #cfe0f5; cursor: pointer; padding: 2px 8px; font-size: 12px; line-height: 1.5; }
+  .group-rename-btn:hover { background: rgba(255,255,255,.16); border-color: #f0c049; }
+  .group-edit-form { display: inline-flex; gap: 8px; align-items: center; }
+  .group-edit-form input { padding: 6px 9px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 13px; background: #fff; color: #13251e; min-width: 260px; }
+  .group-edit-form button { padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 12.5px; cursor: pointer; border: none; }
   .group-count { font-size: 12px; color: #d3e8dd; white-space: nowrap; background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 12px; }
   table { width: 100%; table-layout: fixed; border-collapse: collapse; }
   th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; vertical-align: middle; }
@@ -200,10 +205,12 @@
   var names = {};           // src -> {vi, en} (saved)
   var hidden = [];          // srcs of hidden products (saved)
   var orders = {};          // group_num -> [src,...] (saved order)
+  var groupNames = {};      // group_num -> title (saved)
   var products = [];         // from products.json
   var dirty = {};            // src -> price (staged edits)
   var dirtyHidden = {};      // src -> bool (staged hide state, only entries staged)
   var dirtyNames = {};       // src -> {vi,en} (staged name edits)
+  var dirtyGroupNames = {};  // group_num -> title (staged group rename)
   var dirtyOrders = {};      // group_num -> [src,...] (staged order)
   var versions = [];         // [{id, at, desc, snapshot}]
   var sortKey = "src";
@@ -237,6 +244,7 @@
     });
     order.forEach(function(gn, i){
       var g = gmap[gn];
+      var gtitle = stagedGroupTitle(gn);
       var groupAll = orderedGroupItems(gn, g.items);
       var shown = groupAll.filter(function(p){
         if (!q) return true;
@@ -249,7 +257,8 @@
       head.className = "group-head";
       head.innerHTML =
         '<span class="group-num">' + escHtml(g.num) + '</span>' +
-        '<span class="group-title">' + escHtml(g.title) + '</span>' +
+        '<span class="group-title">' + escHtml(gtitle) + '</span>' +
+        '<button class="group-rename-btn" data-group-rename="' + escAttr(gn) + '" title="Đổi tên nhóm">✎</button>' +
         '<span class="group-count">' + shown.length + ' sản phẩm</span>' +
         '<svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
       var tbl = document.createElement("table");
@@ -300,7 +309,7 @@
   }
 
   function updateSummary(){
-    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length;
+    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length + Object.keys(dirtyGroupNames).length;
     var hiddenCount = 0;
     products.forEach(function(p){ if (stagedHidden(p.src)) hiddenCount++; });
     var el = $("summary");
@@ -334,6 +343,17 @@
     return base;
   }
 
+  function groupDefaultTitle(gn){
+    for (var i=0;i<products.length;i++){ if (products[i].group_num === gn && products[i].group_title) return products[i].group_title; }
+    return "";
+  }
+
+  function stagedGroupTitle(gn){
+    if (hashOwn(dirtyGroupNames, gn)) return dirtyGroupNames[gn];
+    if (hashOwn(groupNames, gn)) return groupNames[gn];
+    return groupDefaultTitle(gn);
+  }
+
   // Effective per-group product order: staged dirty > saved > default (products.json order preserved)
   function orderedGroupItems(gn, items){
     var order = hashOwn(dirtyOrders, gn) ? dirtyOrders[gn]
@@ -357,7 +377,7 @@
 
     $("groups").addEventListener("click", function(e){
       var gh = e.target.closest(".group-head");
-      if (gh){
+      if (gh && !e.target.closest("[data-group-rename]") && !e.target.closest(".group-edit-form")){
         var blk = gh.closest(".group-block");
         var gn = blk ? blk.getAttribute("data-group-num") : null;
         if (!gn) return;
@@ -419,6 +439,25 @@
       if (rbtn){
         openRename(rbtn);
         return;
+      }
+      var grbtn = e.target.closest("[data-group-rename]");
+      if (grbtn){
+        openGroupRename(grbtn);
+        return;
+      }
+      var grbtn2 = e.target.closest("[data-group-rename-save]");
+      if (grbtn2){
+        stageGroupNameSave(grbtn2.closest("[data-group-edit-form]").getAttribute("data-group-edit-form"));
+        return;
+      }
+      var grbtn3 = e.target.closest("[data-group-rename-cancel]");
+      if (grbtn3){
+        render();
+        return;
+      }
+      var grbtn4 = e.target.closest("[data-group-rename-reset]");
+      if (grbtn4){
+        stageGroupNameReset(grbtn4.closest("[data-group-edit-form]").getAttribute("data-group-edit-form"));
       }
       var sbtn = e.target.closest("[data-rename-save]");
       if (sbtn){
@@ -537,12 +576,15 @@
     Object.keys(dirtyOrders).forEach(function(gn){
       if (arrayEq(dirtyOrders[gn], savedOrderSrcs(gn))){ delete dirtyOrders[gn]; changedAny = true; }
     });
+    Object.keys(dirtyGroupNames).forEach(function(gn){
+      if (dirtyGroupNames[gn] === (hashOwn(groupNames, gn) ? groupNames[gn] : groupDefaultTitle(gn))){ delete dirtyGroupNames[gn]; changedAny = true; }
+    });
     return changedAny;
   }
 
   function updateSaveAllState(){
     pruneNoopStaged();
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length;
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length + Object.keys(dirtyGroupNames).length;
     var btn = $("saveAllBtn");
     if (btn){
       btn.disabled = n === 0;
@@ -608,9 +650,49 @@
     showMsg(hashOwn(dirtyNames, src) ? "Đã khôi phục tên mặc định (sẽ áp dụng khi lưu tất cả)." : "Tên đã là mặc định — không tính là thay đổi.");
   }
 
+  function openGroupRename(btn){
+    var gn = btn.getAttribute("data-group-rename");
+    var cur = stagedGroupTitle(gn);
+    var head = btn.closest(".group-head");
+    var titleSpan = head.querySelector(".group-title");
+    var form = document.createElement("span");
+    form.className = "group-edit-form";
+    form.setAttribute("data-group-edit-form", gn);
+    form.innerHTML =
+      '<input class="grp-name-input" value="' + escAttr(cur) + '" placeholder="Tên nhóm">' +
+      '<button type="button" class="rename-save" data-group-rename-save="1">Lưu tên</button>' +
+      '<button type="button" class="rename-cancel" data-group-rename-cancel="1">Hủy</button>' +
+      '<button type="button" class="rename-cancel" data-group-rename-reset="1" title="Khôi phục tên gốc">Khôi phục</button>';
+    head.insertBefore(form, btn);
+    titleSpan.style.display = "none";
+    btn.style.display = "none";
+    form.querySelector(".grp-name-input").focus();
+  }
+
+  function stageGroupNameSave(gn){
+    var form = document.querySelector('[data-group-edit-form="' + gn + '"]');
+    if (!form) return;
+    var t = form.querySelector(".grp-name-input").value.trim();
+    if (!t){ render(); return; }
+    if (t === groupDefaultTitle(gn) && !hashOwn(groupNames, gn)){ render(); showMsg("Tên trùng với tên gốc — không tính là thay đổi."); return; }
+    dirtyGroupNames[gn] = t;
+    pruneNoopStaged();
+    render();
+    updateSaveAllState();
+    showMsg(hashOwn(dirtyGroupNames, gn) ? "Đã lưu tạm tên nhóm. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Tên trùng với tên hiện tại — không tính là thay đổi.");
+  }
+
+  function stageGroupNameReset(gn){
+    dirtyGroupNames[gn] = groupDefaultTitle(gn);
+    pruneNoopStaged();
+    render();
+    updateSaveAllState();
+    showMsg(hashOwn(dirtyGroupNames, gn) ? "Đã khôi phục tên nhóm gốc (sẽ áp dụng khi lưu tất cả)." : "Tên nhóm đã là gốc — không tính là thay đổi.");
+  }
+
   // ---- Publish all staged changes ----
   function openPublishModal(){
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length;
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length + Object.keys(dirtyGroupNames).length;
     if (!n){ showMsg("Không có thay đổi nào để lưu."); return; }
     $("descSummary").textContent = n + " thay đổi đang chờ được lưu.";
     $("descInput").value = "";
@@ -626,7 +708,7 @@
     $("descInput").style.borderColor = "";
     var next = computeMergedState();
     $("descOk").disabled = true;
-    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names, orders: next.orders }) })
+    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names, orders: next.orders, group_names: next.group_names }) })
       .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
       .then(function(t){
         if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
@@ -634,8 +716,9 @@
         hidden = t.d.hidden || [];
         names = t.d.names || {};
         orders = t.d.orders || {};
+        groupNames = t.d.group_names || {};
         versions = t.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {};
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {}; dirtyGroupNames = {};
         closePublishModal();
         render();
         updateSaveAllState();
@@ -678,7 +761,13 @@
       if (dirtyOrders[gn] && dirtyOrders[gn].length) odr[gn] = dirtyOrders[gn].slice();
       else delete odr[gn];
     });
-    return { overrides: ov, hidden: hidSet, names: nm, orders: odr };
+    // group names: staged dirtyGroupNames overrides saved
+    var gnm = Object.keys(groupNames).reduce(function(o, gn){ o[gn] = groupNames[gn]; return o; }, {});
+    Object.keys(dirtyGroupNames).forEach(function(gn){
+      if (dirtyGroupNames[gn] === groupDefaultTitle(gn)) delete gnm[gn];
+      else gnm[gn] = dirtyGroupNames[gn];
+    });
+    return { overrides: ov, hidden: hidSet, names: nm, orders: odr, group_names: gnm };
   }
 
   // ---- History ----
@@ -730,8 +819,9 @@
         hidden = t2.d.hidden || [];
         names = t2.d.names || {};
         orders = t2.d.orders || {};
+        groupNames = t2.d.group_names || {};
         versions = t2.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {};
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {}; dirtyGroupNames = {};
         $("histModal").classList.remove("open");
         render();
         updateSaveAllState();
@@ -756,7 +846,7 @@
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })
-      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; orders = d.orders || {}; versions = d.versions || []; })
+      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; orders = d.orders || {}; groupNames = d.group_names || {}; versions = d.versions || []; })
       .then(render)
       .then(updateSummary)
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });

@@ -24,6 +24,18 @@
     var hidden = d.hidden || [];
     var names = d.names || {};
     var orders = d.orders || {};
+    var group_names = d.group_names || {};
+
+    // Rename group titles using { group_key -> title }.
+    // Groups are matched by their section id (slug) falling back to data-group_num.
+    document.querySelectorAll(".cat-group .group-title").forEach(function (t) {
+      var group = t.closest(".cat-group");
+      var key = group.getAttribute("data-order") || group.getAttribute("data-group_num");
+      var title = key ? group_names[key] : null;
+      if (!title) return;
+      var en = t.getAttribute("data-en") || title;
+      setBilingual(t, title, en);
+    });
 
     // Reorder cards within each group using { group_key -> [src,...] }.
     // Groups are matched by their section id (slug) falling back to data-group_num.

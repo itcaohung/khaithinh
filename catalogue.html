@@ -332,72 +332,18 @@
         text-align: center;
         justify-content: space-between;
         min-height: 297mm;
-        background:
-          radial-gradient(ellipse at 12% 10%, rgba(16, 185, 129, 0.18), transparent 45%),
-          radial-gradient(ellipse at 90% 8%, rgba(212, 175, 55, 0.16), transparent 40%),
-          radial-gradient(ellipse at 80% 92%, rgba(16, 185, 129, 0.16), transparent 50%),
-          linear-gradient(160deg, #0f3b2e 0%, #0b3327 45%, #06231b 100%);
-        color: #fff;
+        background: #ffffff;
+        color: #0f172a;
         border-radius: 0;
         overflow: hidden;
         position: relative;
       }
-      .print-cover::before {
-        content: "";
-        position: absolute;
-        inset: 8mm;
-        border: 0.6mm solid rgba(212,175,55,0.35);
-        border-radius: 3mm;
-        pointer-events: none;
-      }
+      .print-cover::before,
       .print-cover::after {
         content: none;
       }
-      /* decorative background: elegant thin gold rings + soft glow */
-      .print-cover .pc-deco {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-      }
-      .print-cover .pc-deco::before {
-        content: "";
-        position: absolute;
-        left: 40%; top: -18%;
-        width: 700px; height: 700px;
-        border: 1mm solid rgba(212,175,55,0.18);
-        border-radius: 50%;
-      }
-      .print-cover .pc-deco::after {
-        content: "";
-        position: absolute;
-        left: 42%; top: -16%;
-        width: 760px; height: 760px;
-        border: 0.5mm solid rgba(255,255,255,0.09);
-        border-radius: 50%;
-      }
-      .print-cover .pc-deco i { position: absolute; display: block; }
-      .print-cover .pc-deco .wave {
-        left: -6%; bottom: 0;
-        width: 55%; height: 26%;
-        border-radius: 50% 50% 0 0;
-        background: radial-gradient(ellipse at 50% 100%, rgba(16,185,129,0.14), transparent 70%);
-      }
-      .print-cover .pc-deco .arc {
-        right: -4%; bottom: -8%;
-        width: 48%; height: 34%;
-        border-radius: 50% 50% 0 0;
-        background: radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.12), transparent 70%);
-      }
-      .print-cover .pc-deco .ring {
-        width: 40mm; height: 40mm;
-        border: 0.8mm solid rgba(212,175,55,0.5);
-        border-radius: 50%;
-        right: 8%; top: 34%;
-      }
 
-      .pc-top, .pc-hero, .pc-products, .pc-stats {
+      .pc-top, .pc-hero, .pc-products {
         position: relative;
         z-index: 1;
       }
@@ -414,20 +360,13 @@
         text-transform: uppercase;
         color: #4060a0;
         font-weight: 800;
-        margin-top: 4mm;
-        background: #fff;
-        border: 0.4mm solid rgba(6, 78, 59, 0.15);
-        padding: 2.5mm 7mm;
-        border-radius: 5mm;
+        margin-top: 5mm;
         display: inline-block;
       }
       .pc-logo-wrap {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: #fff;
-        border-radius: 5mm;
-        padding: 5mm 8mm;
       }
       .pc-logo { display: block; height: 22mm; width: auto; }
       .pc-hero {
@@ -435,10 +374,6 @@
       }
       .pc-hero-box {
         display: inline-block;
-        background: #fff;
-        border: 0.4mm solid rgba(6, 78, 59, 0.12);
-        padding: 6mm 15mm 5mm;
-        border-radius: 4mm;
       }
       .pc-hero h1 {
         font-family: 'Be Vietnam Pro', system-ui, sans-serif;
@@ -482,13 +417,9 @@
       .pc-prod {
         width: 23mm;
         height: 36mm;
-        background: #fff;
-        border-radius: 2.5mm;
-        padding: 2mm;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 0.3mm solid rgba(6, 78, 59, 0.10);
       }
       .pc-prod img {
         max-width: 100%;
@@ -497,39 +428,11 @@
         height: auto;
         object-fit: contain;
       }
-      .pc-stats {
-        display: flex;
-        gap: 4mm;
-        margin: 2mm 0 4mm;
-      }
-      .pc-stat {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.1mm;
-        min-width: 34mm;
-        padding: 4mm 3mm;
-        border: 0.4mm solid rgba(6, 78, 59, 0.18);
-        border-radius: 3mm;
-        background: #fff;
-      }
-      .pc-stat strong {
-        font-size: 23pt;
-        font-weight: 800;
-        color: #d97706;
-        line-height: 1;
-      }
-      .pc-stat span {
-        font-size: 8pt;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: #065f46;
-      }
 .pc-vat {
         position: relative;
         z-index: 1;
         font-size: 10pt;
-        color: #fef3c7;
+        color: #0f172a;
         font-weight: 700;
         letter-spacing: 0.4px;
         padding-bottom: 11mm;
@@ -602,7 +505,6 @@
     </header>
     <p class="price-note">* Đơn giá chưa bao gồm VAT</p>
     <header class="print-cover">
-      <div class="pc-deco"><i class="wave"></i><i class="arc"></i><i class="ring"></i></div>
       <div class="pc-top">
         <div class="pc-logo-wrap"><img src="assets/logo.png" alt="Khải Thịnh" class="pc-logo"></div>
         <div class="pc-eyebrow">CÔNG TY TNHH TM DV KHẢI THỊNH</div>
@@ -628,12 +530,6 @@
 <div class="pc-prod"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-chien-sot-tuong-cay-hieu-nison-nison-fried-sardines-in-spicy-soy-sauce-125g.webp" alt="Cá Trích Chiên Sốt Tương Cay"></div>
 <div class="pc-prod"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-ga-huu-co-hieu-just-organik-organic-chickpea-500g.webp" alt="Đậu Gà Hữu Cơ"></div>
 <div class="pc-prod"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp" alt="Handwash Mountain Herbs"></div>
-      </div>
-      <div class="pc-stats">
-        <div class="pc-stat"><strong>73</strong><span>Sản phẩm</span></div>
-        <div class="pc-stat"><strong>14</strong><span>Nhóm hàng</span></div>
-        <div class="pc-stat"><strong>10</strong><span>Thương hiệu</span></div>
-        <div class="pc-stat"><strong>5</strong><span>Quốc gia</span></div>
       </div>
       <div class="pc-vat">* Đơn giá chưa bao gồm VAT</div>
     </header>

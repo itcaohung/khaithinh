@@ -301,27 +301,8 @@
       }
       .pt-page.screen-full { display: none; }
       .pt-page.print-split { display: block; }
-      /* bottom padding so the footer never overlaps content */
-      .cat-group { position: relative; margin-bottom: 0; padding-bottom: 10mm; }
-      .pt-foot {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1mm;
-        position: absolute;
-        left: 15mm; right: 15mm; bottom: 5mm;
-        font-size: 7.5pt;
-        color: #64748b;
-        letter-spacing: 0.6px;
-      }
-      .pt-foot b { color: #047857; letter-spacing: 1px; }
-      .pt-foot .pf-vat { color: #000; font-weight: 700; }
-      .pt-foot .pf-logo {
-        height: 10.2mm;
-        width: auto;
-        vertical-align: -0.7mm;
-        margin-right: 1.5mm;
-      }
+      /* footer removed on PDF pages */
+      .pt-foot { display: none; }
       /* repeated mini brand line on every product page */
       .cat-group::before {
         content: "Khải Thịnh — Product Catalogue 2026";
@@ -444,6 +425,7 @@
         object-fit: contain;
       }
 .pc-vat {
+        display: none;
         position: relative;
         z-index: 1;
         font-size: 10pt;

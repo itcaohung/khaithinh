@@ -25,44 +25,81 @@
     var names = d.names || {};
     var orders = d.orders || {};
     var group_names = d.group_names || {};
+    var group_layout = d.group_layout || null;
 
-    // Rename group titles using { group_key -> title }.
-    // Groups are matched by their section id (slug) falling back to data-group_num.
-    document.querySelectorAll(".cat-group .group-title").forEach(function (t) {
-      var group = t.closest(".cat-group");
-      var key = group.getAttribute("data-order") || group.getAttribute("data-group_num");
-      var title = key ? group_names[key] : null;
-      if (!title) return;
-      var en = t.getAttribute("data-en") || title;
-      setBilingual(t, title, en);
-    });
+    // ---- Restructure groups from authoritative layout (membership + order + title + number) ----
+    if (group_layout && group_layout.length) {
+      var sections = Array.prototype.slice.call(document.querySelectorAll(".cat-group"));
+      var cardsBySrc = {};
+      document.querySelectorAll(".cat-group").forEach(function (s) {
+        Array.prototype.forEach.call(s.querySelectorAll(".cat-card"), function (c) {
+          var img = c.querySelector(".cat-thumb img");
+          var src = img ? img.getAttribute("src") : null;
+          if (src) cardsBySrc[src] = c;
+        });
+      });
+      group_layout.forEach(function (g, i) {
+        var section = sections[i];
+        if (!section) return;
+        section.setAttribute("data-order", g.num);
+        if (section.hasAttribute("data-group_num")) section.setAttribute("data-group_num", g.num);
+        var numEl = section.querySelector(".group-num");
+        if (numEl) numEl.textContent = g.num;
+        var title = section.querySelector(".group-title");
+        if (title) setBilingual(title, g.title, title.getAttribute("data-en") || g.title);
+        var grid = section.querySelector(".cat-grid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        (g.srcs || []).forEach(function (src) {
+          if (cardsBySrc[src]) { grid.appendChild(cardsBySrc[src]); delete cardsBySrc[src]; }
+        });
+      });
+      // Hide surplus sections (those beyond the layout, i.e. deleted groups).
+      sections.forEach(function (s, i) {
+        if (i >= group_layout.length) s.style.display = "none";
+      });
+    }
 
-    // Reorder cards within each group using { group_key -> [src,...] }.
+    // Rename group titles using { group_key -> title } (legacy fallback when no layout).
+    if (!group_layout || !group_layout.length) {
+      document.querySelectorAll(".cat-group .group-title").forEach(function (t) {
+        var group = t.closest(".cat-group");
+        var key = group.getAttribute("data-order") || group.getAttribute("data-group_num");
+        var title = key ? group_names[key] : null;
+        if (!title) return;
+        var en = t.getAttribute("data-en") || title;
+        setBilingual(t, title, en);
+      });
+    }
+
+    // Reorder cards within each group using { group_key -> [src,...] } (legacy, only when no layout).
     // Groups are matched by their section id (slug) falling back to data-group_num.
-    document.querySelectorAll(".cat-group").forEach(function (group) {
-      var key = group.getAttribute("data-order") || group.getAttribute("data-group_num");
-      var orderList = key ? orders[key] : null;
-      if (!orderList || !orderList.length) { group.style.removeProperty("--kt-reordered"); return; }
-      var grid = group.querySelector(".cat-grid");
-      if (!grid) { group.style.removeProperty("--kt-reordered"); return; }
-      var cards = Array.prototype.slice.call(grid.querySelectorAll(".cat-card"));
-      var bySrc = {};
-      cards.forEach(function (c) {
-        var img = c.querySelector(".cat-thumb img");
-        var src = img ? img.getAttribute("src") : null;
-        if (src) bySrc[src] = c;
+    if (!group_layout || !group_layout.length) {
+      document.querySelectorAll(".cat-group").forEach(function (group) {
+        var key = group.getAttribute("data-order") || group.getAttribute("data-group_num");
+        var orderList = key ? orders[key] : null;
+        if (!orderList || !orderList.length) { group.style.removeProperty("--kt-reordered"); return; }
+        var grid = group.querySelector(".cat-grid");
+        if (!grid) { group.style.removeProperty("--kt-reordered"); return; }
+        var cards = Array.prototype.slice.call(grid.querySelectorAll(".cat-card"));
+        var bySrc = {};
+        cards.forEach(function (c) {
+          var img = c.querySelector(".cat-thumb img");
+          var src = img ? img.getAttribute("src") : null;
+          if (src) bySrc[src] = c;
+        });
+        var out = [];
+        orderList.forEach(function (src) { if (bySrc[src]) out.push(bySrc[src]); });
+        cards.forEach(function (c) {
+          var src = c.querySelector(".cat-thumb img") ? c.querySelector(".cat-thumb img").getAttribute("src") : null;
+          if (src && out.indexOf(c) < 0) out.push(c);
+        });
+        if (out.length === cards.length) {
+          out.forEach(function (c) { grid.appendChild(c); });
+          group.style.setProperty("--kt-reordered", "1");
+        }
       });
-      var out = [];
-      orderList.forEach(function (src) { if (bySrc[src]) out.push(bySrc[src]); });
-      cards.forEach(function (c) {
-        var src = c.querySelector(".cat-thumb img") ? c.querySelector(".cat-thumb img").getAttribute("src") : null;
-        if (src && out.indexOf(c) < 0) out.push(c);
-      });
-      if (out.length === cards.length) {
-        out.forEach(function (c) { grid.appendChild(c); });
-        group.style.setProperty("--kt-reordered", "1");
-      }
-    });
+    }
 
     document.querySelectorAll(".cat-card").forEach(function (card) {
       var img = card.querySelector(".cat-thumb img");

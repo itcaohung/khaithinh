@@ -52,6 +52,9 @@
   .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
   .group-rename-btn { background: none; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; color: #cfe0f5; cursor: pointer; padding: 2px 8px; font-size: 12px; line-height: 1.5; }
   .group-rename-btn:hover { background: rgba(255,255,255,.16); border-color: #f0c049; }
+  .group-del-btn { background: none; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; color: #ffd0ca; cursor: pointer; padding: 2px 8px; font-size: 12px; line-height: 1.5; }
+  .group-del-btn:hover { background: rgba(231,76,60,.22); border-color: #e74c3c; }
+  .group-move-select { padding: 7px 8px; border: 1px solid #cdd9d2; border-radius: 7px; font-size: 12.5px; width: 100%; background: #fff; color: #13251e; }
   .group-edit-form { display: inline-flex; gap: 8px; align-items: center; }
   .group-edit-form input { padding: 6px 9px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 13px; background: #fff; color: #13251e; min-width: 260px; }
   .group-edit-form button { padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 12.5px; cursor: pointer; border: none; }
@@ -204,14 +207,14 @@
   var overrides = {};       // src -> price (saved)
   var names = {};           // src -> {vi, en} (saved)
   var hidden = [];          // srcs of hidden products (saved)
-  var orders = {};          // group_num -> [src,...] (saved order)
-  var groupNames = {};      // group_num -> title (saved)
+  var orders = {};          // legacy group_num -> [src,...] (pre-layout reorder, for migration)
+  var groupLayout = null;    // [{num,title,srcs:[...]}] (saved authoritative groups)
   var products = [];         // from products.json
   var dirty = {};            // src -> price (staged edits)
   var dirtyHidden = {};      // src -> bool (staged hide state, only entries staged)
   var dirtyNames = {};       // src -> {vi,en} (staged name edits)
-  var dirtyGroupNames = {};  // group_num -> title (staged group rename)
-  var dirtyOrders = {};      // group_num -> [src,...] (staged order)
+  var dirtyLayout = null;    // staged authoritative group layout [{num,title,srcs}]
+  var layoutDirty = false;   // true when staged layout differs from saved
   var versions = [];         // [{id, at, desc, snapshot}]
   var sortKey = "src";
   var COLLAPSE_KEY = "kt-admin-collapsed";
@@ -232,40 +235,41 @@
     var q = $("search").value.trim().toLowerCase();
     var box = $("groups");
     box.innerHTML = "";
-    // products already in catalogue order; group by group_num (in order)
-    var gmap = {};
-    var order = [];
-    products.forEach(function(p){
-      if (!(p.group_num in gmap)){
-        gmap[p.group_num] = { num: p.group_num, title: p.group_title, items: [] };
-        order.push(p.group_num);
-      }
-      gmap[p.group_num].items.push(p);
-    });
-    order.forEach(function(gn, i){
-      var g = gmap[gn];
-      var gtitle = stagedGroupTitle(gn);
-      var groupAll = orderedGroupItems(gn, g.items);
-      var shown = groupAll.filter(function(p){
+    // groups come from the authoritative layout (order + membership + numbering)
+    var gl = effectiveLayout();
+    var bySrc = {};
+    products.forEach(function(p){ bySrc[p.src] = p; });
+    var rendered = 0;
+    gl.forEach(function(g, gi){
+      // members = products resolved from srcs (keep layout order)
+      var items = [];
+      var gtitle = g.title || "";
+      g.srcs.forEach(function(src){ if (bySrc[src]) items.push(bySrc[src]); });
+      // append any products of same group_num not covered by layout (safety)
+      products.forEach(function(p){ if (p.group_num === g.num && items.indexOf(p) < 0) items.push(p); });
+      var shown = items.filter(function(p){
         if (!q) return true;
         var nv = stagedName(p.src).vi;
         var ne = stagedName(p.src).en;
         return nv.toLowerCase().indexOf(q) >= 0 || ne.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
       });
       if (!shown.length) return;
+      rendered++;
       var head = document.createElement("div");
       head.className = "group-head";
       head.innerHTML =
         '<span class="group-num">' + escHtml(g.num) + '</span>' +
         '<span class="group-title">' + escHtml(gtitle) + '</span>' +
-        '<button class="group-rename-btn" data-group-rename="' + escAttr(gn) + '" title="Đổi tên nhóm">✎</button>' +
-        '<span class="group-count">' + shown.length + ' sản phẩm</span>' +
+        '<button class="group-rename-btn" data-group-rename="' + escAttr(g.num) + '" title="Đổi tên nhóm">✎</button>' +
+        '<button class="group-del-btn" data-group-del="' + escAttr(g.num) + '" title="Xóa nhóm (gộp SP và đánh số lại)">🗑</button>' +
+        '<span class="group-count">' + items.length + ' sản phẩm</span>' +
         '<svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
       var tbl = document.createElement("table");
       tbl.innerHTML =
-        '<colgroup><col style="width:168px"><col style="width:34px"><col><col style="width:175px"><col style="width:110px"><col style="width:80px"></colgroup>' +
-        '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
+        '<colgroup><col style="width:140px"><col style="width:30px"><col><col style="width:145px"><col style="width:95px"><col style="width:80px"><col style="width:130px"></colgroup>' +
+        '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Lưu</th><th>Ẩn/Hiện</th><th>Chuyển nhóm</th></tr></thead>';
       var tb = document.createElement("tbody");
+      var groupOptions = effectiveLayout();
       shown.forEach(function(p){
         var cur = stagedPrice(p.src);
         var hid = stagedHidden(p.src);
@@ -274,9 +278,13 @@
         var renamed = !!stagedName(p.src).renamed;
         var priceStaged = hashOwn(dirty, p.src);
         var hideStaged = hashOwn(dirtyHidden, p.src);
+        var moveOpts = groupOptions.filter(function(og){ return og.num !== g.num; });
+        var moveHtml = '<select class="group-move-select" data-move="' + escAttr(p.src) + '" title="Di chuyển sản phẩm sang nhóm khác"><option value="">' + escHtml(g.num) + '</option>';
+        moveOpts.forEach(function(og){ moveHtml += '<option value="' + escAttr(og.num) + '">' + escHtml(og.num) + ' · ' + escHtml(og.title) + '</option>'; });
+        moveHtml += '</select>';
         var tr = document.createElement("tr");
         tr.className = hid ? "row-hidden" : "";
-        tr.setAttribute("data-group", gn);
+        tr.setAttribute("data-group", g.num);
         tr.setAttribute("data-src", p.src);
         tr.setAttribute("draggable", "true");
         tr.innerHTML =
@@ -287,29 +295,23 @@
           '<button class="rename-btn" data-rename="' + escAttr(p.src) + '" title="Đổi tên">✎</button></td>' +
           '<td><input class="price-input' + (priceStaged ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="text" inputmode="numeric" value="' + fmtPrice(cur) + '"></td>' +
           '<td><button class="save-btn' + (priceStaged ? ' staged' : '') + '" data-save="' + escAttr(p.src) + '">' + (priceStaged ? 'Đã sửa' : 'Lưu') + '</button></td>' +
-          '<td><button class="hide-btn' + (hid ? ' hidden' : '') + (hideStaged ? ' staged' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>';
+          '<td><button class="hide-btn' + (hid ? ' hidden' : '') + (hideStaged ? ' staged' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>' +
+          '<td>' + moveHtml + '</td>';
         tb.appendChild(tr);
       });
       tbl.appendChild(tb);
       var blk = document.createElement("div");
-      blk.className = "group-block" + (collapsed[gn] ? " collapsed" : "");
-      blk.setAttribute("data-group-num", gn);
+      blk.className = "group-block" + (collapsed[g.num] ? " collapsed" : "");
+      blk.setAttribute("data-group-num", g.num);
       blk.appendChild(head);
       blk.appendChild(tbl);
       box.appendChild(blk);
     });
-    var total = order.reduce(function(s, gn){ return s + (orderedGroupItems(gn, gmap[gn].items).filter(function(p){
-      var q2 = q;
-      if (!q2) return true;
-      var nv = stagedName(p.src).vi;
-      var ne = stagedName(p.src).en;
-      return nv.toLowerCase().indexOf(q2) >= 0 || ne.toLowerCase().indexOf(q2) >= 0 || p.brand.toLowerCase().indexOf(q2) >= 0;
-    }).length); }, 0);
     updateSummary();
   }
 
   function updateSummary(){
-    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length + Object.keys(dirtyGroupNames).length;
+    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0);
     var hiddenCount = 0;
     products.forEach(function(p){ if (stagedHidden(p.src)) hiddenCount++; });
     var el = $("summary");
@@ -343,29 +345,109 @@
     return base;
   }
 
-  function groupDefaultTitle(gn){
-    for (var i=0;i<products.length;i++){ if (products[i].group_num === gn && products[i].group_title) return products[i].group_title; }
-    return "";
+// ---- Group layout (authoritative group membership + order + numbering) ----
+  function defaultLayout(){
+    var map = {};
+    var order = [];
+    products.forEach(function(p){
+      if (!(p.group_num in map)){ map[p.group_num] = { num: p.group_num, title: p.group_title, srcs: [] }; order.push(p.group_num); }
+      map[p.group_num].srcs.push(p.src);
+    });
+    return order.map(function(gn){
+      var g = map[gn];
+      // migrate legacy per-group reorder (orders) into the layout once.
+      if (orders && orders[gn] && orders[gn].length){
+        var bySrc = {};
+        g.srcs.forEach(function(src){ bySrc[src] = 1; });
+        var out = [];
+        orders[gn].forEach(function(src){ if (bySrc[src]) out.push(src); });
+        g.srcs.forEach(function(src){ if (out.indexOf(src) < 0) out.push(src); });
+        g.srcs = out;
+      }
+      return { num: g.num, title: g.title, srcs: g.srcs.slice() };
+    });
   }
 
-  function stagedGroupTitle(gn){
-    if (hashOwn(dirtyGroupNames, gn)) return dirtyGroupNames[gn];
-    if (hashOwn(groupNames, gn)) return groupNames[gn];
-    return groupDefaultTitle(gn);
+  function normalizeLayout(l){
+    if (!l || !l.length) return null;
+    return l.map(function(g){ return { num: String(g.num || ""), title: g.title || "", srcs: (g.srcs || []).slice() }; });
   }
 
-  // Effective per-group product order: staged dirty > saved > default (products.json order preserved)
-  function orderedGroupItems(gn, items){
-    var order = hashOwn(dirtyOrders, gn) ? dirtyOrders[gn]
-              : hashOwn(orders, gn) ? orders[gn]
-              : null;
-    if (!order) return items.slice();
-    var bySrc = {};
-    items.forEach(function(p){ bySrc[p.src] = p; });
-    var out = [];
-    order.forEach(function(src){ if (bySrc[src]){ out.push(bySrc[src]); } });
-    items.forEach(function(p){ if (out.indexOf(p) < 0) out.push(p); });
-    return out;
+  // Renumber n groups sequentially as 2-digit strings.
+  function renumberLayout(l){
+    return l.map(function(g, i){
+      return { num: String(i + 1).padStart(2, "0"), title: g.title, srcs: g.srcs.slice() };
+    });
+  }
+
+  function layoutEq(a, b){
+    if (!a && !b) return true;
+    if (!a || !b) return false;
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++){
+      if (a[i].title !== b[i].title) return false;
+      if (renumberLayout([a[i]])[0].num !== b[i].num) return false;
+      if (!arrayEq(a[i].srcs, b[i].srcs)) return false;
+    }
+    return true;
+  }
+
+  // Work on a mutable copy of the effective layout; renumber; mark staged dirty.
+  function stageLayout(l){
+    dirtyLayout = renumberLayout(normalizeLayout(l));
+    layoutDirty = !layoutEq(normalizeLayout(dirtyLayout), effectiveLayout(false));
+  }
+
+  // effectiveLayout(skipDirty): if skipDirty, ignore staged layout (used for comparison).
+  function effectiveLayout(skipDirty){
+    if (!skipDirty && dirtyLayout) return normalizeLayout(dirtyLayout);
+    if (groupLayout) return normalizeLayout(groupLayout);
+    return defaultLayout();
+  }
+
+  function reorderGroupSrcs(gn, orderSrcs){
+    var l = effectiveLayout();
+    l.forEach(function(g){ if (g.num === gn) g.srcs = orderSrcs.slice(); });
+    stageLayout(l);
+    render();
+    updateSaveAllState();
+    showMsg(layoutDirty ? "Đã sắp xếp lại. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Đã trở về thứ tự ban đầu — không tính là thay đổi.");
+  }
+
+  function moveProduct(src, fromNum, toNum){
+    var l = effectiveLayout();
+    l.forEach(function(g){
+      if (g.num === fromNum){ var i = g.srcs.indexOf(src); if (i >= 0) g.srcs.splice(i, 1); }
+    });
+    var target = null;
+    l.forEach(function(g){ if (g.num === toNum) target = g; });
+    if (!target) return;
+    target.srcs.push(src);
+    stageLayout(l);
+    render();
+    updateSaveAllState();
+    showMsg("Đã di chuyển sản phẩm sang nhóm " + toNum + ". Nhấn “Lưu tất cả thay đổi” để áp dụng.");
+  }
+
+  function deleteGroup(sh){
+    var l = effectiveLayout();
+    var idx = -1;
+    l.forEach(function(g, i){ if (g.num === sh) idx = i; });
+    if (idx < 0) return;
+    var gone = l[idx];
+    l.splice(idx, 1);
+    // merge orphaned products into previous group (or next if first)
+    if (gone.srcs.length && l.length){
+      var idx2 = idx > 0 ? idx - 1 : 0;
+      var merge = l[idx2];
+      gone.srcs.forEach(function(src){
+        if (merge.srcs.indexOf(src) < 0) merge.srcs.push(src);
+      });
+    }
+    stageLayout(l);
+    render();
+    updateSaveAllState();
+    showMsg("Đã xóa nhóm " + sh + " và đánh số lại (SP được gộp vào nhóm liền kề). Nhấn “Lưu tất cả thay đổi” để áp dụng.");
   }
 
   function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
@@ -375,9 +457,22 @@
   function bindEvents(){
     $("search").addEventListener("input", render);
 
+    $("groups").addEventListener("change", function(e){
+      if (e.target.classList.contains("group-move-select")){
+        var src = e.target.getAttribute("data-move");
+        var toNum = e.target.value;
+        if (!toNum) return;
+        var fromTr = e.target.closest("tr");
+        var fromNum = fromTr ? fromTr.getAttribute("data-group") : null;
+        if (!fromNum) return;
+        moveProduct(src, fromNum, toNum);
+        return;
+      }
+    });
+
     $("groups").addEventListener("click", function(e){
       var gh = e.target.closest(".group-head");
-      if (gh && !e.target.closest("[data-group-rename]") && !e.target.closest(".group-edit-form")){
+      if (gh && !e.target.closest("[data-group-rename]") && !e.target.closest(".group-edit-form") && !e.target.closest("[data-group-del]")){
         var blk = gh.closest(".group-block");
         var gn = blk ? blk.getAttribute("data-group-num") : null;
         if (!gn) return;
@@ -411,6 +506,18 @@
     });
 
     $("groups").addEventListener("click", function(e){
+      var delbtn = e.target.closest("[data-group-del]");
+      if (delbtn){
+        var dgn = delbtn.getAttribute("data-group-del");
+        var l = effectiveLayout();
+        var dTitle = "";
+        l.forEach(function(g){ if (g.num === dgn) dTitle = g.title; });
+        var cnt = 0;
+        l.forEach(function(g){ if (g.num === dgn) cnt = g.srcs.length; });
+        if (!confirm("Xóa nhóm " + dgn + (dTitle ? " (" + dTitle + ")" : "") + " (" + cnt + " sản phẩm)?\n\nSản phẩm của nhóm sẽ được gộp vào nhóm liền kề, các nhóm còn lại sẽ được đánh số lại tự động.")) return;
+        deleteGroup(dgn);
+        return;
+      }
       var btn = e.target.closest("[data-save]");
       if (btn){
         // Chỉ khi bấm "Lưu" thì sửa mới được tính là xong ở sản phẩm này.
@@ -527,13 +634,9 @@
       rows.splice(fromIdx, 1);
       rows.splice(toIdx, 0, from);
       rows.forEach(function(r){ tbody.appendChild(r); });
-      // capture the new order (full group, unsorted) as the saved/staged order
+      // capture the new order (full group, unsorted) into staged layout srcs
       var orderSrcs = rows.map(function(r){ return r.getAttribute("data-src"); });
-      dirtyOrders[gn] = orderSrcs;
-      pruneNoopStaged();
-      render();
-      updateSaveAllState();
-      showMsg(hashOwn(dirtyOrders, gn) ? "Đã sắp xếp lại. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Đã trở về thứ tự ban đầu — không tính là thay đổi.");
+      reorderGroupSrcs(gn, orderSrcs);
     });
   }
 
@@ -552,11 +655,6 @@
     return hidden.indexOf(src) >= 0;
   }
 
-  function savedOrderSrcs(gn){
-    if (hashOwn(orders, gn) && orders[gn] && orders[gn].length) return orders[gn];
-    return products.filter(function(p){ return p.group_num === gn; }).map(function(p){ return p.src; });
-  }
-
   function pruneNoopStaged(){
     var changedAny = false;
     Object.keys(dirty).forEach(function(src){
@@ -573,18 +671,24 @@
       var dev = dirtyNames[src].en || "";
       if (dv === (saved.vi || "") && dev === (saved.en || "")){ delete dirtyNames[src]; changedAny = true; }
     });
-    Object.keys(dirtyOrders).forEach(function(gn){
-      if (arrayEq(dirtyOrders[gn], savedOrderSrcs(gn))){ delete dirtyOrders[gn]; changedAny = true; }
-    });
-    Object.keys(dirtyGroupNames).forEach(function(gn){
-      if (dirtyGroupNames[gn] === (hashOwn(groupNames, gn) ? groupNames[gn] : groupDefaultTitle(gn))){ delete dirtyGroupNames[gn]; changedAny = true; }
-    });
+    if (dirtyLayout && layoutEq(dirtyLayout, savedLayoutValue())){
+      dirtyLayout = null;
+      layoutDirty = false;
+      changedAny = true;
+    }
+    layoutDirty = dirtyLayout !== null;
     return changedAny;
+  }
+
+  // Layout value for equality comparison: saved layout if set, else the default.
+  function savedLayoutValue(){
+    if (groupLayout) return normalizeLayout(groupLayout);
+    return defaultLayout();
   }
 
   function updateSaveAllState(){
     pruneNoopStaged();
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length + Object.keys(dirtyGroupNames).length;
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0);
     var btn = $("saveAllBtn");
     if (btn){
       btn.disabled = n === 0;
@@ -652,7 +756,8 @@
 
   function openGroupRename(btn){
     var gn = btn.getAttribute("data-group-rename");
-    var cur = stagedGroupTitle(gn);
+    var cur = "";
+    effectiveLayout().forEach(function(g){ if (g.num === gn) cur = g.title; });
     var head = btn.closest(".group-head");
     var titleSpan = head.querySelector(".group-title");
     var form = document.createElement("span");
@@ -669,30 +774,32 @@
     form.querySelector(".grp-name-input").focus();
   }
 
+  function renameGroup(gn, t){
+    var l = effectiveLayout();
+    l.forEach(function(g){ if (g.num === gn) g.title = t; });
+    stageLayout(l);
+    render();
+    updateSaveAllState();
+    showMsg(layoutDirty ? "Đã lưu tạm tên nhóm. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Tên trùng với tên hiện tại — không tính là thay đổi.");
+  }
+
   function stageGroupNameSave(gn){
     var form = document.querySelector('[data-group-edit-form="' + gn + '"]');
     if (!form) return;
     var t = form.querySelector(".grp-name-input").value.trim();
     if (!t){ render(); return; }
-    if (t === groupDefaultTitle(gn) && !hashOwn(groupNames, gn)){ render(); showMsg("Tên trùng với tên gốc — không tính là thay đổi."); return; }
-    dirtyGroupNames[gn] = t;
-    pruneNoopStaged();
-    render();
-    updateSaveAllState();
-    showMsg(hashOwn(dirtyGroupNames, gn) ? "Đã lưu tạm tên nhóm. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Tên trùng với tên hiện tại — không tính là thay đổi.");
+    renameGroup(gn, t);
   }
 
   function stageGroupNameReset(gn){
-    dirtyGroupNames[gn] = groupDefaultTitle(gn);
-    pruneNoopStaged();
-    render();
-    updateSaveAllState();
-    showMsg(hashOwn(dirtyGroupNames, gn) ? "Đã khôi phục tên nhóm gốc (sẽ áp dụng khi lưu tất cả)." : "Tên nhóm đã là gốc — không tính là thay đổi.");
+    var t = defaultLayout().filter(function(g){ return g.num === gn; });
+    var res = t.length ? t[0].title : "";
+    renameGroup(gn, res);
   }
 
   // ---- Publish all staged changes ----
   function openPublishModal(){
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + Object.keys(dirtyOrders).length + Object.keys(dirtyGroupNames).length;
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0);
     if (!n){ showMsg("Không có thay đổi nào để lưu."); return; }
     $("descSummary").textContent = n + " thay đổi đang chờ được lưu.";
     $("descInput").value = "";
@@ -708,17 +815,16 @@
     $("descInput").style.borderColor = "";
     var next = computeMergedState();
     $("descOk").disabled = true;
-    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names, orders: next.orders, group_names: next.group_names }) })
+    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names, group_layout: next.group_layout }) })
       .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
       .then(function(t){
         if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
         overrides = t.d.overrides || {};
         hidden = t.d.hidden || [];
         names = t.d.names || {};
-        orders = t.d.orders || {};
-        groupNames = t.d.group_names || {};
+        groupLayout = t.d.group_layout || null;
         versions = t.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {}; dirtyGroupNames = {};
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyLayout = null; layoutDirty = false;
         closePublishModal();
         render();
         updateSaveAllState();
@@ -755,19 +861,9 @@
         nm[src] = { vi: dirtyNames[src].vi, en: dirtyNames[src].en };
       }
     });
-    // orders: staged dirtyOrders overrides saved
-    var odr = Object.keys(orders).reduce(function(o, gn){ var arr = orders[gn] ? orders[gn].slice() : []; if (arr.length) o[gn] = arr; return o; }, {});
-    Object.keys(dirtyOrders).forEach(function(gn){
-      if (dirtyOrders[gn] && dirtyOrders[gn].length) odr[gn] = dirtyOrders[gn].slice();
-      else delete odr[gn];
-    });
-    // group names: staged dirtyGroupNames overrides saved
-    var gnm = Object.keys(groupNames).reduce(function(o, gn){ o[gn] = groupNames[gn]; return o; }, {});
-    Object.keys(dirtyGroupNames).forEach(function(gn){
-      if (dirtyGroupNames[gn] === groupDefaultTitle(gn)) delete gnm[gn];
-      else gnm[gn] = dirtyGroupNames[gn];
-    });
-    return { overrides: ov, hidden: hidSet, names: nm, orders: odr, group_names: gnm };
+    // layout: staged dirty overrides saved (renumbered, authoritative)
+    var gl = dirtyLayout ? normalizeLayout(dirtyLayout) : savedLayoutValue();
+    return { overrides: ov, hidden: hidSet, names: nm, group_layout: gl };
   }
 
   // ---- History ----
@@ -818,10 +914,9 @@
         overrides = t2.d.overrides || {};
         hidden = t2.d.hidden || [];
         names = t2.d.names || {};
-        orders = t2.d.orders || {};
-        groupNames = t2.d.group_names || {};
+        groupLayout = t2.d.group_layout || null;
         versions = t2.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyOrders = {}; dirtyGroupNames = {};
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyLayout = null; layoutDirty = false;
         $("histModal").classList.remove("open");
         render();
         updateSaveAllState();
@@ -846,7 +941,7 @@
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })
-      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; orders = d.orders || {}; groupNames = d.group_names || {}; versions = d.versions || []; })
+      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; orders = d.orders || {}; groupLayout = d.group_layout || null; versions = d.versions || []; })
       .then(render)
       .then(updateSummary)
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });

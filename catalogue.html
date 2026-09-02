@@ -89,8 +89,10 @@
       margin-bottom: 26px;
     }
     .group-num {
+      font-family: 'Be Vietnam Pro', system-ui, sans-serif;
       font-size: 15px;
-      font-weight: 800;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
       color: var(--amber);
       letter-spacing: 1px;
     }
@@ -106,16 +108,6 @@
       height: 2px;
       background: linear-gradient(90deg, var(--line) 70%, transparent);
       align-self: center;
-    }
-    .group-count {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--emerald);
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      padding: 3px 12px;
-      border-radius: 999px;
-      white-space: nowrap;
     }
 
     .cat-grid {
@@ -405,7 +397,7 @@
         right: 8%; top: 34%;
       }
 
-      .pc-top, .pc-hero, .pc-products, .pc-stats, .pc-foot {
+      .pc-top, .pc-hero, .pc-products, .pc-stats {
         position: relative;
         z-index: 1;
       }
@@ -416,15 +408,16 @@
         padding: 16mm 0 0;
       }
       .pc-eyebrow {
-        font-size: 13.5pt;
-        letter-spacing: 3px;
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+        font-size: 12pt;
+        letter-spacing: 5px;
         text-transform: uppercase;
         color: #4060a0;
         font-weight: 800;
-        margin-bottom: 6mm;
+        margin-top: 4mm;
         background: #fff;
         border: 0.4mm solid rgba(6, 78, 59, 0.15);
-        padding: 2.5mm 8mm;
+        padding: 2.5mm 7mm;
         border-radius: 5mm;
         display: inline-block;
       }
@@ -448,10 +441,11 @@
         border-radius: 4mm;
       }
       .pc-hero h1 {
-        font-size: 38pt;
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+        font-size: 20pt;
         font-weight: 800;
-        line-height: 1.06;
-        letter-spacing: -1px;
+        line-height: 1.15;
+        letter-spacing: 1px;
         color: #4060a0;
       }
       .pc-hero h1 span {
@@ -461,12 +455,13 @@
         -webkit-text-fill-color: transparent;
       }
       .print-cover .pc-tagline {
-        margin-top: 4mm;
-        font-size: 10.5pt;
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+        margin-top: 5mm;
+        font-size: 20pt;
         color: #4060a0;
-        letter-spacing: 0.8px;
+        letter-spacing: 1px;
         text-transform: none;
-        font-weight: 700;
+        font-weight: 800;
       }
       .pc-rule {
         width: 34mm; height: 1.4mm;
@@ -530,21 +525,6 @@
         text-transform: uppercase;
         color: #065f46;
       }
-      .pc-foot {
-        display: flex;
-        justify-content: center;
-        gap: 10mm;
-        padding: 4mm 0 12mm;
-        font-size: 9pt;
-      }
-      .pc-f-item {
-        display: flex;
-        align-items: center;
-        gap: 2.2mm;
-        color: #eef7f2;
-        letter-spacing: 0.3px;
-      }
-      .pc-f-item span { font-size: 11pt; }
 .pc-vat {
         position: relative;
         z-index: 1;
@@ -561,20 +541,16 @@
       }
       .group-num {
         color: #d97706;
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+        font-weight: 700;
         font-size: 10pt;
+        font-variant-numeric: tabular-nums;
         border: 1px solid #d97706;
         border-radius: 2mm;
-        padding: 0.4mm 1.8mm;
+        padding: 0.6mm 2.2mm;
       }
       .group-title { font-size: 10pt; line-height: 1.15; }
       .group-rule { display: none; }
-      .group-count {
-        border: 1px solid #059669;
-        color: #047857;
-        background: none;
-        font-size: 7pt;
-        padding: 0.4mm 2mm;
-      }
 
       .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 4mm; }
       .cat-group.wide .cat-grid { grid-template-columns: repeat(4, 1fr); gap: 3mm; }
@@ -611,7 +587,6 @@
         min-width: 0;
         flex: 1 1 auto;
       }
-      .group-count { margin-left: auto; }
     }
   </style>
 </head>
@@ -629,12 +604,12 @@
     <header class="print-cover">
       <div class="pc-deco"><i class="wave"></i><i class="arc"></i><i class="ring"></i></div>
       <div class="pc-top">
-        <div class="pc-eyebrow">Công ty TNHH TM DV Khải Thịnh</div>
         <div class="pc-logo-wrap"><img src="assets/logo.png" alt="Khải Thịnh" class="pc-logo"></div>
+        <div class="pc-eyebrow">CÔNG TY TNHH TM DV KHẢI THỊNH</div>
       </div>
       <div class="pc-hero">
         <div class="pc-hero-box">
-          <h1>CATALOGUE<br><span>2026</span></h1>
+          <h1>PRODUCT<br>CATALOGUE</h1>
           <p class="pc-tagline">DANH MỤC SẢN PHẨM NHẬP KHẨU - PHÂN PHỐI CHÍNH HÃNG</p>
           <div class="pc-rule"></div>
         </div>
@@ -660,10 +635,6 @@
         <div class="pc-stat"><strong>10</strong><span>Thương hiệu</span></div>
         <div class="pc-stat"><strong>5</strong><span>Quốc gia</span></div>
       </div>
-      <div class="pc-foot">
-        <div class="pc-f-item"><span>📞</span><b>0903 674 959</b></div>
-        <div class="pc-f-item"><span>✉️</span><b>khoi.nlb@khaithinh.com.vn</b></div>
-      </div>
       <div class="pc-vat">* Đơn giá chưa bao gồm VAT</div>
     </header>
 
@@ -675,8 +646,7 @@
         <span class="group-num">01</span>
         <h2 class="group-title" data-vi="TAYLOR - TRÁI CÂY KHÔ CAO CẤP" data-en="Premium Dried Fruits">TAYLOR - TRÁI CÂY KHÔ CAO CẤP</h2>
         <span class="group-rule"></span>
-        <span class="group-count">5 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-huu-co-hieu-taylor-100-organic-prunes-250g.webp" alt="Mận Khô Hữu Cơ"></div>
@@ -753,8 +723,7 @@
         <span class="group-num">02</span>
         <h2 class="group-title" data-vi="SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP" data-en="Premium Dried Fruits">SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP</h2>
         <span class="group-rule"></span>
-        <span class="group-count">2 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/snow-farms-trai-cay-kho-cao-cap-2/trai-viet-quat-kho-tu-nhien-hieu-snow-farms-120g.webp" alt="Trái Việt Quất khô tự nhiên"></div>
@@ -788,8 +757,7 @@
         <span class="group-num">03</span>
         <h2 class="group-title" data-vi="TAYLOR - NƯỚC ÉP MẬN CAO CẤP" data-en="Premium Fruit Juices">TAYLOR - NƯỚC ÉP MẬN CAO CẤP</h2>
         <span class="group-rule"></span>
-        <span class="group-count">2 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-huu-co-hieu-taylor-100-organic-prune-juice-946ml.webp" alt="Nước Ép Mận Hữu Cơ"></div>
@@ -830,8 +798,7 @@
         <span class="group-num">04</span>
         <h2 class="group-title" data-vi="ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG" data-en="Dietary &amp; Oat Biscuits">ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG</h2>
         <span class="group-rule"></span>
-        <span class="group-count">3 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-digestives-400g.webp" alt="Bánh Quy"></div>
@@ -884,8 +851,7 @@
         <span class="group-num">05</span>
         <h2 class="group-title" data-vi="ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN" data-en="Non-Alcoholic Drinks">ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN</h2>
         <span class="group-rule"></span>
-        <span class="group-count">12 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-gung-hieu-coolberg-ginger-330ml.webp" alt="Nước Vị Gừng"></div>
@@ -1046,8 +1012,7 @@
         <span class="group-num">06</span>
         <h2 class="group-title" data-vi="CLEARY'S - SIRO LÁ PHONG" data-en="Maple Syrup">CLEARY'S - SIRO LÁ PHONG</h2>
         <span class="group-rule"></span>
-        <span class="group-count">1 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/cleary-s-siro-la-phong-6/siro-la-phong-nguyen-chat-hieu-cleary-s-pure-maple-syrup-236ml.webp" alt="SIRO Lá Phong Nguyên Chất"></div>
@@ -1069,8 +1034,7 @@
         <span class="group-num">07</span>
         <h2 class="group-title" data-vi="BRIOVINEGARS - GIẤM TÁO HỮU CƠ" data-en="Organic Apple Cider Vinegar">BRIOVINEGARS - GIẤM TÁO HỮU CƠ</h2>
         <span class="group-rule"></span>
-        <span class="group-count">1 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/briovinegars-dam-tao-huu-co-8/giam-tao-huu-co-hieu-briovinegars-organic-apple-cider-vinegar-473ml.webp" alt="Giấm Táo Hữu Cơ"></div>
@@ -1099,8 +1063,7 @@
         <span class="group-num">08</span>
         <h2 class="group-title" data-vi="PIK - BỘT LÀM BÁNH" data-en="Baking Mixes">PIK - BỘT LÀM BÁNH</h2>
         <span class="group-rule"></span>
-        <span class="group-count">11 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-vani-hieu-pik-cake-mix-velvet-vanilla-250g.webp" alt="Bột Làm Bánh Vani"></div>
@@ -1249,8 +1212,7 @@
         <span class="group-num">09</span>
         <h2 class="group-title" data-vi="NISON - CÁ ĐÓNG HỘP" data-en="Canned Sardines">NISON - CÁ ĐÓNG HỘP</h2>
         <span class="group-rule"></span>
-        <span class="group-count">5 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-ngam-dau-thuc-vat-hieu-nison-nison-sardines-in-vegetable-oil-125g.webp" alt="Cá Trích Ngâm Dầu Thực Vật"></div>
@@ -1327,8 +1289,7 @@
         <span class="group-num">10</span>
         <h2 class="group-title" data-vi="JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC" data-en="Organic Pulses, Seeds &amp; Grains">JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC</h2>
         <span class="group-rule"></span>
-        <span class="group-count">9 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-den-huu-co-hieu-just-organik-organic-amaranth-500g.webp" alt="Hạt Dền Hữu Cơ"></div>
@@ -1453,8 +1414,7 @@
         <span class="group-num">11</span>
         <h2 class="group-title" data-vi="PULSES &amp; LENTILS _ ĐẬU HỮU CƠ" data-en="Organic Pulses &amp; Lentils">PULSES &amp; LENTILS _ ĐẬU HỮU CƠ</h2>
         <span class="group-rule"></span>
-        <span class="group-count">10 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-o-tay-huu-co-hieu-just-organik-organic-red-kindey-beans-500g.webp" alt="Đậu Đỏ Tây Hữu Cơ"></div>
@@ -1591,8 +1551,7 @@
         <span class="group-num">12</span>
         <h2 class="group-title" data-vi="FLOURS _ BỘT LÀM BÁNH HỮU CƠ" data-en="Organic Flours">FLOURS _ BỘT LÀM BÁNH HỮU CƠ</h2>
         <span class="group-rule"></span>
-        <span class="group-count">5 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/flours-bot-lam-banh-huu-co-12/bot-huu-co-hieu-just-organik-organic-9-grains-flour-1kg.webp" alt="Bột Hữu Cơ"></div>
@@ -1669,8 +1628,7 @@
         <span class="group-num">13</span>
         <h2 class="group-title" data-vi="SPICES _ GIA VỊ NẤU ĂN HỮU CƠ" data-en="Organic Cooking Spices">SPICES _ GIA VỊ NẤU ĂN HỮU CƠ</h2>
         <span class="group-rule"></span>
-        <span class="group-count">2 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/spices-gia-vi-nau-an-huu-co-13/hat-methi-huu-co-hieu-just-organik-organic-fenugreek-methi-100g.webp" alt="Hạt Methi Hữu Cơ"></div>
@@ -1711,8 +1669,7 @@
         <span class="group-num">14</span>
         <h2 class="group-title" data-vi="ENGLISH BREEZE - NƯỚC RỬA TAY" data-en="Scented Hand Wash">ENGLISH BREEZE - NƯỚC RỬA TAY</h2>
         <span class="group-rule"></span>
-        <span class="group-count">5 SP</span>
-      </div>
+              </div>
       <div class="cat-grid">
         <article class="cat-card">
           <div class="cat-thumb"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp" alt="Handwash Mountain Herbs"></div>

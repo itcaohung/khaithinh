@@ -197,13 +197,13 @@
       white-space: nowrap;
     }
     .cat-price::after {
-      content: "* Đơn giá chưa bao gồm VAT";
-      display: block;
-      font-size: 8px;
+      content: " · Chưa VAT";
+      display: inline;
+      font-size: 10px;
       font-weight: 500;
       color: var(--muted);
       letter-spacing: 0;
-      white-space: normal;
+      white-space: nowrap;
     }
     .cat-wt {
       align-self: flex-end;
@@ -478,7 +478,7 @@
       .cat-en { font-size: 7pt; }
       .cat-wt { font-size: 6.5pt; padding: 0.4mm 2mm; margin-top: 0; }
       .cat-price { font-size: 8.5pt; }
-      .cat-price::after { font-size: 5.5pt; }
+      .cat-price::after { font-size: 5.5pt; margin-left: 1pt; }
       .cat-foot { padding-top: 1.5mm; }
       .cat-brand-name { font-size: 7pt; }
       .cat-origin { font-size: 7.5pt; }

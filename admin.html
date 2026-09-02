@@ -245,8 +245,6 @@
       var items = [];
       var gtitle = g.title || "";
       g.srcs.forEach(function(src){ if (bySrc[src]) items.push(bySrc[src]); });
-      // append any products of same group_num not covered by layout (safety)
-      products.forEach(function(p){ if (p.group_num === g.num && items.indexOf(p) < 0) items.push(p); });
       var shown = items.filter(function(p){
         if (!q) return true;
         var nv = stagedName(p.src).vi;

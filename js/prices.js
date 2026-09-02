@@ -59,6 +59,8 @@
     // ---- Restructure groups from authoritative layout (membership + order + title + number) ----
     if (group_layout && group_layout.length) {
       var sections = Array.prototype.slice.call(document.querySelectorAll(".cat-group"));
+      var sectionById = {};
+      sections.forEach(function (s) { sectionById[s.id] = s; });
       var cardsBySrc = {};
       document.querySelectorAll(".cat-group").forEach(function (s) {
         Array.prototype.forEach.call(s.querySelectorAll(".cat-card"), function (c) {
@@ -68,7 +70,15 @@
         });
       });
       group_layout.forEach(function (g, i) {
-        var section = sections[i];
+        // Match each layout entry to its SECTION by slug (its image folder),
+        // not by array index, so reordered groups land in the right container.
+        var slug = "";
+        if (g.srcs && g.srcs.length) {
+          var parts = g.srcs[0].split("/");
+          if (parts.length >= 2) slug = parts[parts.length - 2];
+        }
+        var section = slug ? sectionById[slug] : null;
+        if (!section) section = sections[i] || null;
         if (!section) return;
         section.setAttribute("data-order", g.num);
         if (section.hasAttribute("data-group_num")) section.setAttribute("data-group_num", g.num);

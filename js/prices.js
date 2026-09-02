@@ -26,6 +26,29 @@
     var orders = d.orders || {};
     var group_names = d.group_names || {};
     var group_layout = d.group_layout || null;
+    var cover = d.cover || null;
+
+    // ---- PDF cover products (which products appear on the printed cover) ----
+    if (cover && cover.length) {
+      var coverBox = document.querySelector(".print-cover .pc-products");
+      if (coverBox) {
+        var hiddenSet = {};
+        hidden.forEach(function (h) { hiddenSet[h] = 1; });
+        // Reuse existing .pc-prod nodes (keeps alt text) matched by img src.
+        var existing = {};
+        coverBox.querySelectorAll(".pc-prod").forEach(function (el) {
+          var img = el.querySelector("img");
+          if (img) existing[img.getAttribute("src")] = el;
+        });
+        var frag = document.createDocumentFragment();
+        cover.forEach(function (src) {
+          if (hiddenSet[src]) return;
+          frag.appendChild(existing[src] || (function () { var d = document.createElement("div"); d.className = "pc-prod"; d.innerHTML = '<img src="' + src + '" alt="">'; return d; })());
+        });
+        coverBox.innerHTML = "";
+        coverBox.appendChild(frag);
+      }
+    }
 
     // ---- Restructure groups from authoritative layout (membership + order + title + number) ----
     if (group_layout && group_layout.length) {

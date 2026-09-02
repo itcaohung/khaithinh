@@ -135,6 +135,44 @@
   .hist-empty { color: #7a8a82; font-size: 13px; padding: 12px 0; }
   .pending-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: transparent; margin-right: 6px; }
   .pending-dot.on { background: #e08020; }
+
+  /* ===== Bìa PDF panel ===== */
+  .cover-panel { max-width: 1100px; margin: 16px auto 0; padding: 0 16px; }
+  .cover-panel .cover-inner { background: #fff; border: 1px solid #e2ece5; border-radius: 14px; box-shadow: 0 4px 14px rgba(11,51,39,.07); overflow: hidden; }
+  .cover-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(90deg, #14304e, #1b4d86); color: #fff; cursor: pointer; user-select: none; }
+  .cover-head .cover-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
+  .cover-head .cover-sub { font-size: 11.5px; color: #cfe0f5; }
+  .cover-count { font-size: 12px; color: #d3e8dd; background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
+  .cover-chevron { margin-left: auto; width: 18px; height: 18px; transition: transform .2s ease; color: #cfe0f5; flex-shrink: 0; }
+  .cover-panel.collapsed .cover-chevron { transform: rotate(-90deg); }
+  .cover-panel.collapsed .cover-body { display: none; }
+  .cover-body { padding: 16px; }
+  .cover-picker-top { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+  .cover-picker-top input[type=search] { flex: 1; min-width: 220px; padding: 9px 12px; border: 1px solid #cfdbd4; border-radius: 8px; font-size: 13px; }
+  .cover-picker-top input[type=search]:focus { outline: 2px solid #b7dfc9; border-color: #10b981; }
+  .cover-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; max-height: 340px; overflow: auto; padding: 2px; }
+  .cover-cell { display: flex; gap: 10px; align-items: center; border: 1px solid #e2ece5; border-radius: 10px; padding: 8px; background: #fafdfb; }
+  .cover-cell.on { border-color: #10b981; background: #eefaf4; }
+  .cover-cell img { width: 44px; height: 44px; object-fit: contain; background: #fff; border-radius: 6px; border: 1px solid #e6ece8; flex-shrink: 0; }
+  .cover-cell .cc-name { font-size: 12px; font-weight: 600; color: #0b3327; line-height: 1.25; flex: 1; }
+  .cover-cell .cc-src { font-size: 10px; color: #93a39b; word-break: break-all; }
+  .cover-cell button { border: none; border-radius: 7px; padding: 6px 9px; font-size: 11.5px; font-weight: 700; cursor: pointer; flex-shrink: 0; }
+  .cover-cell .cc-add { background: #10b981; color: #fff; }
+  .cover-cell .cc-add:hover { background: #0da06f; }
+  .cover-cell .cc-del { background: #e74c3c; color: #fff; }
+  .cover-cell .cc-del:hover { background: #c0392b; }
+  .cover-list-title { font-size: 12.5px; color: #40564c; font-weight: 700; margin: 14px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .cover-ordered { display: flex; flex-direction: column; gap: 6px; }
+  .cover-ordered .cos-row { display: flex; align-items: center; gap: 8px; border: 1px solid #e2ece5; border-radius: 9px; padding: 6px 8px; background: #fff; }
+  .cover-ordered .cos-idx { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #f0c049, #d9771a); color: #fff; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cover-ordered img { width: 38px; height: 38px; object-fit: contain; background: #fff; border: 1px solid #e6ece8; border-radius: 6px; flex-shrink: 0; }
+  .cover-ordered .cos-name { flex: 1; font-size: 12px; font-weight: 600; color: #0b3327; }
+  .cover-ordered .cos-btns { display: flex; gap: 4px; flex-shrink: 0; }
+  .cover-ordered .cos-btns button { border: 1px solid #cdd9d2; background: #f0f6f3; border-radius: 6px; width: 26px; height: 26px; cursor: pointer; color: #0b3b2b; font-size: 14px; line-height: 1; }
+  .cover-ordered .cos-btns button:disabled { opacity: .35; cursor: not-allowed; }
+  .cover-ordered .cos-btns button:hover:enabled { background: #dfeae4; }
+  .cover-ordered .cos-del { border: 1px solid #f5c4be !important; background: #fdecea !important; color: #c0392b !important; }
+  .cover-empty { color: #7a8a82; font-size: 12.5px; padding: 8px 0; }
 </style>
 </head>
 <body>
@@ -171,6 +209,28 @@
   </div>
 
   <div class="summary" id="summary"></div>
+
+  <div class="cover-panel" id="coverPanel">
+    <div class="cover-inner">
+      <div class="cover-head" id="coverHead">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#f0c049;flex-shrink:0"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h6"/></svg>
+        <div>
+          <div class="cover-title">Bìa PDF — sản phẩm nổi bật</div>
+          <div class="cover-sub">Chọn sản phẩm xuất hiện trên bìa catalogue khi in / xuất PDF</div>
+        </div>
+        <span class="cover-count" id="coverCount">0 sản phẩm</span>
+        <svg class="cover-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="cover-body">
+        <div class="cover-picker-top">
+          <input type="search" id="coverSearch" placeholder="Tìm sản phẩm để thêm vào bìa...">
+        </div>
+        <div class="cover-grid" id="coverGrid"></div>
+        <div class="cover-list-title">Thứ tự bìa (số nhỏ = lên trước, kéo/đổi thứ tự)</div>
+        <div class="cover-ordered" id="coverOrdered"></div>
+      </div>
+    </div>
+  </div>
 
   <div class="wrap" id="groups">
   </div>
@@ -209,12 +269,15 @@
   var hidden = [];          // srcs of hidden products (saved)
   var orders = {};          // legacy group_num -> [src,...] (pre-layout reorder, for migration)
   var groupLayout = null;    // [{num,title,srcs:[...]}] (saved authoritative groups)
+  var cover = null;          // [src,...] products shown on the PDF cover (saved)
   var products = [];         // from products.json
   var dirty = {};            // src -> price (staged edits)
   var dirtyHidden = {};      // src -> bool (staged hide state, only entries staged)
   var dirtyNames = {};       // src -> {vi,en} (staged name edits)
   var dirtyLayout = null;    // staged authoritative group layout [{num,title,srcs}]
   var layoutDirty = false;   // true when staged layout differs from saved
+  var dirtyCover = null;     // staged cover [src,...]
+  var coverDirty = false;    // true when staged cover differs from saved
   var versions = [];         // [{id, at, desc, snapshot}]
   var sortKey = "src";
   var COLLAPSE_KEY = "kt-admin-collapsed";
@@ -305,11 +368,109 @@
       blk.appendChild(tbl);
       box.appendChild(blk);
     });
+    renderCover();
     updateSummary();
   }
 
+  // ---- Cover (PDF) selection ----
+  function savedCover(){ return cover ? cover.slice() : []; }
+
+  function effectiveCover(){
+    if (dirtyCover) return dirtyCover.slice();
+    return savedCover();
+  }
+
+  function stageCover(list){
+    dirtyCover = list.slice();
+    coverDirty = !arraysEqual(dirtyCover, savedCover());
+  }
+
+  function coverContains(src){
+    return effectiveCover().indexOf(src) >= 0;
+  }
+
+  function toggleCover(src){
+    var l = effectiveCover();
+    var i = l.indexOf(src);
+    if (i >= 0) l.splice(i, 1);
+    else l.push(src);
+    stageCover(l);
+    renderCover();
+    updateSaveAllState();
+    showMsg(coverDirty ? "Đã cập nhật bìa PDF. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Bìa PDF đã trở về ban đầu — không tính là thay đổi.");
+  }
+
+  function moveCover(src, dir){
+    var l = effectiveCover();
+    var i = l.indexOf(src);
+    if (i < 0) return;
+    var j = i + dir;
+    if (j < 0 || j >= l.length) return;
+    var t = l[i]; l[i] = l[j]; l[j] = t;
+    stageCover(l);
+    renderCover();
+    updateSaveAllState();
+    showMsg(coverDirty ? "Đã đổi thứ tự bìa. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "");
+  }
+
+  function arraysEqual(a, b){
+    if (a.length !== b.length) return false;
+    for (var i=0;i<a.length;i++) if (a[i] !== b[i]) return false;
+    return true;
+  }
+
+  function renderCover(){
+    var q = ($("coverSearch") ? $("coverSearch").value : "").trim().toLowerCase();
+    var sel = effectiveCover();
+    var grid = $("coverGrid");
+    var ordered = $("coverOrdered");
+    var count = $("coverCount");
+    if (!grid || !ordered) return;
+    // Pick grid (all products, highlight selected)
+    var shown = products.filter(function(p){
+      if (!q) return true;
+      var nv = stagedName(p.src).vi;
+      var ne = stagedName(p.src).en;
+      return nv.toLowerCase().indexOf(q) >= 0 || ne.toLowerCase().indexOf(q) >= 0 || p.brand.toLowerCase().indexOf(q) >= 0;
+    });
+    grid.innerHTML = "";
+    shown.forEach(function(p){
+      var on = sel.indexOf(p.src) >= 0;
+      var cell = document.createElement("div");
+      cell.className = "cover-cell" + (on ? " on" : "");
+      cell.innerHTML =
+        '<img src="' + escAttr(p.src) + '" onerror="this.style.display=\'none\'">' +
+        '<div class="cc-info"><div class="cc-name">' + escHtml(stagedName(p.src).vi) + '</div><div class="cc-src">' + escHtml(p.src.split("/").pop()) + '</div></div>' +
+        '<button class="' + (on ? 'cc-del' : 'cc-add') + '" data-cover-toggle="' + escAttr(p.src) + '">' + (on ? 'Bỏ' : 'Thêm') + '</button>';
+      grid.appendChild(cell);
+    });
+    // Ordered list
+    ordered.innerHTML = "";
+    if (!sel.length){
+      ordered.innerHTML = '<div class="cover-empty">Chưa chọn sản phẩm nào cho bìa. Hãy bấm “Thêm” ở các ô bên trên.</div>';
+    } else {
+      sel.forEach(function(src, idx){
+        var p = findProd(src);
+        var nm = p ? stagedName(p.src).vi : src;
+        var row = document.createElement("div");
+        row.className = "cos-row";
+        row.innerHTML =
+          '<div class="cos-idx">' + (idx + 1) + '</div>' +
+          '<img src="' + escAttr(src) + '" onerror="this.style.display=\'none\'">' +
+          '<div class="cos-name">' + escHtml(nm) + '</div>' +
+          '<div class="cos-btns">' +
+            '<button data-cover-up="' + escAttr(src) + '" ' + (idx === 0 ? 'disabled' : '') + ' title="Lên trên">↑</button>' +
+            '<button data-cover-down="' + escAttr(src) + '" ' + (idx === sel.length - 1 ? 'disabled' : '') + ' title="Xuống dưới">↓</button>' +
+            '<button class="cos-del" data-cover-toggle="' + escAttr(src) + '" title="Bỏ khỏi bìa">✕</button>' +
+          '</div>';
+        ordered.appendChild(row);
+      });
+    }
+    count.textContent = sel.length + " sản phẩm";
+  }
+
   function updateSummary(){
-    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0);
+    var changed = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0) + (coverDirty ? 1 : 0);
     var hiddenCount = 0;
     products.forEach(function(p){ if (stagedHidden(p.src)) hiddenCount++; });
     var el = $("summary");
@@ -638,6 +799,31 @@
       var orderSrcs = rows.map(function(r){ return r.getAttribute("data-src"); });
       reorderGroupSrcs(gn, orderSrcs);
     });
+
+    // ---- Cover (PDF) panel events ----
+    $("coverHead").addEventListener("click", function(){
+      var panel = $("coverPanel");
+      panel.classList.toggle("collapsed");
+    });
+    $("coverGrid").addEventListener("click", function(e){
+      var b = e.target.closest("[data-cover-toggle]");
+      if (!b) return;
+      toggleCover(b.getAttribute("data-cover-toggle"));
+    });
+    $("coverOrdered").addEventListener("click", function(e){
+      var up = e.target.closest("[data-cover-up]");
+      if (up){ moveCover(up.getAttribute("data-cover-up"), -1); return; }
+      var down = e.target.closest("[data-cover-down]");
+      if (down){ moveCover(down.getAttribute("data-cover-down"), 1); return; }
+      var b = e.target.closest("[data-cover-toggle]");
+      if (b){ toggleCover(b.getAttribute("data-cover-toggle")); return; }
+    });
+    var coverSearchTimer = null;
+    $("coverSearch").addEventListener("input", function(){
+      clearTimeout(coverSearchTimer);
+      var q = this.value;
+      coverSearchTimer = setTimeout(function(){ renderCover(); }, 150);
+    });
   }
 
   function arrayEq(a, b){
@@ -676,7 +862,13 @@
       layoutDirty = false;
       changedAny = true;
     }
+    if (dirtyCover && arraysEqual(dirtyCover, savedCover())){
+      dirtyCover = null;
+      coverDirty = false;
+      changedAny = true;
+    }
     layoutDirty = dirtyLayout !== null;
+    coverDirty = dirtyCover !== null;
     return changedAny;
   }
 
@@ -688,7 +880,7 @@
 
   function updateSaveAllState(){
     pruneNoopStaged();
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0);
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0) + (coverDirty ? 1 : 0);
     var btn = $("saveAllBtn");
     if (btn){
       btn.disabled = n === 0;
@@ -799,7 +991,7 @@
 
   // ---- Publish all staged changes ----
   function openPublishModal(){
-    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0);
+    var n = Object.keys(dirty).length + Object.keys(dirtyHidden).length + Object.keys(dirtyNames).length + (layoutDirty ? 1 : 0) + (coverDirty ? 1 : 0);
     if (!n){ showMsg("Không có thay đổi nào để lưu."); return; }
     $("descSummary").textContent = n + " thay đổi đang chờ được lưu.";
     $("descInput").value = "";
@@ -815,7 +1007,7 @@
     $("descInput").style.borderColor = "";
     var next = computeMergedState();
     $("descOk").disabled = true;
-    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names, group_layout: next.group_layout }) })
+    fetch("/api/publish", { method: "PUT", headers: authHeaders(), body: JSON.stringify({ desc: desc, overrides: next.overrides, hidden: next.hidden, names: next.names, group_layout: next.group_layout, cover: next.cover }) })
       .then(function(r){ return r.json().then(function(d){ return {r:r, d:d}; }); })
       .then(function(t){
         if (!t.r.ok){ throw new Error(t.d.error || "Lỗi"); }
@@ -823,8 +1015,9 @@
         hidden = t.d.hidden || [];
         names = t.d.names || {};
         groupLayout = t.d.group_layout || null;
+        cover = t.d.cover || null;
         versions = t.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyLayout = null; layoutDirty = false;
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyLayout = null; layoutDirty = false; dirtyCover = null; coverDirty = false;
         closePublishModal();
         render();
         updateSaveAllState();
@@ -863,7 +1056,9 @@
     });
     // layout: staged dirty overrides saved (renumbered, authoritative)
     var gl = dirtyLayout ? normalizeLayout(dirtyLayout) : savedLayoutValue();
-    return { overrides: ov, hidden: hidSet, names: nm, group_layout: gl };
+    // cover: staged if set, else saved
+    var cv = dirtyCover ? dirtyCover.slice() : savedCover();
+    return { overrides: ov, hidden: hidSet, names: nm, group_layout: gl, cover: cv };
   }
 
   // ---- History ----
@@ -915,8 +1110,9 @@
         hidden = t2.d.hidden || [];
         names = t2.d.names || {};
         groupLayout = t2.d.group_layout || null;
+        cover = t2.d.cover || null;
         versions = t2.d.versions || [];
-        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyLayout = null; layoutDirty = false;
+        dirty = {}; dirtyHidden = {}; dirtyNames = {}; dirtyLayout = null; layoutDirty = false; dirtyCover = null; coverDirty = false;
         $("histModal").classList.remove("open");
         render();
         updateSaveAllState();
@@ -941,7 +1137,7 @@
         return fetch("/api/prices", { headers: authHeaders() });
       })
       .then(function(r){ return r.json(); })
-      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; orders = d.orders || {}; groupLayout = d.group_layout || null; versions = d.versions || []; })
+      .then(function(d){ overrides = d.overrides || {}; hidden = d.hidden || []; names = d.names || {}; orders = d.orders || {}; groupLayout = d.group_layout || null; cover = d.cover || null; versions = d.versions || []; })
       .then(render)
       .then(updateSummary)
       .catch(function(err){ showMsg("Không tải được dữ liệu: " + err.message); });

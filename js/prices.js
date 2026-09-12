@@ -181,11 +181,14 @@
     });
 
     // Print: use 4 columns inside a group whenever it has more than 9 visible products.
+    // If the group already declares "wide" statically in the markup, keep that layout.
     document.querySelectorAll(".cat-group").forEach(function (group) {
       var visible = Array.prototype.filter.call(group.querySelectorAll(".cat-card"), function (c) {
         return c.style.display !== "none";
       }).length;
-      group.classList.toggle("wide", visible > 9);
+      var staticWide = group.classList.contains("wide");
+      if (visible > 9) group.classList.add("wide");
+      else if (!staticWide) group.classList.remove("wide");
     });
 
     // Home page: hide products + rename (cards + slides)

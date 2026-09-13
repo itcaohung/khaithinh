@@ -24,6 +24,41 @@
     return (isNaN(n) || String(num) === String(n)) ? String(num) : String(n);
   }
 
+  // Wrap each product group in a real <table> so Chrome repeats its <thead>
+  // (brand line + group title) at the top of every printed page the group spans.
+  // On screen the table is made invisible with display: contents.
+  function wrapPrintGroups() {
+    document.querySelectorAll(".cat-group").forEach(function (group) {
+      if (group.querySelector(".cat-print")) return;
+      var head = group.querySelector(".group-head");
+      var grid = group.querySelector(".cat-grid");
+      if (!head || !grid) return;
+      var table = document.createElement("table");
+      table.className = "cat-print";
+      var thead = document.createElement("thead");
+      var trh = document.createElement("tr");
+      var th = document.createElement("th");
+      th.className = "cat-print-head";
+      var brand = document.createElement("div");
+      brand.className = "cat-brand-line";
+      brand.textContent = "KHẢI THỊNH - PRODUCT CATALOGUE 2026";
+      th.appendChild(brand);
+      trh.appendChild(th);
+      thead.appendChild(trh);
+      var tbody = document.createElement("tbody");
+      var trb = document.createElement("tr");
+      var td = document.createElement("td");
+      td.className = "cat-print-body";
+      td.appendChild(head);
+      td.appendChild(grid);
+      trb.appendChild(td);
+      tbody.appendChild(trb);
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      group.appendChild(table);
+    });
+  }
+
   function apply(d) {
     if (!d) return;
     var overrides = d.overrides || {};
@@ -228,6 +263,8 @@
   function reveal() {
     document.body.classList.remove("kt-loading");
   }
+
+  wrapPrintGroups();
 
   fetch("/api/prices", { headers: { "cache": "no-store" } })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })

@@ -92,6 +92,14 @@
     .pt-page.print-contact { display: none; }
     .cat-group { margin-bottom: 54px; }
     .pt-page:last-child .cat-group { margin-bottom: 0; }
+    /* print table wrapper: invisible on screen, only acts in @media print */
+    .cat-print,
+    .cat-print thead,
+    .cat-print tbody,
+    .cat-print tr,
+    .cat-print th,
+    .cat-print td { display: contents; }
+    @media screen { .cat-print-head .cat-brand-line { display: none; } }
     .group-head {
       display: flex;
       align-items: center;
@@ -297,7 +305,7 @@
         break-before: page;
         page-break-before: always;
         break-inside: avoid;
-        padding: 18mm 15mm 6mm;
+        padding: 0 15mm 6mm;
         min-height: 297mm;
         position: relative;
       }
@@ -305,9 +313,16 @@
       .pt-page.print-split { display: block; }
       /* footer removed on PDF pages */
       .pt-foot { display: none; }
-      /* repeated mini brand line on every product page */
-      .cat-group::before {
-        content: "KHẢI THỊNH - PRODUCT CATALOGUE 2026";
+      /* repeated brand line on every product page: real <thead> repeats on each
+         printed page the group spans, carrying its own top spacing (the .pt-page
+         top padding would only apply to the first fragment of the page) */
+      .cat-print { display: table; width: 100%; border-collapse: collapse; }
+      .cat-print thead { display: table-header-group; break-inside: avoid; }
+      .cat-print tbody { display: table-row-group; }
+      .cat-print tr { display: table-row; }
+      .cat-print th.cat-print-head,
+      .cat-print td.cat-print-body { display: table-cell; vertical-align: top; padding: 0; }
+      .cat-brand-line {
         display: block;
         text-align: center;
         font-family: 'Be Vietnam Pro', system-ui, sans-serif;
@@ -316,10 +331,11 @@
         letter-spacing: 1.5px;
         text-transform: uppercase;
         color: #94a3b8;
+        padding-top: 18mm;
         margin-bottom: 4mm;
       }
       /* pages packing several groups show the brand line only once */
-      .cat-group:not(:first-of-type)::before { display: none; }
+      .cat-group:not(:first-of-type) .cat-brand-line { display: none; }
       .print-cover {
         break-after: page;
         border-bottom: none;

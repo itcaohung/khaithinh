@@ -69,6 +69,7 @@
           if (src) cardsBySrc[src] = c;
         });
       });
+      var matched = {};
       group_layout.forEach(function (g, i) {
         // Match each layout entry to its SECTION by slug (its image folder),
         // not by array index, so reordered groups land in the right container.
@@ -80,6 +81,7 @@
         var section = slug ? sectionById[slug] : null;
         if (!section) section = sections[i] || null;
         if (!section) return;
+        matched[section.id] = 1;
         section.setAttribute("data-order", g.num);
         if (section.hasAttribute("data-group_num")) section.setAttribute("data-group_num", g.num);
         var numEl = section.querySelector(".group-num");
@@ -93,9 +95,10 @@
           if (cardsBySrc[src]) { grid.appendChild(cardsBySrc[src]); delete cardsBySrc[src]; }
         });
       });
-      // Hide surplus sections (those beyond the layout, i.e. deleted groups).
-      sections.forEach(function (s, i) {
-        if (i >= group_layout.length) s.style.display = "none";
+      // Hide sections no longer present in the authoritative layout
+      // (deleted/merged groups), matched by id rather than DOM position.
+      sections.forEach(function (s) {
+        if (!matched[s.id]) s.style.display = "none";
       });
     }
 

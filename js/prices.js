@@ -220,7 +220,12 @@
 
     // Print: use 4 columns inside a group whenever it has more than 9 visible products.
     // If the group already declares "wide" statically in the markup, keep that layout.
+    // A group marked "cat-3" always stays at 3 columns.
     document.querySelectorAll(".cat-group").forEach(function (group) {
+      if (group.classList.contains("cat-3")) {
+        group.classList.remove("wide");
+        return;
+      }
       var visible = Array.prototype.filter.call(group.querySelectorAll(".cat-card"), function (c) {
         return c.style.display !== "none";
       }).length;

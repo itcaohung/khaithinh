@@ -52,8 +52,7 @@
   .group-title { font-size: 15px; font-weight: 800; letter-spacing: .3px; }
   .group-rename-btn { background: none; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; color: #cfe0f5; cursor: pointer; padding: 2px 8px; font-size: 12px; line-height: 1.5; }
   .group-rename-btn:hover { background: rgba(255,255,255,.16); border-color: #f0c049; }
-  .group-del-btn { background: none; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; color: #ffd0ca; cursor: pointer; padding: 2px 8px; font-size: 12px; line-height: 1.5; }
-  .group-del-btn:hover { background: rgba(231,76,60,.22); border-color: #e74c3c; }
+  
   .group-move-select { padding: 7px 8px; border: 1px solid #cdd9d2; border-radius: 7px; font-size: 12.5px; width: 100%; background: #fff; color: #13251e; }
   .group-edit-form { display: inline-flex; gap: 8px; align-items: center; }
   .group-edit-form input { padding: 6px 9px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 13px; background: #fff; color: #13251e; min-width: 260px; }
@@ -260,7 +259,6 @@
         '<span class="group-num">' + escHtml(displayGroupNum(g.num)) + '</span>' +
         '<span class="group-title">' + escHtml(gtitle) + '</span>' +
         '<button class="group-rename-btn" data-group-rename="' + escAttr(g.num) + '" title="Đổi tên nhóm">✎</button>' +
-        '<button class="group-del-btn" data-group-del="' + escAttr(g.num) + '" title="Xóa nhóm (gộp SP và đánh số lại)">🗑</button>' +
         '<span class="group-count">' + items.length + ' sản phẩm</span>' +
         '<svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
       var tbl = document.createElement("table");
@@ -430,27 +428,6 @@
     showMsg("Đã di chuyển sản phẩm sang nhóm " + toNum + ". Nhóm trống được bỏ và đánh số lại. Nhấn “Lưu tất cả thay đổi” để áp dụng.");
   }
 
-  function deleteGroup(sh){
-    var l = effectiveLayout();
-    var idx = -1;
-    l.forEach(function(g, i){ if (g.num === sh) idx = i; });
-    if (idx < 0) return;
-    var gone = l[idx];
-    l.splice(idx, 1);
-    // merge orphaned products into previous group (or next if first)
-    if (gone.srcs.length && l.length){
-      var idx2 = idx > 0 ? idx - 1 : 0;
-      var merge = l[idx2];
-      gone.srcs.forEach(function(src){
-        if (merge.srcs.indexOf(src) < 0) merge.srcs.push(src);
-      });
-    }
-    stageLayout(l);
-    render();
-    updateSaveAllState();
-    showMsg("Đã xóa nhóm " + sh + " và đánh số lại (SP được gộp vào nhóm liền kề). Nhấn “Lưu tất cả thay đổi” để áp dụng.");
-  }
-
   function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
   function escHtml(s){ var d=document.createElement("div"); d.textContent=s==null?"":s; return d.innerHTML; }
   function escAttr(s){ return escHtml(s).replace(/"/g,'&quot;'); }
@@ -475,7 +452,7 @@
 
     $("groups").addEventListener("click", function(e){
       var gh = e.target.closest(".group-head");
-      if (gh && !e.target.closest("[data-group-rename]") && !e.target.closest(".group-edit-form") && !e.target.closest("[data-group-del]")){
+      if (gh && !e.target.closest("[data-group-rename]") && !e.target.closest(".group-edit-form")){
         var blk = gh.closest(".group-block");
         var gn = blk ? blk.getAttribute("data-group-num") : null;
         if (!gn) return;
@@ -509,18 +486,6 @@
     });
 
     $("groups").addEventListener("click", function(e){
-      var delbtn = e.target.closest("[data-group-del]");
-      if (delbtn){
-        var dgn = delbtn.getAttribute("data-group-del");
-        var l = effectiveLayout();
-        var dTitle = "";
-        l.forEach(function(g){ if (g.num === dgn) dTitle = g.title; });
-        var cnt = 0;
-        l.forEach(function(g){ if (g.num === dgn) cnt = g.srcs.length; });
-        if (!confirm("Xóa nhóm " + dgn + (dTitle ? " (" + dTitle + ")" : "") + " (" + cnt + " sản phẩm)?\n\nSản phẩm của nhóm sẽ được gộp vào nhóm liền kề, các nhóm còn lại sẽ được đánh số lại tự động.")) return;
-        deleteGroup(dgn);
-        return;
-      }
       var btn = e.target.closest("[data-save]");
       if (btn){
         // Chỉ khi bấm "Lưu" thì sửa mới được tính là xong ở sản phẩm này.

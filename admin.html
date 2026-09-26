@@ -53,7 +53,6 @@
   .group-rename-btn { background: none; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; color: #cfe0f5; cursor: pointer; padding: 2px 8px; font-size: 12px; line-height: 1.5; }
   .group-rename-btn:hover { background: rgba(255,255,255,.16); border-color: #f0c049; }
   
-  .group-move-select { padding: 7px 8px; border: 1px solid #cdd9d2; border-radius: 7px; font-size: 12.5px; width: 100%; background: #fff; color: #13251e; }
   .group-edit-form { display: inline-flex; gap: 8px; align-items: center; }
   .group-edit-form input { padding: 6px 9px; border: 1px solid #cdd9d2; border-radius: 6px; font-size: 13px; background: #fff; color: #13251e; min-width: 260px; }
   .group-edit-form button { padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 12.5px; cursor: pointer; border: none; }
@@ -263,10 +262,9 @@
         '<svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
       var tbl = document.createElement("table");
       tbl.innerHTML =
-        '<colgroup><col style="width:140px"><col style="width:30px"><col><col style="width:145px"><col style="width:95px"><col style="width:80px"><col style="width:130px"></colgroup>' +
-        '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Lưu</th><th>Ẩn/Hiện</th><th>Chuyển nhóm</th></tr></thead>';
+        '<colgroup><col style="width:140px"><col style="width:30px"><col><col style="width:145px"><col style="width:95px"><col style="width:80px"></colgroup>' +
+        '<thead><tr><th></th><th></th><th>Sản phẩm</th><th>Giá hiện tại</th><th>Lưu</th><th>Ẩn/Hiện</th></tr></thead>';
       var tb = document.createElement("tbody");
-      var groupOptions = effectiveLayout();
       shown.forEach(function(p){
         var cur = stagedPrice(p.src);
         var hid = stagedHidden(p.src);
@@ -275,10 +273,6 @@
         var renamed = !!stagedName(p.src).renamed;
         var priceStaged = hashOwn(dirty, p.src);
         var hideStaged = hashOwn(dirtyHidden, p.src);
-        var moveOpts = groupOptions.filter(function(og){ return og.num !== g.num; });
-        var moveHtml = '<select class="group-move-select" data-move="' + escAttr(p.src) + '" title="Di chuyển sản phẩm sang nhóm khác"><option value="">' + escHtml(g.num) + '</option>';
-        moveOpts.forEach(function(og){ moveHtml += '<option value="' + escAttr(og.num) + '">' + escHtml(og.num) + ' · ' + escHtml(og.title) + '</option>'; });
-        moveHtml += '</select>';
         var tr = document.createElement("tr");
         tr.className = hid ? "row-hidden" : "";
         tr.setAttribute("data-group", g.num);
@@ -292,8 +286,7 @@
           '<button class="rename-btn" data-rename="' + escAttr(p.src) + '" title="Đổi tên">✎</button></td>' +
           '<td><input class="price-input' + (priceStaged ? ' changed' : '') + '" data-src="' + escAttr(p.src) + '" type="text" inputmode="numeric" value="' + fmtPrice(cur) + '"></td>' +
           '<td><button class="save-btn' + (priceStaged ? ' staged' : '') + '" data-save="' + escAttr(p.src) + '">' + (priceStaged ? 'Đã sửa' : 'Lưu') + '</button></td>' +
-          '<td><button class="hide-btn' + (hid ? ' hidden' : '') + (hideStaged ? ' staged' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>' +
-          '<td>' + moveHtml + '</td>';
+          '<td><button class="hide-btn' + (hid ? ' hidden' : '') + (hideStaged ? ' staged' : '') + '" data-hide="' + escAttr(p.src) + '">' + (hid ? 'Hiện' : 'Ẩn') + '</button></td>';
         tb.appendChild(tr);
       });
       tbl.appendChild(tb);
@@ -411,23 +404,6 @@
     showMsg(layoutDirty ? "Đã sắp xếp lại. Nhấn “Lưu tất cả thay đổi” để áp dụng." : "Đã trở về thứ tự ban đầu — không tính là thay đổi.");
   }
 
-  function moveProduct(src, fromNum, toNum){
-    var l = effectiveLayout();
-    l.forEach(function(g){
-      if (g.num === fromNum){ var i = g.srcs.indexOf(src); if (i >= 0) g.srcs.splice(i, 1); }
-    });
-    var target = null;
-    l.forEach(function(g){ if (g.num === toNum) target = g; });
-    if (!target) return;
-    target.srcs.push(src);
-    // Remove now-empty groups and renumber the rest sequentially.
-    l = l.filter(function(g){ return g.srcs.length > 0; });
-    stageLayout(l);
-    render();
-    updateSaveAllState();
-    showMsg("Đã di chuyển sản phẩm sang nhóm " + toNum + ". Nhóm trống được bỏ và đánh số lại. Nhấn “Lưu tất cả thay đổi” để áp dụng.");
-  }
-
   function hashOwn(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
   function escHtml(s){ var d=document.createElement("div"); d.textContent=s==null?"":s; return d.innerHTML; }
   function escAttr(s){ return escHtml(s).replace(/"/g,'&quot;'); }
@@ -436,19 +412,6 @@
 
   function bindEvents(){
     $("search").addEventListener("input", render);
-
-    $("groups").addEventListener("change", function(e){
-      if (e.target.classList.contains("group-move-select")){
-        var src = e.target.getAttribute("data-move");
-        var toNum = e.target.value;
-        if (!toNum) return;
-        var fromTr = e.target.closest("tr");
-        var fromNum = fromTr ? fromTr.getAttribute("data-group") : null;
-        if (!fromNum) return;
-        moveProduct(src, fromNum, toNum);
-        return;
-      }
-    });
 
     $("groups").addEventListener("click", function(e){
       var gh = e.target.closest(".group-head");

@@ -16,6 +16,22 @@
 </head>
 <body>
 
+  <!-- ===== TOP BAR ===== -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <a href="tel:+84903674959" class="top-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>0903 674 959</span></a>
+        <a href="mailto:khoi.nlb@khaithinh.com.vn" class="top-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span>khoi.nlb@khaithinh.com.vn</span></a>
+      </div>
+      <div class="top-bar-right">
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="lang-flag" id="langFlag">🇻🇳</span>
+          <span id="langLabel">VI</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="header">
     <div class="container header-inner">
@@ -26,17 +42,39 @@
       <nav class="main-nav" id="mainNav" aria-label="Main navigation">
         <a href="#home" data-vi="Trang chủ" data-en="Home">Trang chủ</a>
         <a href="#about" data-vi="Giới thiệu" data-en="About Us">Giới thiệu</a>
-        <a href="#brands" data-vi="Thương hiệu" data-en="Brands">Thương hiệu</a>
+        <div class="nav-dd">
+          <a href="#brands" class="nav-dd-toggle" data-vi="Thương hiệu" data-en="Brands">Thương hiệu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+          <div class="nav-mega">
+            <div class="mega-grid">
+              <div class="mega-col">
+                <div class="mega-title">Thương hiệu chính</div>
+                <a href="#brands"><img src="assets/taylor/Taylor-Brothers-Farms-logo.jpg" alt=""><span>Taylor Brothers Farms</span></a>
+                <a href="#brands"><img src="assets/justorganik/logo-2x.png" alt=""><span>Just Organik</span></a>
+                <a href="#brands"><img src="assets/royalty/logo.png" alt=""><span>Royalty</span></a>
+                <a href="#brands"><img src="assets/coolberg/logo.png" alt=""><span>Coolberg</span></a>
+              </div>
+              <div class="mega-col">
+                <div class="mega-title">Thực phẩm &amp; Đồ uống</div>
+                <a href="#brands"><img src="assets/snowfarms/logo.png" alt=""><span>Snow Farms</span></a>
+                <a href="#brands"><img src="assets/clearys/syrup-bottle.jpg" alt=""><span>Cleary's</span></a>
+                <a href="#brands"><img src="assets/catalog/briovinegars-dam-tao-huu-co-8/giam-tao-huu-co-hieu-briovinegars-organic-apple-cider-vinegar-473ml.webp" alt=""><span>Briovinegars</span></a>
+                <a href="#brands"><img src="assets/nison/logo.jpg" alt=""><span>Nison</span></a>
+              </div>
+              <div class="mega-col">
+                <div class="mega-title">Khác</div>
+                <a href="#brands"><img src="assets/pink.png" alt=""><span>Pik</span></a>
+                <a href="#brands"><img src="assets/brand-breeze.png" alt=""><span>English Breeze</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
         <a href="#products" data-vi="Sản phẩm" data-en="Products">Sản phẩm</a>
         <a href="#channels" data-vi="Kênh phân phối" data-en="Channels">Kênh phân phối</a>
         <a href="#contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</a>
+        <a href="catalogue.html" target="_blank" rel="noopener">Catalogue</a>
       </nav>
 
-      <div class="header-actions">
-        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
-          <span class="lang-flag" id="langFlag">🇻🇳</span>
-          <span id="langLabel">VI</span>
-        </button>
+      <div class="header-right">
         <button class="nav-toggle" id="navToggle" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
@@ -44,83 +82,32 @@
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="home">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="hero-overlay" aria-hidden="true"></div>
-    <div class="hero-blob blob-orange" aria-hidden="true"></div>
-    <div class="hero-blob blob-green" aria-hidden="true"></div>
-    <div class="hero-sparkles" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
-
-    <div class="container hero-content">
-      <div class="hero-main">
-        <p class="hero-tag"><i class="tag-dot"></i><span data-vi="Nhập khẩu &amp; Phân phối từ 2008" data-en="Import &amp; Distribution since 2008">Nhập khẩu &amp; Phân phối từ 2008</span></p>
-        <h1 class="hero-title">
-          <small data-vi="Công ty TNHH TM DV Khải Thịnh" data-en="Khai Thinh Trading Service Co., Ltd">Công ty TNHH TM DV Khải Thịnh</small>
-        </h1>
-        <p class="hero-display">A walk to <span class="hd-hl">healthy future</span></p>
-        <p class="hero-sub" data-vi="Mang những sản phẩm cao cấp tốt cho sức khỏe từ khắp thế giới đến với người Việt." data-en="Bringing premium, healthful products from around the world to Vietnam.">Mang những sản phẩm cao cấp tốt cho sức khỏe từ khắp thế giới đến với người Việt.</p>
-        <div class="hero-actions">
-          <a href="#products" class="btn btn-primary" data-vi="Xem sản phẩm" data-en="Our Products">Xem sản phẩm</a>
-          <a href="#about" class="btn btn-ghost" data-vi="Về chúng tôi" data-en="About Us">Về chúng tôi</a>
+    <!-- ===== HERO ===== -->
+  <section class="hero" id="home" style="background:linear-gradient(90deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.72) 65%,rgba(255,255,255,.55) 100%),url('https://www.taylorbrothersfarms.com/cdn/shop/files/AlyciaMorenoforCAPrunes-62_1512x.jpg?v=1680375028') center/cover;background-attachment:scroll">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-content">
+        <div class="hero-main" style="position:relative;padding:10px 0;width:100%;max-width:920px;align-self:flex-start">
+          <p class="hero-tag"><span data-vi="Nhập khẩu &amp; Phân phối từ 2008" data-en="Import &amp; Distribution since 2008">Nhập khẩu &amp; Phân phối từ 2008</span></p>
+          <h1 class="hero-title"><small data-vi="Công ty TNHH TM DV KHẢI THỊNH" data-en="KHAI THINH Trading Service Co., Ltd">Công ty TNHH TM DV KHẢI THỊNH</small></h1>
+          <p class="hero-display">A walk to <span class="hd-hl">healthy future</span></p>
+          <p class="hero-sub" data-vi="Mang những sản phẩm cao cấp tốt cho sức khỏe từ khắp thế giới đến với người Việt." data-en="Bringing premium, healthful products from around the world to Vietnam.">Mang những sản phẩm cao cấp tốt cho sức khỏe từ khắp thế giới đến với người Việt.</p>
+          <div class="hero-actions">
+            <a href="#products" class="btn btn-primary" data-vi="Xem sản phẩm" data-en="Our Products">Xem sản phẩm</a>
+            <a href="#about" class="btn btn-ghost" data-vi="Về chúng tôi" data-en="About Us">Về chúng tôi</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>2008</strong><span data-vi="Năm thành lập" data-en="Founded">Năm thành lập</span></div>
+            <div class="stat"><strong>10</strong><span data-vi="Thương hiệu quốc tế" data-en="International brands">Thương hiệu quốc tế</span></div>
+            <div class="stat"><strong>5</strong><span data-vi="Quốc gia nguồn hàng" data-en="Source countries">Quốc gia nguồn hàng</span></div>
+            <div class="stat"><strong>15</strong><span data-vi="Nhóm sản phẩm" data-en="Product categories">Nhóm sản phẩm</span></div>
+          </div>
         </div>
-
-        <div class="hero-stats">
-        <div class="stat"><strong>2008</strong><span data-vi="Năm thành lập" data-en="Founded">Năm thành lập</span></div>
-        <div class="stat"><strong>10</strong><span data-vi="Thương hiệu quốc tế" data-en="International brands">Thương hiệu quốc tế</span></div>
-        <div class="stat"><strong>5</strong><span data-vi="Quốc gia nguồn hàng" data-en="Source countries">Quốc gia nguồn hàng</span></div>
-        <div class="stat"><strong>15</strong><span data-vi="Nhóm sản phẩm" data-en="Product categories">Nhóm sản phẩm</span></div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="hr-label">
-          <span data-vi="Sản phẩm nổi bật" data-en="Our Products">Sản phẩm nổi bật</span>
-        </div>
-        <div class="p-slider" id="pSlider">
-                            <div class="p-track" id="pTrack">
-
-            <div class="p-slide" data-target="product-00">
-              <img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-huu-co-hieu-taylor-100-organic-prunes-250g.webp" alt="Trái cây khô cao cấp">
-              <div class="ps-text"><strong data-vi="Trái cây khô cao cấp" data-en="Premium Dried Fruits">Trái cây khô cao cấp</strong><small>Taylor</small></div>
-            </div>
-            <div class="p-slide" data-target="product-02">
-              <img src="assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-huu-co-hieu-taylor-100-organic-prune-juice-946ml.webp" alt="Nước ép mận">
-              <div class="ps-text"><strong data-vi="Nước ép mận" data-en="Prune Juice">Nước ép mận</strong><small>Taylor</small></div>
-            </div>
-            <div class="p-slide" data-target="product-04">
-              <img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-gung-hieu-coolberg-ginger-330ml.webp" alt="Thức uống không cồn">
-              <div class="ps-text"><strong data-vi="Thức uống không cồn" data-en="Non-Alcoholic Drinks">Thức uống không cồn</strong><small>Coolberg</small></div>
-            </div>
-            <div class="p-slide" data-target="product-07">
-              <img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-vani-hieu-pik-cake-mix-velvet-vanilla-250g.webp" alt="Bột làm bánh">
-              <div class="ps-text"><strong data-vi="Bột làm bánh" data-en="Baking Mixes">Bột làm bánh</strong><small>Pik</small></div>
-            </div>
-            <div class="p-slide" data-target="product-09">
-              <img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-den-huu-co-hieu-just-organik-organic-amaranth-500g.webp" alt="Đậu, hạt &amp; bột organic">
-              <div class="ps-text"><strong data-vi="Đậu, hạt &amp; bột organic" data-en="Organic Pulses, Seeds &amp; Grains">Đậu, hạt &amp; bột organic</strong><small>Just Organik</small></div>
-            </div>
-            <div class="p-slide" data-target="product-13">
-              <img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp" alt="Nước rửa tay">
-              <div class="ps-text"><strong data-vi="Nước rửa tay" data-en="Scented Hand Wash">Nước rửa tay</strong><small>English Breeze</small></div>
-            </div>
-          <button class="p-arrow p-prev" id="pPrev" aria-label="Previous">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="p-arrow p-next" id="pNext" aria-label="Next">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <div class="p-dots" id="pDots"></div>
-        </div>
-      </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ===== ABOUT ===== -->
+  <!-- ===== ABOUT ===== --><!-- ===== ABOUT ===== -->
   <section class="section about" id="about">
     <div class="container">
       <div class="section-head">
@@ -140,7 +127,7 @@
 
         <div class="about-timeline">
           <div class="tl-item">
-            <div class="tl-dot"></div>
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle></svg></div>
             <div class="tl-card">
               <span class="tl-year">2008</span>
               <strong data-vi="Thành lập công ty" data-en="Company founded">Thành lập công ty</strong>
@@ -148,7 +135,7 @@
             </div>
           </div>
           <div class="tl-item">
-            <div class="tl-dot"></div>
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle></svg></div>
             <div class="tl-card">
               <span class="tl-year">20+</span>
               <strong data-vi="Năm kinh nghiệm dẫn dắt" data-en="Years of leadership experience">Năm kinh nghiệm dẫn dắt</strong>
@@ -156,7 +143,7 @@
             </div>
           </div>
           <div class="tl-item">
-            <div class="tl-dot"></div>
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle></svg></div>
             <div class="tl-card">
               <span class="tl-year">5</span>
               <strong data-vi="Quốc gia nguồn hàng" data-en="Source countries">Quốc gia nguồn hàng</strong>
@@ -164,7 +151,7 @@
             </div>
           </div>
           <div class="tl-item">
-            <div class="tl-dot"></div>
+            <div class="tl-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle></svg></div>
             <div class="tl-card">
               <span class="tl-year">10</span>
               <strong data-vi="Thương hiệu quốc tế nổi bật" data-en="Renowned international brands">Thương hiệu quốc tế nổi bật</strong>
@@ -176,15 +163,17 @@
 
       <div class="mv-grid">
         <article class="mv-card">
-          <span class="mv-num">01</span>
-          <div class="mv-icon">🎯</div>
-          <h3 data-vi="Sứ mệnh" data-en="Our Mission">Sứ mệnh</h3>
+          <div class="mv-top">
+            <span class="mv-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+            <h3 data-vi="Sứ mệnh" data-en="Our Mission">Sứ mệnh</h3>
+          </div>
           <p data-vi="Chúng tôi đảm bảo mọi bữa ăn của người tiêu dùng trở nên lành mạnh và ngon miệng hơn với sự tươi mới và đa dạng của các sản phẩm chúng tôi cung cấp." data-en="We ensure that all meals of our consumers are much healthier and tastier with the freshness and diversity of our products.">Chúng tôi đảm bảo mọi bữa ăn của người tiêu dùng trở nên lành mạnh và ngon miệng hơn với sự tươi mới và đa dạng của các sản phẩm chúng tôi cung cấp.</p>
         </article>
         <article class="mv-card">
-          <span class="mv-num">02</span>
-          <div class="mv-icon">🔭</div>
-          <h3 data-vi="Tầm nhìn" data-en="Our Vision">Tầm nhìn</h3>
+          <div class="mv-top">
+            <span class="mv-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v6m0 6v6M1 12h6m6 0h6"></path></svg></span>
+            <h3 data-vi="Tầm nhìn" data-en="Our Vision">Tầm nhìn</h3>
+          </div>
           <p data-vi="Chúng tôi phấn đấu trở thành đơn vị chủ chốt tại Việt Nam trong lĩnh vực phân phối các sản phẩm cao cấp — được công nhận là nhà phân phối đáng tin cậy nhất, mang lại giá trị khác biệt cho khách hàng." data-en="We strive to be a key player in Vietnam in the field of distributing premium products — recognized as one of the most reliable distributors, building different value by offering our customers the highest quality products from the most reputable countries in the world.">Chúng tôi phấn đấu trở thành đơn vị chủ chốt tại Việt Nam trong lĩnh vực phân phối các sản phẩm cao cấp — được công nhận là nhà phân phối đáng tin cậy nhất, mang lại giá trị khác biệt cho khách hàng.</p>
         </article>
       </div>
@@ -387,7 +376,7 @@
           <p data-vi="Cửa hàng Good Health Mart trên LazMall" data-en="Good Health Mart store on LazMall">Cửa hàng Good Health Mart trên LazMall</p>
         </a>
         <div class="channel-card">
-          <div class="channel-logo">🤝</div>
+          <div class="channel-logo"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39A2 2 0 009.66 17h8.66a2 2 0 001.97-1.61L23 6H6"></path></svg></div>
           <h3 data-vi="Bán buôn &amp; Bán lẻ" data-en="Wholesale &amp; Retail">Bán buôn &amp; Bán lẻ</h3>
           <p data-vi="Hợp tác phân phối cho các nhà bán buôn, siêu thị và cửa hàng trên toàn quốc." data-en="Distribution partnership for wholesalers, supermarkets and retail stores nationwide.">Hợp tác phân phối cho các nhà bán buôn, siêu thị và cửa hàng trên toàn quốc.</p>
         </div>

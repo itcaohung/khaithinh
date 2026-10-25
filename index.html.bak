@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khải Thịnh | Công ty TNHH TM DV Khải Thịnh</title>
+  <meta name="description" content="Khai Thinh Trading Service Co., Ltd - Nhập khẩu và phân phối sản phẩm cao cấp từ Mỹ, Anh, Canada, Ấn Độ, Indonesia vào Việt Nam từ 2008.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="#home" class="brand">
+        <img src="assets/logo.png" alt="Khai Thinh" class="brand-img">
+      </a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <a href="#home" data-vi="Trang chủ" data-en="Home">Trang chủ</a>
+        <a href="#about" data-vi="Giới thiệu" data-en="About Us">Giới thiệu</a>
+        <a href="#brands" data-vi="Thương hiệu" data-en="Brands">Thương hiệu</a>
+        <a href="#products" data-vi="Sản phẩm" data-en="Products">Sản phẩm</a>
+        <a href="#channels" data-vi="Kênh phân phối" data-en="Channels">Kênh phân phối</a>
+        <a href="#contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="lang-flag" id="langFlag">🇻🇳</span>
+          <span id="langLabel">VI</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-blob blob-orange" aria-hidden="true"></div>
+    <div class="hero-blob blob-green" aria-hidden="true"></div>
+    <div class="hero-sparkles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="container hero-content">
+      <div class="hero-main">
+        <p class="hero-tag"><i class="tag-dot"></i><span data-vi="Nhập khẩu &amp; Phân phối từ 2008" data-en="Import &amp; Distribution since 2008">Nhập khẩu &amp; Phân phối từ 2008</span></p>
+        <h1 class="hero-title">
+          <small data-vi="Công ty TNHH TM DV Khải Thịnh" data-en="Khai Thinh Trading Service Co., Ltd">Công ty TNHH TM DV Khải Thịnh</small>
+        </h1>
+        <p class="hero-display">A walk to <span class="hd-hl">healthy future</span></p>
+        <p class="hero-sub" data-vi="Mang những sản phẩm cao cấp tốt cho sức khỏe từ khắp thế giới đến với người Việt." data-en="Bringing premium, healthful products from around the world to Vietnam.">Mang những sản phẩm cao cấp tốt cho sức khỏe từ khắp thế giới đến với người Việt.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-primary" data-vi="Xem sản phẩm" data-en="Our Products">Xem sản phẩm</a>
+          <a href="#about" class="btn btn-ghost" data-vi="Về chúng tôi" data-en="About Us">Về chúng tôi</a>
+        </div>
+
+        <div class="hero-stats">
+        <div class="stat"><strong>2008</strong><span data-vi="Năm thành lập" data-en="Founded">Năm thành lập</span></div>
+        <div class="stat"><strong>10</strong><span data-vi="Thương hiệu quốc tế" data-en="International brands">Thương hiệu quốc tế</span></div>
+        <div class="stat"><strong>5</strong><span data-vi="Quốc gia nguồn hàng" data-en="Source countries">Quốc gia nguồn hàng</span></div>
+        <div class="stat"><strong>15</strong><span data-vi="Nhóm sản phẩm" data-en="Product categories">Nhóm sản phẩm</span></div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hr-label">
+          <span data-vi="Sản phẩm nổi bật" data-en="Our Products">Sản phẩm nổi bật</span>
+        </div>
+        <div class="p-slider" id="pSlider">
+                            <div class="p-track" id="pTrack">
+
+            <div class="p-slide" data-target="product-00">
+              <img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-huu-co-hieu-taylor-100-organic-prunes-250g.webp" alt="Trái cây khô cao cấp">
+              <div class="ps-text"><strong data-vi="Trái cây khô cao cấp" data-en="Premium Dried Fruits">Trái cây khô cao cấp</strong><small>Taylor</small></div>
+            </div>
+            <div class="p-slide" data-target="product-02">
+              <img src="assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-huu-co-hieu-taylor-100-organic-prune-juice-946ml.webp" alt="Nước ép mận">
+              <div class="ps-text"><strong data-vi="Nước ép mận" data-en="Prune Juice">Nước ép mận</strong><small>Taylor</small></div>
+            </div>
+            <div class="p-slide" data-target="product-04">
+              <img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-gung-hieu-coolberg-ginger-330ml.webp" alt="Thức uống không cồn">
+              <div class="ps-text"><strong data-vi="Thức uống không cồn" data-en="Non-Alcoholic Drinks">Thức uống không cồn</strong><small>Coolberg</small></div>
+            </div>
+            <div class="p-slide" data-target="product-07">
+              <img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-vani-hieu-pik-cake-mix-velvet-vanilla-250g.webp" alt="Bột làm bánh">
+              <div class="ps-text"><strong data-vi="Bột làm bánh" data-en="Baking Mixes">Bột làm bánh</strong><small>Pik</small></div>
+            </div>
+            <div class="p-slide" data-target="product-09">
+              <img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-den-huu-co-hieu-just-organik-organic-amaranth-500g.webp" alt="Đậu, hạt &amp; bột organic">
+              <div class="ps-text"><strong data-vi="Đậu, hạt &amp; bột organic" data-en="Organic Pulses, Seeds &amp; Grains">Đậu, hạt &amp; bột organic</strong><small>Just Organik</small></div>
+            </div>
+            <div class="p-slide" data-target="product-13">
+              <img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp" alt="Nước rửa tay">
+              <div class="ps-text"><strong data-vi="Nước rửa tay" data-en="Scented Hand Wash">Nước rửa tay</strong><small>English Breeze</small></div>
+            </div>
+          <button class="p-arrow p-prev" id="pPrev" aria-label="Previous">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="p-arrow p-next" id="pNext" aria-label="Next">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="p-dots" id="pDots"></div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-vi="Về chúng tôi" data-en="About Us">Về chúng tôi</span>
+        <h2 data-vi="Giới thiệu &amp; Lịch sử hình thành" data-en="Introduction &amp; Our History">Giới thiệu &amp; Lịch sử hình thành</h2>
+      </div>
+
+      <div class="about-layout">
+        <div class="about-intro">
+          <div class="since-badge">
+            <strong>2008</strong>
+            <span data-vi="Từ năm" data-en="Since">Từ năm</span>
+          </div>
+          <h3 data-vi="Nhà phân phối sản phẩm cao cấp tại Việt Nam" data-en="A premium product distributor in Vietnam">Nhà phân phối sản phẩm cao cấp tại Việt Nam</h3>
+          <p class="history-text" data-vi="Khải Thịnh được thành lập năm 2008, chuyên nhập khẩu và phân phối các sản phẩm cao cấp từ Mỹ, Anh, Canada, Ấn Độ và Indonesia vào Việt Nam. Công ty do ông Nguyễn Lê Bích Khôi sáng lập, dưới sự dẫn dắt của ông Nguyễn Lê Bích Hà — người có hơn 20 năm kinh nghiệm quản lý cấp cao trong lĩnh vực phân phối tại các tập đoàn đa quốc gia." data-en="Khai Thinh was founded in 2008, focusing on importing and distributing premium products from the US, UK, Canada, India and Indonesia into Vietnam. It was founded by Mr. Nguyen Le Bich Khoi under the guidance of his brother Mr. Nguyen Le Bich Ha — a senior distribution executive with more than 20 years of experience at multinational companies in Vietnam.">Khải Thịnh được thành lập năm 2008, chuyên nhập khẩu và phân phối các sản phẩm cao cấp từ Mỹ, Anh, Canada, Ấn Độ và Indonesia vào Việt Nam. Công ty do ông Nguyễn Lê Bích Khôi sáng lập, dưới sự dẫn dắt của ông Nguyễn Lê Bích Hà — người có hơn 20 năm kinh nghiệm quản lý cấp cao trong lĩnh vực phân phối tại các tập đoàn đa quốc gia.</p>
+        </div>
+
+        <div class="about-timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <span class="tl-year">2008</span>
+              <strong data-vi="Thành lập công ty" data-en="Company founded">Thành lập công ty</strong>
+              <p data-vi="Khải Thịnh bắt đầu hành trình nhập khẩu và phân phối sản phẩm cao cấp." data-en="Khai Thinh begins its journey of importing and distributing premium products.">Khải Thịnh bắt đầu hành trình nhập khẩu và phân phối sản phẩm cao cấp.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <span class="tl-year">20+</span>
+              <strong data-vi="Năm kinh nghiệm dẫn dắt" data-en="Years of leadership experience">Năm kinh nghiệm dẫn dắt</strong>
+              <p data-vi="Đội ngũ lãnh đạo giàu kinh nghiệm quản lý cấp cao tại các tập đoàn đa quốc gia." data-en="A leadership team with senior management experience at multinational companies.">Đội ngũ lãnh đạo giàu kinh nghiệm quản lý cấp cao tại các tập đoàn đa quốc gia.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <span class="tl-year">5</span>
+              <strong data-vi="Quốc gia nguồn hàng" data-en="Source countries">Quốc gia nguồn hàng</strong>
+              <p data-vi="Sản phẩm chính hãng nhập khẩu từ Mỹ, Anh, Canada, Ấn Độ và Indonesia." data-en="Authentic products imported from the US, UK, Canada, India and Indonesia.">Sản phẩm chính hãng nhập khẩu từ Mỹ, Anh, Canada, Ấn Độ và Indonesia.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <span class="tl-year">10</span>
+              <strong data-vi="Thương hiệu quốc tế nổi bật" data-en="Renowned international brands">Thương hiệu quốc tế nổi bật</strong>
+              <p data-vi="Danh mục thương hiệu đa dạng, hiện diện trên Shopee và Lazada." data-en="A diverse brand portfolio available on Shopee and Lazada.">Danh mục thương hiệu đa dạng, hiện diện trên Shopee và Lazada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mv-grid">
+        <article class="mv-card">
+          <span class="mv-num">01</span>
+          <div class="mv-icon">🎯</div>
+          <h3 data-vi="Sứ mệnh" data-en="Our Mission">Sứ mệnh</h3>
+          <p data-vi="Chúng tôi đảm bảo mọi bữa ăn của người tiêu dùng trở nên lành mạnh và ngon miệng hơn với sự tươi mới và đa dạng của các sản phẩm chúng tôi cung cấp." data-en="We ensure that all meals of our consumers are much healthier and tastier with the freshness and diversity of our products.">Chúng tôi đảm bảo mọi bữa ăn của người tiêu dùng trở nên lành mạnh và ngon miệng hơn với sự tươi mới và đa dạng của các sản phẩm chúng tôi cung cấp.</p>
+        </article>
+        <article class="mv-card">
+          <span class="mv-num">02</span>
+          <div class="mv-icon">🔭</div>
+          <h3 data-vi="Tầm nhìn" data-en="Our Vision">Tầm nhìn</h3>
+          <p data-vi="Chúng tôi phấn đấu trở thành đơn vị chủ chốt tại Việt Nam trong lĩnh vực phân phối các sản phẩm cao cấp — được công nhận là nhà phân phối đáng tin cậy nhất, mang lại giá trị khác biệt cho khách hàng." data-en="We strive to be a key player in Vietnam in the field of distributing premium products — recognized as one of the most reliable distributors, building different value by offering our customers the highest quality products from the most reputable countries in the world.">Chúng tôi phấn đấu trở thành đơn vị chủ chốt tại Việt Nam trong lĩnh vực phân phối các sản phẩm cao cấp — được công nhận là nhà phân phối đáng tin cậy nhất, mang lại giá trị khác biệt cho khách hàng.</p>
+        </article>
+      </div>
+
+      <div class="origin-strip">
+        <span class="origin-label" data-vi="Nguồn hàng chính hãng" data-en="Official imports">Nguồn hàng chính hãng</span>
+        <div class="origin-item"><span class="flag">🇺🇸</span><b>USA</b></div>
+        <div class="origin-item"><span class="flag">🇬🇧</span><b>UK</b></div>
+        <div class="origin-item"><span class="flag">🇨🇦</span><b>Canada</b></div>
+        <div class="origin-item"><span class="flag">🇮🇳</span><b>India</b></div>
+        <div class="origin-item"><span class="flag">🇮🇩</span><b>Indonesia</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRANDS ===== -->
+  <section class="section brands" id="brands">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-vi="Đối tác" data-en="Partners">Đối tác</span>
+        <h2 data-vi="Thương hiệu chúng tôi phân phối" data-en="Trusted Brands We Distribute">Thương hiệu chúng tôi phân phối</h2>
+        <p class="section-sub" data-vi="Nhà phân phối chính thức của nhiều thương hiệu nổi tiếng tại Việt Nam." data-en="Official distributor for numerous renowned brands in Vietnam.">Nhà phân phối chính thức của nhiều thương hiệu nổi tiếng tại Việt Nam.</p>
+      </div>
+
+      <div class="brand-grid">
+        <div class="brand-card taylor">
+          <div class="brand-logo-img"><img src="assets/taylor/Taylor-Brothers-Farms-logo.jpg" alt="Taylor Brothers Farms"></div>
+          <p data-vi="Mận khô, trái cây khô &amp; nước ép — California, Mỹ" data-en="Prunes, dried fruits &amp; juices — California, USA">Mận khô, trái cây khô &amp; nước ép — California, Mỹ</p>
+        </div>
+        <div class="brand-card justorganik">
+          <div class="brand-logo-img"><img src="assets/justorganik/logo-2x.png" alt="Just Organik"></div>
+          <p data-vi="Đậu, hạt, gia vị hữu cơ — Ấn Độ" data-en="Organic pulses, seeds &amp; spices — India">Đậu, hạt, gia vị hữu cơ — Ấn Độ</p>
+        </div>
+        <div class="brand-card royalty">
+          <div class="brand-logo-img"><img src="assets/royalty/logo.png" alt="Royalty"></div>
+          <p data-vi="Bánh quy, nước gừng, cá mòi — Vương quốc Anh" data-en="Biscuits, ginger beer, sardines — United Kingdom">Bánh quy, nước gừng, cá mòi — Vương quốc Anh</p>
+        </div>
+        <div class="brand-card coolberg">
+          <div class="brand-logo-img"><img src="assets/coolberg/logo.png" alt="Coolberg"></div>
+          <p data-vi="Bia không cồn — Ấn Độ" data-en="Non-alcoholic beer — India">Bia không cồn — Ấn Độ</p>
+        </div>
+        <div class="brand-card snow">
+          <div class="brand-logo-img"><img src="assets/snowfarms/logo.png" alt="Snow Farms"></div>
+          <p data-vi="Trái cây khô chất lượng cao" data-en="Premium dried fruits">Trái cây khô chất lượng cao</p>
+        </div>
+        <div class="brand-card pik">
+          <div class="brand-logo-img"><img src="assets/pink.png" alt="Pik"></div>
+          <p data-vi="Bột làm bánh, men khô hoạt tính &amp; bột nở" data-en="Baking mixes, active dry yeast &amp; baking powder">Bột làm bánh, men khô hoạt tính &amp; bột nở</p>
+        </div>
+        <div class="brand-card clearys">
+          <div class="brand-logo-img"><img src="assets/clearys/syrup-bottle.jpg" alt="Cleary's"></div>
+          <p data-vi="Sản phẩm lá phong &amp; thực phẩm nhập khẩu cao cấp — Canada" data-en="Maple products &amp; premium imported foods — Canada">Sản phẩm lá phong &amp; thực phẩm nhập khẩu cao cấp — Canada</p>
+        </div>
+        <div class="brand-card nison">
+          <div class="brand-logo-img"><img src="assets/nison/logo.jpg" alt="Nison"></div>
+          <p data-vi="Cá mòi đóng hộp cao cấp" data-en="Premium canned sardines">Cá mòi đóng hộp cao cấp</p>
+        </div>
+        <div class="brand-card breeze">
+          <div class="brand-logo-img"><img src="assets/brand-breeze.png" alt="English Breeze"></div>
+          <p data-vi="Nước rửa tay tinh dầu thơm — Vương quốc Anh" data-en="Scented hand washes — United Kingdom">Nước rửa tay tinh dầu thơm — Vương quốc Anh</p>
+        </div>
+        <div class="brand-card briovinegars">
+          <div class="brand-logo-img"><img src="assets/catalog/briovinegars-dam-tao-huu-co-8/giam-tao-huu-co-hieu-briovinegars-organic-apple-cider-vinegar-473ml.webp" alt="Briovinegars"></div>
+          <p data-vi="Dấm táo hữu cơ 100% nguyên chất — Ấn Độ" data-en="100% organic apple cider vinegar — India">Dấm táo hữu cơ 100% nguyên chất — Ấn Độ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section class="section products" id="products">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-vi="Danh mục" data-en="Categories">Danh mục</span>
+        <h2 data-vi="Sản phẩm của chúng tôi" data-en="Our Products">Sản phẩm của chúng tôi</h2>
+        <p class="section-sub" data-vi="Ăn vặt thả ga, không lo tăng cân — nhập khẩu chính hãng, 100% tự nhiên, dinh dưỡng." data-en="Snack freely without worry — official imports, 100% natural, nutritious.">Ăn vặt thả ga, không lo tăng cân — nhập khẩu chính hãng, 100% tự nhiên, dinh dưỡng.</p>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card" id="product-00">
+          <div class="product-img"><img src="assets/catalog/taylor-trai-cay-kho-huu-co-cao-cap-usa-0/man-kho-huu-co-hieu-taylor-100-organic-prunes-250g.webp" alt="TAYLOR - TRÁI CÂY KHÔ HỮU CƠ CAO CẤP"></div>
+          <h3 data-vi="TAYLOR - TRÁI CÂY KHÔ HỮU CƠ CAO CẤP" data-en="Premium Organic Dried Fruits">TAYLOR - TRÁI CÂY KHÔ HỮU CƠ CAO CẤP</h3>
+          <p data-vi="Trái cây khô hữu cơ: mận khô hữu cơ 250g, mận khô, trái vả khô — Taylor (Mỹ)." data-en="Organic dried fruits: organic prunes 250g, prunes, dried figs — Taylor (USA).">Trái cây khô hữu cơ: mận khô hữu cơ 250g, mận khô, trái vả khô — Taylor (Mỹ).</p>
+          <a class="product-link" href="catalogue.html#taylor-trai-cay-kho-cao-cap" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-01">
+          <div class="product-img"><img src="assets/catalog/snow-farms-trai-cay-kho-cao-cap-2/trai-viet-quat-kho-tu-nhien-hieu-snow-farms-120g.webp" alt="SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP"></div>
+          <h3 data-vi="SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP" data-en="Dried Berries">SNOW FARMS - TRÁI CÂY KHÔ CAO CẤP</h3>
+          <p data-vi="Việt quất khô, nam việt quất khô tự nhiên từ Snow Farms (Canada)." data-en="Naturally dried blueberries and cranberries from Snow Farms (Canada).">Việt quất khô, nam việt quất khô tự nhiên từ Snow Farms (Canada).</p>
+          <a class="product-link" href="catalogue.html#snow-farms-trai-cay-kho-cao-cap-2" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-02">
+          <div class="product-img"><img src="assets/catalog/taylor-nuoc-ep-trai-cay-cao-cap-3/nuoc-ep-man-huu-co-hieu-taylor-100-organic-prune-juice-946ml.webp" alt="TAYLOR - NƯỚC ÉP MẬN CAO CẤP"></div>
+          <h3 data-vi="TAYLOR - NƯỚC ÉP MẬN CAO CẤP" data-en="Prune Juice">TAYLOR - NƯỚC ÉP MẬN CAO CẤP</h3>
+          <p data-vi="Nước ép mận nguyên chất 946ml, nước ép mận hữu cơ 100% — Taylor (Mỹ)." data-en="Pure prune juice 946ml and 100% organic prune juice — Taylor (USA).">Nước ép mận nguyên chất 946ml, nước ép mận hữu cơ 100% — Taylor (Mỹ).</p>
+          <a class="product-link" href="catalogue.html#taylor-nuoc-ep-trai-cay-cao-cap-3" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-03">
+          <div class="product-img"><img src="assets/catalog/royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4/banh-quy-hieu-royalty-digestives-400g.webp" alt="ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG"></div>
+          <h3 data-vi="ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG" data-en="Royalty - Coolberg">ROYALTY - BÁNH ĂN KIÊNG - BÁNH YẾN MẠCH - BÁNH GỪNG</h3>
+          <p data-vi="Bánh quy ăn kiêng Digestives, Ginger Nuts, Oaties — Royalty (Vương Quốc Anh)." data-en="Dietary Digestives, Ginger Nuts and Oaties biscuits — Royalty (UK).">Bánh quy ăn kiêng Digestives, Ginger Nuts, Oaties — Royalty (Vương Quốc Anh).</p>
+          <a class="product-link" href="catalogue.html#royalty-banh-an-kieng-banh-yen-mach-banh-tra-banh-gung-4" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-04">
+          <div class="product-img"><img src="assets/catalog/coolberg-thuc-uong-khong-con-5/nuoc-vi-gung-hieu-coolberg-ginger-330ml.webp" alt="ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN"></div>
+          <h3 data-vi="ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN" data-en="Non-Alcoholic Drinks">ROYALTY - COOLBERG - THỨC UỐNG KHÔNG CỒN</h3>
+          <p data-vi="12 loại thức uống không cồn 330ml — Coolberg (Ấn Độ) / Royalty Ginger (Vương Quốc Anh)." data-en="12 non-alcoholic drinks 330ml — Coolberg (India) / Royalty Ginger (UK).">12 loại thức uống không cồn 330ml — Coolberg (Ấn Độ) / Royalty Ginger (Vương Quốc Anh).</p>
+          <a class="product-link" href="catalogue.html#coolberg-thuc-uong-khong-con-5" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-05">
+          <div class="product-img"><img src="assets/catalog/cleary-s-siro-la-phong-6/siro-la-phong-nguyen-chat-hieu-cleary-s-pure-maple-syrup-236ml.webp" alt="CLEARY'S - SIRO LÁ PHONG"></div>
+          <h3 data-vi="CLEARY'S - SIRO LÁ PHONG" data-en="Maple Syrup">CLEARY'S - SIRO LÁ PHONG</h3>
+          <p data-vi="Siro lá phong nguyên chất 236ml — Cleary's (Canada)." data-en="Pure maple syrup 236ml — Cleary's (Canada).">Siro lá phong nguyên chất 236ml — Cleary's (Canada).</p>
+          <a class="product-link" href="catalogue.html#cleary-s-siro-la-phong-6" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-06">
+          <div class="product-img"><img src="assets/catalog/briovinegars-dam-tao-huu-co-8/giam-tao-huu-co-hieu-briovinegars-organic-apple-cider-vinegar-473ml.webp" alt="BRIOVINEGARS - GIẤM TÁO HỮU CƠ"></div>
+          <h3 data-vi="BRIOVINEGARS - GIẤM TÁO HỮU CƠ" data-en="Organic Cider Vinegar">BRIOVINEGARS - GIẤM TÁO HỮU CƠ</h3>
+          <p data-vi="Dấm táo hữu cơ nguyên chất 473ml — Briovinegars (Ấn Độ)." data-en="Organic apple cider vinegar 473ml — Briovinegars (India).">Dấm táo hữu cơ nguyên chất 473ml — Briovinegars (Ấn Độ).</p>
+          <a class="product-link" href="catalogue.html#briovinegars-dam-tao-huu-co-8" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-07">
+          <div class="product-img"><img src="assets/catalog/pik-bot-lam-banh-7/bot-lam-banh-vani-hieu-pik-cake-mix-velvet-vanilla-250g.webp" alt="PIK - BỘT LÀM BÁNH"></div>
+          <h3 data-vi="PIK - BỘT LÀM BÁNH" data-en="Baking Mixes">PIK - BỘT LÀM BÁNH</h3>
+          <p data-vi="11 sản phẩm bột làm bánh: men khô, bột nở, bột cacao, hỗn hợp bột bánh — Pik (Ấn Độ)." data-en="11 baking products: dry yeast, baking soda, cocoa powder, cake &amp; pancake mixes — Pik (India).">11 sản phẩm bột làm bánh: men khô, bột nở, bột cacao, hỗn hợp bột bánh — Pik (Ấn Độ).</p>
+          <a class="product-link" href="catalogue.html#pik-bot-lam-banh-7" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-08">
+          <div class="product-img"><img src="assets/catalog/nison-ca-ong-hop-9/ca-trich-ngam-dau-thuc-vat-hieu-nison-nison-sardines-in-vegetable-oil-125g.webp" alt="NISON - CÁ ĐÓNG HỘP"></div>
+          <h3 data-vi="NISON - CÁ ĐÓNG HỘP" data-en="Canned Sardines">NISON - CÁ ĐÓNG HỘP</h3>
+          <p data-vi="Cá trích đóng hộp: sốt cà chua, sốt cay, ngâm dầu thực vật — Nison (Indonesia)." data-en="Canned sardines: tomato sauce, extra hot sauce, vegetable oil — Nison (Indonesia).">Cá trích đóng hộp: sốt cà chua, sốt cay, ngâm dầu thực vật — Nison (Indonesia).</p>
+          <a class="product-link" href="catalogue.html#nison-ca-ong-hop-9" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-09">
+          <div class="product-img"><img src="assets/catalog/just-organik-ca-loai-au-hat-bot-organic-10/hat-den-huu-co-hieu-just-organik-organic-amaranth-500g.webp" alt="JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC"></div>
+          <h3 data-vi="JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC" data-en="Organic Pulses, Seeds &amp; Grains">JUST ORGANIK - CÁC LOẠI ĐẬU - HẠT - BỘT….. ORGANIC</h3>
+          <p data-vi="9 loại hạt organic: amaranth, quinoa, kiều mạch, kê, yến mạch... — Just Organik (Ấn Độ)." data-en="9 organic seeds &amp; grains: amaranth, quinoa, buckwheat, millet, oats... — Just Organik (India).">9 loại hạt organic: amaranth, quinoa, kiều mạch, kê, yến mạch... — Just Organik (Ấn Độ).</p>
+          <a class="product-link" href="catalogue.html#just-organik-ca-loai-au-hat-bot-organic-10" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-10">
+          <div class="product-img"><img src="assets/catalog/pulses-lentils-au-huu-co-11/au-o-tay-huu-co-hieu-just-organik-organic-red-kindey-beans-500g.webp" alt="PULSES &amp; LENTILS _ ĐẬU HỮU CƠ"></div>
+          <h3 data-vi="PULSES &amp; LENTILS _ ĐẬU HỮU CƠ" data-en="Organic Pulses &amp; Lentils">PULSES &amp; LENTILS _ ĐẬU HỮU CƠ</h3>
+          <p data-vi="10 loại đậu hữu cơ: đậu gà, đậu lăng, đậu nành, đậu đỏ tây... — Just Organik (Ấn Độ)." data-en="10 organic pulses &amp; lentils: chickpeas, lentils, soybeans, red kidney beans... — Just Organik (India).">10 loại đậu hữu cơ: đậu gà, đậu lăng, đậu nành, đậu đỏ tây... — Just Organik (Ấn Độ).</p>
+          <a class="product-link" href="catalogue.html#pulses-lentils-au-huu-co-11" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-11">
+          <div class="product-img"><img src="assets/catalog/flours-bot-lam-banh-huu-co-12/bot-huu-co-hieu-just-organik-organic-9-grains-flour-1kg.webp" alt="FLOURS _ BỘT LÀM BÁNH HỮU CƠ"></div>
+          <h3 data-vi="FLOURS _ BỘT LÀM BÁNH HỮU CƠ" data-en="Organic Flours">FLOURS _ BỘT LÀM BÁNH HỮU CƠ</h3>
+          <p data-vi="5 loại bột làm bánh hữu cơ: bột bắp, bột gạo, bột yến mạch, bột kiều mạch — Just Organik (Ấn Độ)." data-en="5 organic flours: corn, rice, oat, buckwheat — Just Organik (India).">5 loại bột làm bánh hữu cơ: bột bắp, bột gạo, bột yến mạch, bột kiều mạch — Just Organik (Ấn Độ).</p>
+          <a class="product-link" href="catalogue.html#flours-bot-lam-banh-huu-co-12" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-12">
+          <div class="product-img"><img src="assets/catalog/spices-gia-vi-nau-an-huu-co-13/hat-methi-huu-co-hieu-just-organik-organic-fenugreek-methi-100g.webp" alt="SPICES _ GIA VỊ NẤU ĂN HỮU CƠ"></div>
+          <h3 data-vi="SPICES _ GIA VỊ NẤU ĂN HỮU CƠ" data-en="Organic Spices">SPICES _ GIA VỊ NẤU ĂN HỮU CƠ</h3>
+          <p data-vi="Gia vị nấu ăn hữu cơ: bột nghệ, hạt methi — Just Organik (Ấn Độ)." data-en="Organic cooking spices: turmeric powder, fenugreek seeds — Just Organik (India).">Gia vị nấu ăn hữu cơ: bột nghệ, hạt methi — Just Organik (Ấn Độ).</p>
+          <a class="product-link" href="catalogue.html#spices-gia-vi-nau-an-huu-co-13" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-13">
+          <div class="product-img"><img src="assets/catalog/english-breeze-nuoc-rua-tay-14/handwash-mountain-herbs-500ml.webp" alt="ENGLISH BREEZE - NƯỚC RỬA TAY"></div>
+          <h3 data-vi="ENGLISH BREEZE - NƯỚC RỬA TAY" data-en="Scented Hand Wash">ENGLISH BREEZE - NƯỚC RỬA TAY</h3>
+          <p data-vi="5 loại nước rửa tay tinh dầu thơm 500ml — English Breeze (Vương Quốc Anh)." data-en="5 scented hand washes 500ml — English Breeze (UK).">5 loại nước rửa tay tinh dầu thơm 500ml — English Breeze (Vương Quốc Anh).</p>
+          <a class="product-link" href="catalogue.html#english-breeze-nuoc-rua-tay-14" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+        <article class="product-card" id="product-14">
+          <div class="product-img"><img src="assets/catalog/taylor-trai-cay-kho-cao-cap-goi-nho-smart-packs-1/man-kho-taylor-prunes-naturally-sweet-50g.webp" alt="TAYLOR - TRÁI CÂY KHÔ CAO CẤP SMART PACKS"></div>
+          <h3 data-vi="TAYLOR - TRÁI CÂY KHÔ CAO CẤP SMART PACKS" data-en="Premium Dried Fruits Smart Packs">TAYLOR - TRÁI CÂY KHÔ CAO CẤP SMART PACKS</h3>
+          <p data-vi="Gói nhỏ tiện lợi 50g, 45g: mận khô, trái anh đào khô — Taylor (Mỹ)." data-en="Handy 50g, 45g packs: prunes, dried bing cherries — Taylor (USA).">Gói nhỏ tiện lợi 50g, 45g: mận khô, trái anh đào khô — Taylor (Mỹ).</p>
+          <a class="product-link" href="catalogue.html#taylor-trai-cay-kho-cao-cap" target="_blank" rel="noopener" data-vi="Xem trong Catalogue" data-en="View in Catalogue">Xem trong Catalogue →</a>
+        </article>
+      </div>
+
+      <div class="products-cta">
+        <a href="catalogue.html" target="_blank" rel="noopener" class="btn btn-primary" data-vi="Xem toàn bộ Catalogue 2026" data-en="View Full Catalogue 2026">Xem toàn bộ Catalogue 2026</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHANNELS ===== -->
+  <section class="section channels" id="channels">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-vi="Nơi mua" data-en="Where to buy">Nơi mua</span>
+        <h2 data-vi="Kênh phân phối" data-en="Key Channels">Kênh phân phối</h2>
+        <p class="section-sub" data-vi="Sản phẩm Khải Thịnh hiện diện trên các sàn thương mại điện tử lớn nhất Việt Nam." data-en="Khai Thinh products are available on Vietnam's largest e-commerce platforms.">Sản phẩm Khải Thịnh hiện diện trên các sàn thương mại điện tử lớn nhất Việt Nam.</p>
+      </div>
+
+      <div class="channel-photo">
+        <img src="assets/banner.png" alt="Khai Thinh distribution channels">
+      </div>
+
+      <div class="channel-grid">
+        <a class="channel-card" href="https://shopee.vn/khaithinh" target="_blank" rel="noopener">
+          <div class="channel-logo"><img src="assets/channel-shopee.png" alt="Shopee logo"></div>
+          <h3>Shopee Mall</h3>
+          <p data-vi="Cửa hàng chính hãng trên Shopee Mall" data-en="Official store on Shopee Mall">Cửa hàng chính hãng trên Shopee Mall</p>
+        </a>
+        <a class="channel-card" href="https://www.lazada.vn/shop/cong-ty-tnhh-tm-dv-khai-thinh/" target="_blank" rel="noopener">
+          <div class="channel-logo-wide"><img src="assets/channel-lazada.png" alt="Lazada logo"></div>
+          <h3>LazMall</h3>
+          <p data-vi="Cửa hàng Good Health Mart trên LazMall" data-en="Good Health Mart store on LazMall">Cửa hàng Good Health Mart trên LazMall</p>
+        </a>
+        <div class="channel-card">
+          <div class="channel-logo">🤝</div>
+          <h3 data-vi="Bán buôn &amp; Bán lẻ" data-en="Wholesale &amp; Retail">Bán buôn &amp; Bán lẻ</h3>
+          <p data-vi="Hợp tác phân phối cho các nhà bán buôn, siêu thị và cửa hàng trên toàn quốc." data-en="Distribution partnership for wholesalers, supermarkets and retail stores nationwide.">Hợp tác phân phối cho các nhà bán buôn, siêu thị và cửa hàng trên toàn quốc.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-vi="Liên hệ" data-en="Contact">Liên hệ</span>
+        <h2 data-vi="Kết nối với chúng tôi" data-en="Get in Touch">Kết nối với chúng tôi</h2>
+      </div>
+
+      <div class="contact-layout">
+        <div class="contact-hero">
+          <h3 data-vi="Chúng tôi luôn sẵn sàng" data-en="We are always ready">Chúng tôi luôn sẵn sàng</h3>
+          <p data-vi="Đội ngũ Khải Thịnh sẵn sàng tư vấn và hỗ trợ mọi nhu cầu hợp tác nhập khẩu &amp; phân phối của bạn." data-en="The Khai Thinh team is ready to advise and support all of your import &amp; distribution needs.">Đội ngũ Khải Thịnh sẵn sàng tư vấn và hỗ trợ mọi nhu cầu hợp tác nhập khẩu &amp; phân phối của bạn.</p>
+          <div class="ch-row"><span>📞</span><div><small data-vi="Hotline" data-en="Hotline">Hotline</small><strong><a href="tel:+84903674959" class="ch-link">0903 674 959</a></strong></div></div>
+          <div class="ch-row"><span>✉️</span><div><small data-vi="Email" data-en="Email">Email</small><strong><a href="mailto:khoi.nlb@khaithinh.com.vn" class="ch-link">khoi.nlb@khaithinh.com.vn</a></strong></div></div>
+          <div class="ch-row"><span>📞</span><div><small data-vi="Điện thoại bàn" data-en="Landline">Điện thoại bàn</small><strong><a href="tel:+842839161027" class="ch-link">+84 (28) 3916 1027</a></strong></div></div>
+          <div class="ch-row"><span>📠</span><div><small data-vi="Fax" data-en="Fax">Fax</small><strong>+84 (28) 3916 5669</strong></div></div>
+          <div class="ch-row"><span>📍</span><div><small data-vi="Trụ sở" data-en="Office">Trụ sở</small><strong>Quận Gò Vấp, TP. Hồ Chí Minh</strong></div></div>
+          <a class="btn btn-light" href="tel:+84903674959" data-vi="Gọi hotline" data-en="Call Hotline">Gọi hotline</a>
+        </div>
+
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h3 data-vi="Địa chỉ" data-en="Address">Địa chỉ</h3>
+              <p>82, Đường số 4, Phường An Hội Đông, TP. Hồ Chí Minh, Việt Nam</p>
+              <p class="en" data-en-only>82, The 4th Street, An Hoi Dong Ward, Ho Chi Minh City, Vietnam</p>
+              <a class="cc-link" href="https://www.google.com/maps?q=82+%C4%90%C6%B0%E1%BB%9Dng+s%E1%BB%91+4+Ph%C6%B0%E1%BB%9Dng+An+H%E1%BB%99i+%C4%90%C3%B4ng+TP.HCM" target="_blank" rel="noopener" data-vi="Xem bản đồ" data-en="View map">Xem bản đồ</a>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">⏰</div>
+            <div>
+              <h3 data-vi="Giờ làm việc" data-en="Working Hours">Giờ làm việc</h3>
+              <div class="hours"><span data-vi="Thứ 2 – Thứ 6" data-en="Monday – Friday">Thứ 2 – Thứ 6</span><b>8:00 – 17:30</b></div>
+              <div class="hours"><span data-vi="Thứ 7" data-en="Saturday">Thứ 7</span><b>8:00 – 12:00</b></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">🛍️</div>
+            <div>
+              <h3 data-vi="Mua hàng online" data-en="Shop Online">Mua hàng online</h3>
+              <p data-vi="Đặt hàng dễ dàng tại các cửa hàng chính hãng trên sàn thương mại điện tử." data-en="Order easily at our official stores on e-commerce platforms.">Đặt hàng dễ dàng tại các cửa hàng chính hãng trên sàn thương mại điện tử.</p>
+              <div class="shop-links">
+                <a href="https://shopee.vn/khaithinh" target="_blank" rel="noopener">Shopee Mall</a>
+                <a href="https://www.lazada.vn/shop/cong-ty-tnhh-tm-dv-khai-thinh/" target="_blank" rel="noopener">LazMall</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <div class="footer-logo-wrap"><img src="assets/logo-fb.png" alt="Khai Thinh" class="footer-logo"></div>
+          <p class="footer-company" data-vi="CÔNG TY TNHH TM DV KHẢI THỊNH" data-en="KHAI THINH TRADING SERVICE CO., LTD">CÔNG TY TNHH TM DV KHẢI THỊNH</p>
+          <p class="footer-about" data-vi="Nhà phân phối các sản phẩm nhập khẩu cao cấp từ Mỹ, Anh, Canada, Ấn Độ và Indonesia kể từ năm 2008." data-en="A distributor of premium imported products from the US, UK, Canada, India and Indonesia since 2008.">Nhà phân phối các sản phẩm nhập khẩu cao cấp từ Mỹ, Anh, Canada, Ấn Độ và Indonesia kể từ năm 2008.</p>
+          <a class="footer-fb" href="https://www.facebook.com/khaithinh.com.vn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+            <span data-vi="Theo dõi trên Facebook" data-en="Follow us on Facebook">Theo dõi trên Facebook</span>
+          </a>
+        </div>
+        <div class="footer-col">
+          <h4 data-vi="Liên kết nhanh" data-en="Quick Links">Liên kết nhanh</h4>
+          <ul>
+            <li><a href="#home" data-vi="Trang chủ" data-en="Home">Trang chủ</a></li>
+            <li><a href="#about" data-vi="Giới thiệu" data-en="About Us">Giới thiệu</a></li>
+            <li><a href="#brands" data-vi="Thương hiệu" data-en="Brands">Thương hiệu</a></li>
+            <li><a href="#products" data-vi="Sản phẩm" data-en="Products">Sản phẩm</a></li>
+            <li><a href="#channels" data-vi="Kênh phân phối" data-en="Channels">Kênh phân phối</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-vi="Sản phẩm" data-en="Products">Sản phẩm</h4>
+          <ul>
+            <li><a href="catalogue.html#taylor-trai-cay-kho-huu-co-cao-cap-usa-0" target="_blank" rel="noopener" data-vi="Trái cây khô hữu cơ" data-en="Organic Dried Fruits">Trái cây khô hữu cơ</a></li>
+            <li><a href="catalogue.html#coolberg-thuc-uong-khong-con-5" target="_blank" rel="noopener" data-vi="Thức uống không cồn" data-en="Non-Alcoholic Drinks">Thức uống không cồn</a></li>
+            <li><a href="catalogue.html#just-organik-ca-loai-au-hat-bot-organic-10" target="_blank" rel="noopener" data-vi="Đậu, hạt &amp; bột organic" data-en="Organic Pulses, Seeds &amp; Grains">Đậu, hạt &amp; bột organic</a></li>
+            <li><a href="catalogue.html#pik-bot-lam-banh-7" target="_blank" rel="noopener" data-vi="Bột làm bánh" data-en="Baking Mixes">Bột làm bánh</a></li>
+            <li><a href="catalogue.html#cleary-s-siro-la-phong-6" target="_blank" rel="noopener" data-vi="Siro lá phong" data-en="Maple Syrup">Siro lá phong</a></li>
+            <li><a href="catalogue.html#english-breeze-nuoc-rua-tay-14" target="_blank" rel="noopener" data-vi="Nước rửa tay" data-en="Scented Hand Wash">Nước rửa tay</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-vi="Liên hệ" data-en="Contact">Liên hệ</h4>
+          <ul class="footer-contact">
+            <li><span>📞</span><span><a href="tel:+84903674959">0903 674 959</a> <small data-vi="(Hotline)" data-en="(Hotline)">(Hotline)</small></span></li>
+            <li><span>✉️</span><span><a href="mailto:khoi.nlb@khaithinh.com.vn">khoi.nlb@khaithinh.com.vn</a></span></li>
+            <li><span>🏢</span><span><a href="tel:+842839161027">(+8428) 3916 1027</a> · 📠 (+8428) 3916 5669</span></li>
+            <li><span>📍</span><span data-vi="82, Đường số 4, Phường An Hội Đông, TP. Hồ Chí Minh" data-en="82, The 4th Street, An Hoi Dong Ward, Ho Chi Minh City">82, Đường số 4, Phường An Hội Đông, TP. Hồ Chí Minh</span></li>
+            <li><span>⏰</span><span data-vi="T2 – T6: 8:00 – 17:30 · T7: 8:00 – 12:00" data-en="Mon – Fri: 8:00 – 17:30 · Sat: 8:00 – 12:00">T2 – T6: 8:00 – 17:30 · T7: 8:00 – 12:00</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2008 – <span id="year"></span> KHAI THINH TRADING SERVICE CO., LTD. <span data-vi="Bảo lưu mọi quyền." data-en="All rights reserved.">Bảo lưu mọi quyền.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="back-to-top" aria-label="Lên đầu trang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="js/main.js"></script>
+  <script src="js/prices.js"></script>
+  <script>
+    (function(){
+      var y = String(new Date().getFullYear());
+      if (y === "2026") return;
+      function sub(s){ return s.split("2026").join(y); }
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      for (var i = 0; i < nodes.length; i++){
+        if (nodes[i].nodeValue.indexOf("2026") >= 0) nodes[i].nodeValue = sub(nodes[i].nodeValue);
+      }
+      var flagged = document.querySelectorAll("[data-vi],[data-en],[title]");
+      for (var j = 0; j < flagged.length; j++){
+        var el = flagged[j], dvi = el.getAttribute("data-vi"), den = el.getAttribute("data-en");
+        if (dvi && dvi.indexOf("2026") >= 0) el.setAttribute("data-vi", sub(dvi));
+        if (den && den.indexOf("2026") >= 0) el.setAttribute("data-en", sub(den));
+      }
+      var metas = document.querySelectorAll("meta[content*='2026']");
+      for (var k = 0; k < metas.length; k++) metas[k].content = sub(metas[k].content);
+      if (document.title.indexOf("2026") >= 0) document.title = sub(document.title);
+    })();
+  </script>
+</body>
+</html>
